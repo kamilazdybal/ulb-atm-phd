@@ -1,2 +1,3 @@
-# ulb-atm-phd
-My PhD repository
+# ULB - Aero-Thermo-Mechanics
+
+My PhD repository.
