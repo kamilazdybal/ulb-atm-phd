@@ -1,3 +1,5 @@
 # ULB - Aero-Thermo-Mechanics
 
-My PhD repository.
+![Screenshot](/DWGs/logo_ULB.jpg)
+
+I am a PhD researcher at Université libre de Bruxelles at the Aero-Thermo-Mechanics department.
