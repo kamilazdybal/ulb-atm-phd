@@ -6,9 +6,12 @@ The focus of my PhD project is on developing reduced-order, predictive tools for
 
 Find out more information about our group here: http://burn-research.be/ or about our department here: http://atm.ulb.ac.be/
 
+# Research notes
+
 ## Principal Component Analysis (PCA)
 
+General notes on PCA: [Notes on PCA](https://github.com/camillejr/ulb-atm-phd/raw/master/PCA/PCA.pdf)
 
+## Probability Density Function (PDF) Methods
 
-
-## PDF methods
+General notes on PDF Methods: [Notes on PDF Methods](https://github.com/camillejr/ulb-atm-phd/raw/master/PDF-methods/PDF-methods.pdf)
