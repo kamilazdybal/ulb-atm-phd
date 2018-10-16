@@ -1,0 +1,108 @@
+\documentclass[20pt,twocolumn]{article}
+\usepackage{geometry}
+\geometry{verbose,headsep=3cm,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.0cm,rmargin=2.0cm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[font=small]{caption}
+\usepackage{cleveref}
+\usepackage{amsmath,amssymb,latexsym}
+\usepackage{marvosym}
+\usepackage{url}
+\usepackage{lipsum}
+\usepackage{bm}
+\usepackage{float}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{epsf}
+\usepackage{float}
+\usepackage{mathpazo}
+\usepackage{pifont}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage[utf8]{inputenc}
+
+
+\newcommand{\highlight}[1]{%
+  \colorbox{orange!50}{$\displaystyle#1$}}
+
+\begin{document}
+
+\twocolumn[{
+\begin{@twocolumnfalse}
+
+
+  \begin{center}
+
+    \vskip-3em
+
+    \hfill
+    \textbf{Bruxelles, September 2018}
+
+    \rule{\textwidth}{0.5pt}
+    \vskip2ex
+
+    {\Large\textbf{PCA equations}}
+  
+    \vspace{2ex}
+
+      \vspace{1ex}
+   
+	\texttt{https://camillejr.github.io/science-docs/}
+          
+  \noindent%
+    
+\vskip1ex
+
+\rule{\textwidth}{0.5pt}
+
+  \end{center}
+  
+\vspace{8mm}
+
+\end{@twocolumnfalse}
+}]
+
+\vspace{10mm}
+
+\setlength{\parindent}{0cm}
+
+\section{PC-transport}
+
+\LARGE
+\begin{equation*}
+\rho \frac{D \phi}{Dt} = \mathbb{D} \nabla^2 \phi + \highlight{S_{\phi}}
+\end{equation*}
+
+\begin{equation*}
+S_{\phi}(\phi) = f(T, p, Y_1, \dots, Y_{N_S - 1})
+\end{equation*}
+
+\begin{equation*}
+\rho \frac{D \bm{\Phi}}{Dt} = - \nabla (\bm{j}_{\Phi}) + \highlight{\bm{s}_{\Phi}}
+\end{equation*}
+
+\begin{equation*}
+\rho \frac{D \bm{z}}{Dt} = - \nabla (\bm{j}_{z}) + \highlight{\bm{s}_{z}}
+\end{equation*}
+
+\begin{equation*}
+\bm{\Phi} \approx f_{\Phi} (\bm{Z}_q)
+\end{equation*}
+
+\begin{equation*}
+\bm{\Phi} \approx N (0, \sigma_{n}^2)
+\end{equation*}
+
+\begin{equation*}
+\bm{\Phi} = [T, p, ]
+\end{equation*}
+
+
+
+
+
+
+\end{document}
