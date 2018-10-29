@@ -2,6 +2,7 @@
 \usepackage{geometry}
 \geometry{verbose,headsep=3cm,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.0cm,rmargin=2.0cm}
 \usepackage{graphicx}
+\usepackage{tgbonum}
 \usepackage{xcolor}
 \usepackage[font=small]{caption}
 \usepackage{cleveref}
@@ -24,9 +25,10 @@
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
 
+\definecolor{pink-orange}{rgb}{1.0, 0.6, 0.4}
 
 \newcommand{\highlight}[1]{%
-  \colorbox{orange!50}{$\displaystyle#1$}}
+  \colorbox{pink-orange}{$\displaystyle#1$}}
 
 \begin{document}
 
@@ -69,6 +71,8 @@
 
 \setlength{\parindent}{0cm}
 
+\renewcommand{\familydefault}{\sfdefault}
+
 \LARGE
 
 \section{PC-transport}
@@ -89,6 +93,28 @@ S_{\phi}(\phi) = f(T, p, Y_1, \dots, Y_{N_S - 1})
 \rho \frac{D \bm{z}}{Dt} = - \nabla (\bm{j}_{z}) + \highlight{\bm{s}_{z}}
 \end{equation*}
 
+
+
+\begin{equation*}
+\rho \frac{\partial \bm{\Phi}}{\partial t} + \rho \vec{V} \cdot \nabla \bm{\Phi} = \mathbb{D}_{\Phi} \nabla^2 \bm{\Phi} + \highlight{\bm{S}_{\Phi}}
+\end{equation*}
+
+\begin{equation*}
+\rho \frac{\partial \bm{\mathrm{z}}}{\partial t} + \rho \vec{V} \cdot \nabla \bm{\mathrm{z}} = \mathbb{D}_{\mathrm{z}} \nabla^2 \bm{\mathrm{z}} + \highlight{\bm{S}_{\mathrm{z}}}
+\end{equation*}
+
+
+\begin{equation*}
+\bm{\mathrm{z}} = \bm{\Phi} \bm{\mathrm{A_q}}
+\end{equation*}
+
+
+
+
+
+
+
+
 \section{Regression}
 
 \begin{equation*}
@@ -106,6 +132,22 @@ S_{\phi}(\phi) = f(T, p, Y_1, \dots, Y_{N_S - 1})
 \begin{equation*}
 \bm{\Phi} \approx N (0, \bm{K}(\bm{Z}_p, \bm{Z}_q) + \sigma_{n}^2 \bm{I})
 \end{equation*}
+
+\section{Arrhenius law}
+
+\begin{equation*}
+k = A e^{\frac{-E_a}{R T}}
+\end{equation*}
+
+\begin{equation*}
+k = A e^{\frac{-E_a}{R T}}
+\end{equation*}
+
+\begin{equation*}
+k = A T^n e^{\frac{-E_a}{R T}}
+\end{equation*}
+
+
 
 
 

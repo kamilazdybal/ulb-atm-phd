@@ -20,7 +20,7 @@ y = np.sin(2*x) + 1/(2*math.pi*0.5)**0.5 * math.e**((-(x + 1)**2)/(2*0.5**2))*5
 plt.scatter(x, y)
 
 # GP Kernel:
-kernel = np.var(y) * george.kernels.ExpSquaredKernel(0.5)
+kernel = np.var(y) * george.kernels.ExpSquaredKernel(0.1)
 gp = george.GP(kernel)
 gp.compute(x, yerr)
 
