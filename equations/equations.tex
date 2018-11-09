@@ -93,27 +93,21 @@ S_{\phi}(\phi) = f(T, p, Y_1, \dots, Y_{N_S - 1})
 \rho \frac{D \bm{z}}{Dt} = - \nabla (\bm{j}_{z}) + \highlight{\bm{s}_{z}}
 \end{equation*}
 
-
-
 \begin{equation*}
-\frac{\partial \bm{\Phi}}{\partial t} + \vec{\bm{V}} \cdot \nabla \bm{\Phi} = \mathbb{D}_{\Phi} \nabla^2 \bm{\Phi} + \highlight{\bm{S}_{\Phi}}
+\rho \frac{\partial \bm{\Phi}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \bm{\Phi} = \nabla \rho \mathbb{D}_{\Phi} \nabla \bm{\Phi} + \highlight{\bm{S}_{\Phi}}
 \end{equation*}
 
 \begin{equation*}
-\frac{\partial \bm{\mathrm{z}}}{\partial t} + \vec{\bm{V}} \cdot \nabla \bm{\mathrm{z}} = \mathbb{D}_{\mathrm{z}} \nabla^2 \bm{\mathrm{z}} + \highlight{\bm{S}_{\mathrm{z}}}
+\rho \frac{\partial \bm{\mathrm{z}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \bm{\mathrm{z}} = \nabla \rho \mathbb{D}_{\mathrm{z}} \nabla \bm{\mathrm{z}} + \highlight{\bm{S}_{\mathrm{z}}}
 \end{equation*}
-
 
 \begin{equation*}
 \bm{\mathrm{z}} = \bm{\Phi} \bm{\mathrm{A_q}}
 \end{equation*}
 
-
-
-
-
-
-
+\begin{equation*}
+k(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
+\end{equation*}
 
 \section{Regression}
 
@@ -131,6 +125,11 @@ S_{\phi}(\phi) = f(T, p, Y_1, \dots, Y_{N_S - 1})
 
 \begin{equation*}
 \bm{\Phi} \approx N (0, \bm{K}(\bm{Z}_p, \bm{Z}_q) + \sigma_{n}^2 \bm{I})
+\end{equation*}
+
+
+\begin{equation*}
+y_e = y_m(x) + \delta + \epsilon
 \end{equation*}
 
 \section{Arrhenius law}
