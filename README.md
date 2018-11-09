@@ -10,7 +10,7 @@ Find out more information about our group here: http://burn-research.be/ or abou
 
 ## Condensed Combustion Notes
 
-General notes on combustion: [Combustion notes](https://github.com/camillejr/ulb-atm-phd/blob/master/combustion/c-c-n.pdf)
+General notes on combustion: [Combustion notes](https://github.com/camillejr/ulb-atm-phd/raw/master/combustion/c-c-n.pdf)
 
 ## Principal Component Analysis (PCA)
 
