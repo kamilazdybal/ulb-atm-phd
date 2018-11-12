@@ -24,12 +24,16 @@
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
 \graphicspath{{DWGs/}}
+\usepackage{emerald}
 
 % Document font:
 \usepackage{charter}
 
 \newcommand{\highlight}[1]{%
   \colorbox{orange!50}{$\displaystyle#1$}}
+\definecolor{lgray}{cmyk}{0.2,0.2,0.2,0}
+\definecolor{llgray}{cmyk}{0.1,0.1,0.1,0}
+\definecolor{dgray}{cmyk}{0.3,0.3,0.3, 0}
 
 \begin{document}
 
@@ -42,24 +46,23 @@
     \vskip-3em
 
     \hfill
-    \textbf{Bruxelles, November 2018}
+    \fontsize{10}{10}\selectfont \textcolor{lgray}{\textit{Bruxelles, November 2018}}
 
-    \rule{\textwidth}{0.5pt}
+    \textcolor{llgray}{\rule{\textwidth}{1pt}}
     \vskip2ex
-
-    {\Large\textbf{Condensed Combustion Notes}}
-  
-    \vspace{2ex}
-
+    
+	\vspace{5ex}
+	
+    \fontsize{24}{10}\selectfont \textcolor{dgray}{Condensed Combustion Notes}
+ 
       \vspace{1ex}
-   
-	\texttt{https://camillejr.github.io/science-docs/}
+   \fontsize{10}{10}\selectfont \textcolor{lgray}{camillejr.github.io/science-docs}
           
   \noindent%
     
 \vskip1ex
 
-\rule{\textwidth}{0.5pt}
+\textcolor{llgray}{\rule{\textwidth}{0.5pt}}
 
   \end{center}
   
@@ -72,8 +75,17 @@
 
 \setlength{\parindent}{0cm}
 
-\section{Basic concepts}
 
+\section*{Preface}
+
+These are dense notes on combustion concepts.
+
+
+\tableofcontents
+
+\newpage
+
+\section{Basic concepts}
 
 \subsection{Species}
 
@@ -95,11 +107,9 @@ A species molar fraction is the ratio between number of moles $N_i$ of a particu
 \chi_i = \frac{N_i}{N_{TOT}}
 \end{equation}
 
-\subsection{Mass-basis and molar-basis quantities}
+\subsection{Mass-basis and molar-basis}
 
 In combustion, we encounter both \textit{mass-basis} and \textit{molar-basis} quantities. According to [\ref{bib:pitsch}], the mass-basis is useful because mass is conserved and molar-basis is useful because chemical reactions are written per-molar basis.
-
-
 
 \subsection{Air-to-fuel ratio}
 
@@ -143,10 +153,9 @@ Z = \frac{m_1}{m_{u, TOT}} = \frac{m_1}{m_1 + m_2}
 
 \begin{figure}[H]
 \centering\includegraphics[width=8cm]{mixture-fraction.png}
-\caption{Mixture fraction notion.}			
+\caption{Fuel-oxidizer stream system.}			
 \label{fig:mixture-fraction}
 \end{figure}
-
 
 We may also define the mass fraction of fuel in the unburnt mixture:
 
@@ -167,8 +176,6 @@ Y_{u, F} = \frac{m_F}{m_1 + m_2} = \frac{m_F}{m_1} \frac{m_1}{m_1 + m_2} = Y_{1,
 \end{equation}
 
 Similar reasoning can be done for the oxidizer in the oxidizer stream.
-
-
 
 \subsection{Adiabatic flame temperature}
 
@@ -193,35 +200,107 @@ Adiabatic flame temperature is the temperature of combustion products if the com
 \section{Energy considerations}
 
 
+\subsection{Thermodynamic potentials}
 
 
 
 
 
-\section{Transfer equations}
+\subsection{Enthalpy of formation}
 
-\subsection{Species transport}
 
-The mechanical transport of species can happen in twoform: due to a bulk motion of the fluid and/or due to diffusion.
+\subsection{First law of thermodynamics}
 
-\subsubsection{Fick's law}
 
-The Fick's law of diffusion states that the mass flow rate is proportional to the concentration gradient with the proportionality constant $-\rho \mathcal{D}$:
+\subsection{Second law of thermodynamics}
+
+
+
+\section{Species transport}
+
+\subsection{1-D species transport}
+
+The mechanical transport of species can be twofold: due to a bulk motion of the fluid and/or due to molecular diffusion. Below, we consider one-dimensional binary transport.
+
+\subsubsection{1-D diffusion from Fick's law}
+
+One way to model molecular diffusion is to use Fick's law. It states that the mass flow rate is proportional to the concentration gradient with the constant $-\rho \mathcal{D}$:
 
 \begin{equation}
-\frac{d \dot{m}_{diff} }{dA} = - \rho \mathcal{D} \frac{d Y}{dx}
+\frac{d \dot{m}_{i, diff}}{dA} = - \rho \mathcal{D} \frac{d Y_i}{dx}
 \end{equation}
 
+In the 1-D case, the quantity $\mathcal{D}$ is called \textit{binary diffusivity} and its units are $m^2/s$. In the above equation, $\dot{m}_{i, diff}$ is the mass flux of species due to diffusion, $\rho$ is the density and $Y$ is the concentration of species.
 
-\subsubsection{One-dimensional binary diffusion}
+\subsubsection{1-D bulk flow}
+
+The bulk motion of species is simply the portion of the mixture mass flux described by the mass fraction of that species:
+
+\begin{equation}
+\frac{d \dot{m}_{i, bulk}}{dA} = Y_i \frac{d \dot{m}_{TOT}}{d A}
+\end{equation}
+
+\subsubsection{1-D binary transport}
 
 For a one-dimensional, binary diffusion (diffusion between two species A and B) we have the mass flow rate of species A per unit area described as:
 
 \begin{equation}
 \frac{d \dot{m}_A }{dA} = Y_A \frac{d \dot{m}_{TOT}}{d A} - \rho \mathcal{D}_{AB} \frac{dY_A}{dx}
+\end{equation}\label{eq:1d-bin-diff}
+
+where $\dot{m}_{TOT} = \dot{m}_A + \dot{m}_B$.
+
+\subsubsection{1-D species conservation}
+
+Differential relations for one-dimensional species conservation can be derived by considering a 1-D control volume $\Delta x$. The change of mass of a species A in the control volume can be written as:
+
+\begin{equation}
+\frac{d m_{A, CV} }{dt} = \Big[ \frac{d \dot{m}_A}{d A} A \Big]_x - \Big[ \frac{d \dot{m}_A}{d A} A \Big]_{x + \Delta x} + r_A V
 \end{equation}
 
-where $\dot{m}_{TOT} = \dot{m}_A + \dot{m}_B$
+where $r_A$ is the mass production rate of species A per unit volume. For further considerations we will call this term the \textit{source term}.
+
+Substituting $m_{A, CV} = Y_A m_{CV} = Y_A \rho A \Delta x$ we get:
+
+\begin{equation}
+A \Delta x \frac{d \rho Y_{A} }{dt} = \Big[ \frac{d \dot{m}_A}{d A} A \Big]_x - \Big[ \frac{d \dot{m}_A}{d A} A \Big]_{x + \Delta x} + r_A A \Delta x
+\end{equation}
+
+Using the relation for 1-D binary diffusion from eq.(\ref{eq:1d-bin-diff}), and dividing by $A \Delta x$ we get:
+
+\begin{equation}
+\begin{aligned}
+\frac{d \rho Y_{A} }{dt} = & \frac{1}{\Delta x}\Big[ Y_A \frac{d \dot{m}_{TOT}}{d A} - \rho \mathcal{D}_{AB} \frac{dY_A}{dx} \Big]_x \\
+& - \frac{1}{\Delta x} \Big[ Y_A \frac{d \dot{m}_{TOT}}{d A} - \rho \mathcal{D}_{AB} \frac{dY_A}{dx} \Big]_{x + \Delta x} \\
+& + r_A
+\end{aligned}
+\end{equation}
+
+Finally taking the limit as $\Delta x \rightarrow 0$:
+
+\begin{equation}
+\frac{d \rho Y_{A} }{dt} = - \frac{\partial}{\partial x}\Big[ Y_A \frac{d \dot{m}_{TOT}}{d A} - \rho \mathcal{D}_{AB} \frac{dY_A}{dx} \Big] + r_A
+\end{equation}
+
+\subsection{Source terms}
+
+
+
+\subsubsection{Reaction rate considerations}
+
+
+
+
+
+
+
+
+
+
+
+\section{Extension to thermal equations}
+
+
 
 
 \section{Chemical reactors}
@@ -232,11 +311,6 @@ where $\dot{m}_{TOT} = \dot{m}_A + \dot{m}_B$
 
 
 
-\appendix
-
-\section{APP1} \label{app:A}
-
-\section{APP2} \label{app:B}
 
 \thebibliography{}
 
