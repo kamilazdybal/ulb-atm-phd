@@ -12,3 +12,5 @@
 [2] [Python: George](https://george.readthedocs.io/en/latest/)
 
 [3] [C.E. Rasmussen, C.K.I. Williams, Gaussian Processes for Machine Learning](http://www.gaussianprocess.org/gpml/)
+
+[4] [Cross Validated StackExchange](https://stats.stackexchange.com/)

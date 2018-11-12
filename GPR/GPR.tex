@@ -1,4 +1,4 @@
-\documentclass[20pt,twocolumn]{article}
+\documentclass[10pt,twocolumn]{article}
 \usepackage{geometry}
 \geometry{verbose,headsep=3cm,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.0cm,rmargin=2.0cm}
 \usepackage{graphicx}
@@ -24,7 +24,7 @@
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
 
-
+\usepackage{charter}
 \newcommand{\highlight}[1]{%
   \colorbox{orange!50}{$\displaystyle#1$}}
 
@@ -69,9 +69,6 @@
 
 \setlength{\parindent}{0cm}
 
-\section*{Acknowledgements}
-
-This document was produced during my PhD at Université libre de Bruxelles.
 
 \section{Introduction}
 
@@ -88,20 +85,38 @@ This document was produced during my PhD at Université libre de Bruxelles.
 
 
 
-\section{Covariance kernel}
+\section{Covariance kernels}
 
 
 Squared exponential kernel:
 
 \begin{equation}
-K(x_i, x_j) = h^2 \exp(\frac{- (x_i + x_j)^2}{\lambda^2})
+K(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
 \end{equation}
+
+
+
+
+\section{Building your GPR in Python}
+
+
+
+
+
+
+
+
 
 
 
 \thebibliography{}
 
+\bibitem{Rasmussen} C. E. Rasmussen, C. Williams, \textit{Gaussian Process for Machine Learning}, 2006
+
 \bibitem{GP_for_TM} S. Roberts, M. Osborne, M. Ebden, S. Reece, N. Gibson, S. Aigrain \textit{Gaussian Processes for Timeseries Modelling}, 2012
+
+\bibitem{Scaife} A. Scaife, \textit{Machine Learning: Gaussian Process Modelling in Python}, an online lecture
+
 
 
  \label{bib:pope}
