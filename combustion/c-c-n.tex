@@ -1,4 +1,4 @@
-\documentclass[20pt,twocolumn]{article}
+\documentclass[10pt,twocolumn]{article}
 \usepackage{geometry}
 \geometry{verbose,headsep=3cm,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.0cm,rmargin=2.0cm}
 \usepackage{graphicx}
@@ -24,6 +24,9 @@
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
 \graphicspath{{DWGs/}}
+
+% Document font:
+\usepackage{charter}
 
 \newcommand{\highlight}[1]{%
   \colorbox{orange!50}{$\displaystyle#1$}}
@@ -69,16 +72,12 @@
 
 \setlength{\parindent}{0cm}
 
-\section*{Acknowledgements}
-
-This document was produced during my PhD at Université libre de Bruxelles.
-
 \section{Basic concepts}
 
 
 \subsection{Species}
 
-\textit{Species} is a general name for any chemical compound that can take role in chemical reaction. In the context of combustion the most encountered species are for instance: CO2, CO, H2O, O2, N2, etc.
+\textit{Species} is a general name for any chemical compound that takes role in a chemical reaction. In the context of combustion the most encountered species are for instance: CO2, CO, H2O, O2, N2, etc.
 
 \subsection{Species mass fraction}
 
@@ -201,7 +200,28 @@ Adiabatic flame temperature is the temperature of combustion products if the com
 
 \section{Transfer equations}
 
+\subsection{Species transport}
 
+The mechanical transport of species can happen in twoform: due to a bulk motion of the fluid and/or due to diffusion.
+
+\subsubsection{Fick's law}
+
+The Fick's law of diffusion states that the mass flow rate is proportional to the concentration gradient with the proportionality constant $-\rho \mathcal{D}$:
+
+\begin{equation}
+\frac{d \dot{m}_{diff} }{dA} = - \rho \mathcal{D} \frac{d Y}{dx}
+\end{equation}
+
+
+\subsubsection{One-dimensional binary diffusion}
+
+For a one-dimensional, binary diffusion (diffusion between two species A and B) we have the mass flow rate of species A per unit area described as:
+
+\begin{equation}
+\frac{d \dot{m}_A }{dA} = Y_A \frac{d \dot{m}_{TOT}}{d A} - \rho \mathcal{D}_{AB} \frac{dY_A}{dx}
+\end{equation}
+
+where $\dot{m}_{TOT} = \dot{m}_A + \dot{m}_B$
 
 
 \section{Chemical reactors}
