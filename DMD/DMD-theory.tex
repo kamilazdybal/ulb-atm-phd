@@ -26,6 +26,7 @@
 % Document font:
 \usepackage{charter}
 
+
 \newcommand{\highlight}[1]{%
   \colorbox{orange!50}{$\displaystyle#1$}}
 \definecolor{lgray}{cmyk}{0.2,0.2,0.2,0}
@@ -39,30 +40,29 @@
 \begin{@twocolumnfalse}
 
   \begin{center}
-
-    \vskip-3em
+%\textcolor{lgray}
+    \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont \textcolor{lgray}{\textit{Bruxelles, November 2018}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, November 2018}}
 
-    \textcolor{llgray}{\rule{\textwidth}{1pt}}
     \vskip2ex
     
 	\vspace{5ex}
 	
-    \fontsize{24}{10}\selectfont \textcolor{dgray}{Notes on Dynamic Mode Decomposition}
+    \fontsize{24}{10}\selectfont {Notes on Dynamic Mode Decomposition}
     
-    \fontsize{18}{10}\selectfont \textcolor{dgray}{(with some code)}
+    \fontsize{18}{10}\selectfont {(with some code)}
     
  
       \vspace{1ex}
-   \fontsize{10}{10}\selectfont \textcolor{lgray}{camillejr.github.io/science-docs}
+   \fontsize{10}{10}\selectfont {camillejr.github.io/science-docs}
           
   \noindent%
     
 \vskip1ex
 
-\textcolor{llgray}{\rule{\textwidth}{0.5pt}}
+{\rule{\textwidth}{0.5pt}}
 
   \end{center}
   
@@ -191,25 +191,25 @@ Note here, that for nonlinear systems, a matrix that transforms $\vec{x}_1$ to $
 \bm{X_2} = \bm{A} \bm{X_1}
 \end{equation}
 
-To solve such system we multiply both sides by the pseudoinverse of matrix $\bm{X_1}$ which we denote by $\bm{X_1}^{+}$:
+To solve such system we multiply both sides by the \textit{pseudo-inverse} of matrix $\bm{X_1}$ which we denote by $\bm{X_1}^{+}$:
 
 \begin{equation} \label{eq:linear_dynamics_A}
 \bm{A} = \bm{X_2} \bm{X_1}^{+}
 \end{equation}
 
-The pseudoinverse described here, also known as the Moore-Penrose inverse\footnote{Check appendix \ref{app:B} for more information.}, is computed using the least squares method. There is therefore certain information lost when going from eq.(\ref{eq:linear_dynamics}) to eq.(\ref{eq:linear_dynamics_A}).
+The pseudo-inverse described here, also known as the Moore-Penrose inverse\footnote{Check appendix \ref{app:B} for more information.}, is computed using the least squares method. There is therefore certain information lost when going from eq.(\ref{eq:linear_dynamics}) to eq.(\ref{eq:linear_dynamics_A}).
 
 Once we have solved for matrix $\bm{A}$, we can go back to eq.(\ref{eq:eigenvalue_solution}) and solve for eigenvalues and eigenvectors.
 
-Up to this point, this is what the \textbf{exact DMD} computes. 
+Up to this point, this is what the \textbf{exact DMD} computes. There is however a problem that the eq.(\ref{eq:linear_dynamics_A}) may pose when numerics are involved and this will be addressed in the next section. 
 
 \subsection{Going low-rank}
 
-There is a problem that the eq.(\ref{eq:linear_dynamics_A}) may pose. Matrices $\bm{X_1}^{+}$ and $\bm{X_2}$ typically represent huge spacial dimensionality\footnote{This is often the case for data sets where we have few snapshots in time but a large number of spacial points where the measurements were taken.} which in turn means that the matrix $\bm{A}$ can become a square matrix of a massive size. 
+Matrices $\bm{X_1}^{+}$ and $\bm{X_2}$ typically represent huge spacial dimensionality\footnote{This is often the case for data sets where we have very few snapshots in time but a large number of spacial points where the measurements were taken. Graphically, we might think of those matrices as being "tall" and this is illustrated in Figure \ref{fig:data-matrix}.} which in turn means that the matrix $\bm{A}$ can become a square matrix of a massive size. 
 
 \begin{wrapfigure}{R}{0.2\textwidth}
 \centering\includegraphics[width=3.5cm]{getting-A.png}
-\caption{Building the linear operator $\bm{A}$.}
+\caption{Building the linear operator $\bm{A}$ in exact DMD.}
 \label{fig:data-matrix}
 \end{wrapfigure}
 
@@ -217,21 +217,91 @@ We are hence reluctant to perform the multiplication of matrices as is stated in
 
 The hope comes from the \textit{Singular Value Decomposition} (SVD). We belive that there are low-rank structures hidden in the data set and we are able to reduce the dimensionality of matrix $\bm{A}$ without significant loss of information.
 
-We perform the SVD on matrix $\bm{X_1}$ and later replace it it with its lower-rank approximation:
+We perform the SVD on matrix $\bm{X_1}$:
 
 \begin{equation} \label{eq:solution}
 \bm{X_1} = \bm{U} \bm{\Sigma} \bm{V}^T 
 \end{equation}
 
+Based on the rank structure of the matrix $\bm{X_1}$ (one way) we perform a rank-$r$ truncation on the SVD decomposition and approximate the matrix $\bm{X_1}$ by its low-rank (rank-$r$) representation:
+
 \begin{equation} \label{eq:solution-approx}
 \bm{X_1} \approx \bm{X_{1r}} = \bm{U_r} \bm{\Sigma_r} \bm{V_r}^T 
 \end{equation}
 
+The pseudo-inverse of the truncated matrix is:
+
+\begin{equation} \label{eq:pseudo-inverse}
+\bm{X_{1r}}^{+} = \bm{V_r}  \bm{\Sigma_r}^{-1} \bm{U_r}^T
+\end{equation}
+
+The usefulness of this decomposition might not yet be evident, since the matrix $\bm{X_{1r}}$ is of the same size as matrix $\bm{X_{1}}$, they only differ by rank. The idea is to nevertheless use the SVD decomposition but also, to generate a matrix similar to the matrix $\bm{A}$ (since similar matrices share eigenvalues and eigenvectors, among some other properties) but one that will have a smaller size (in fact, it will be size $(r \times r)$). This similar matrix will be denoted $\underline{\bm{A}}$. Since it has a lower size than the original matrix $\bm{A}$, we will only retrieve $r$ eigenvectors and eigenvalues.
+
+\begin{wrapfigure}{R}{0.25\textwidth}
+\centering\includegraphics[width=4cm]{similar-matrices.png}
+\caption{Similarity transform of matrix $\bm{A}$ to reduce the size.}
+\label{fig:similar-matrices}
+\end{wrapfigure}
+
+What will now follow are clever mathematical steps performed to avoid computation of the large matrix $\bm{A}$.
+
+We come back to the eq.(\ref{eq:linear_dynamics_A}) and
+
+We perform a \textit{similarity transform} of the matrix $\bm{A}$:
+
+\begin{equation} \label{eq:similarity-transform}
+\underline{\bm{A}} = \bm{U_r}^T \bm{A} \bm{U_r}
+\end{equation}
+
+Matrix $\bm{A}$ can be written as:
+
+\begin{equation} \label{eq:A}
+\bm{A} = \bm{X_2} \bm{V_r} \bm{\Sigma_r}^{-1} \bm{U_r}^T
+\end{equation}
+
+The similar matrix $\underline{\bm{A}}$ can be written as:
+
+\begin{equation} \label{eq:A_underline}
+\underline{\bm{A}} = \bm{U_r}^T \bm{X_2} \bm{V_r} \bm{\Sigma_r}^{-1} 
+\end{equation}
+
+taking into account that $\bm{U_r}^T \bm{U_r} = \bm{I}$.
+
+We have thus chosen a low-dimensional subspace by performing rank-$r$ truncation in which we now find the solution to the linear dynamical system presented initially. The model for the solution is built in this low-dimensional subspace.
+
+\subsection{Eigendecomposition}
+
+Now that we have computed the similar matrix $\underline{\bm{A}}$, 
+
+
+
+
+
+
+
 \subsection{Going back to the original dimensions}
 
-DMD modes are not orthogonal.
+Once the model has been built in the low-dimensional subspace, we want to move to the original dimensions. The DMD modes are obtained from:
 
-\section{A broader view to more possibilities} \label{sec:view}
+\begin{equation} \label{eq:A_underline}
+\bm{\Phi} = \bm{X_2} \bm{V} \bm{\Sigma}^{-1} \bm{W}
+\end{equation}
+
+DMD modes are not orthogonal. This creates a great capacity of DMD to be applicable to systems where data structure does not exhibit orthogonality.
+
+The solution to the original dynamical system is finally computed:
+
+\begin{equation} \label{eq:x-solution-matrix}
+\vec{x}(t) = \bm{\Phi} e^{\bm{\Omega} t} \vec{b}
+\end{equation}
+
+the above equation is equivalent to:
+
+\begin{equation} \label{eq:x-solution-summation}
+\vec{x}(t)  = \sum_{k=1}^{r} \phi_k e^{\omega_k t} b_k
+\end{equation}
+
+\section{A broader view on DMD} \label{sec:view}
 
 What can go wrong with our data sets?
 
@@ -291,7 +361,7 @@ which is the statement of eigenvalue problem.
 
 
 \begin{figure}[H]
-\centering\includegraphics[width=5cm]{linear_system.png}
+\centering\includegraphics[width=5cm]{lin-dyn.png}
 \caption{Linear dynamical system.}
 \label{fig:linear_system}
 \end{figure}
@@ -310,15 +380,26 @@ which is the statement of eigenvalue problem.
 
 
 
+\section{Singular Value Decomposition} \label{app:C}
 
+
+\begin{figure}[H]
+\centering\includegraphics[width=8cm]{svd.png}
+\caption{Sizes of component matrices in the Singular Value Decomposition and after rank truncation.}
+\label{fig:linear_system}
+\end{figure}
 
 
 \thebibliography{}
 
-\bibitem{Prof_Nathan_Kutz} N. Kutz, Dynamic Mode Decomposition (Theory) \texttt{https://youtu.be/bYfGVQ1Sg98} \label{bib:kutz_1}
+\bibitem{Prof_Nathan_Kutz} N. Kutz, \textit{Dynamic Mode Decomposition Theory}, an online lecture: https://youtu.be/bYfGVQ1Sg98 \label{bib:kutz_1}
 
-\bibitem{Prof_Nathan_Kutz} N. Kutz, Dynamic Mode Decomposition Code \texttt{https://youtu.be/KAau5TBU0Sc} \label{bib:kutz_2}
+\bibitem{Prof_Nathan_Kutz} N. Kutz, \textit{Dynamic Mode Decomposition Code }, an online lecture: https://youtu.be/KAau5TBU0Sc \label{bib:kutz_2}
 
-\bibitem{Prof_Gilbert_Strang} G. Strang, "Introduction to Linear Algebra", 5th edition
+\bibitem{Prof_Gilbert_Strang} G. Strang, \textit{Introduction to Linear Algebra}, 5th edition
+
+\bibitem{Prof_Edward_Scheinerman} E. R. Scheinerman, \textit{Invitation to Dynamical Systems}
+
+\bibitem{} K. Zdybal, Stagiaire report: \textit{POD and DMD decomposition of numerical and experimental data}, The von Karman Institute for Fluid Dynamics
 
 \end{document}
