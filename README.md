@@ -20,7 +20,7 @@ General notes on PCA: [Notes on PCA](https://github.com/camillejr/ulb-atm-phd/ra
 
 ## Dynamic Mode Decomposition (DMD)
 
-General notes on DMD: [Notes on DMD](https://github.com/camillejr/ulb-atm-phd/raw/master/DMD/DMD.pdf)
+General notes on DMD: [Notes on DMD](https://github.com/camillejr/ulb-atm-phd/raw/master/DMD/DMD-theory.pdf)
 
 ## Gaussian Process Regression (GPR)
 
