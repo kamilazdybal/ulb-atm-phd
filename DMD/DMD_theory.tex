@@ -1,0 +1,324 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage{geometry}
+\geometry{verbose,headsep=3cm,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.0cm,rmargin=2.0cm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[font=small]{caption}
+\usepackage{cleveref}
+\usepackage{amsmath,amssymb,latexsym}
+\usepackage{marvosym}
+\usepackage{url}
+\usepackage{lipsum}
+\usepackage{bm}
+\usepackage{float}
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{epsf}
+\usepackage{float}
+\usepackage{mathpazo}
+\usepackage{pifont}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{framed}
+\usepackage[utf8]{inputenc}
+% Document font:
+\usepackage{charter}
+
+\newcommand{\highlight}[1]{%
+  \colorbox{orange!50}{$\displaystyle#1$}}
+\definecolor{lgray}{cmyk}{0.2,0.2,0.2,0}
+\definecolor{llgray}{cmyk}{0.1,0.1,0.1,0}
+\definecolor{dgray}{cmyk}{0.3,0.3,0.3, 0}
+\graphicspath{{DWGs/}}
+
+\begin{document}
+
+\twocolumn[{
+\begin{@twocolumnfalse}
+
+  \begin{center}
+
+    \vskip-3em
+
+    \hfill
+    \fontsize{10}{10}\selectfont \textcolor{lgray}{\textit{Bruxelles, November 2018}}
+
+    \textcolor{llgray}{\rule{\textwidth}{1pt}}
+    \vskip2ex
+    
+	\vspace{5ex}
+	
+    \fontsize{24}{10}\selectfont \textcolor{dgray}{Notes on Dynamic Mode Decomposition}
+    
+    \fontsize{18}{10}\selectfont \textcolor{dgray}{(with some code)}
+    
+ 
+      \vspace{1ex}
+   \fontsize{10}{10}\selectfont \textcolor{lgray}{camillejr.github.io/science-docs}
+          
+  \noindent%
+    
+\vskip1ex
+
+\textcolor{llgray}{\rule{\textwidth}{0.5pt}}
+
+  \end{center}
+  
+\vspace{8mm}
+
+\end{@twocolumnfalse}
+}]
+
+\setlength{\parindent}{0cm}
+
+
+\section*{Preface}
+
+\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method of finding low-rank structures in high-dimensional data sets. 
+
+These notes are taken from two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington.
+
+\,\,
+
+This document is still in preparation.
+
+\tableofcontents
+
+
+\vspace{10mm}
+
+
+\section{Description of the system}
+
+We have a system described by a differential equation:
+
+\begin{equation} \label{eq:system_DE}
+\frac{d \vec{x}}{dt} = f(\vec{x}, t, \mu)
+\end{equation}
+
+The function $f(\vec{x}, t, \mu)$ is a way of \textit{modeling} that system.
+
+We also have \textit{measurements} of the system in different points in space at time $k$, in the form of a vector(s) $\vec{y}_k$:
+
+\begin{equation}
+\vec{y}_k = g(\vec{x}_k)
+\end{equation}
+
+\begin{wrapfigure}{R}{0.2\textwidth}
+\centering\includegraphics[width=3.5cm]{data-matrix.png}
+\caption{Data matrix with measurements of the system.}
+\label{fig:data-matrix}
+\end{wrapfigure}
+
+where $\vec{x}_k$ is the quantity of interest that we are aiming at measuring. The fact that we might not be able to measure it directly is accounted for by some function $g()$ (although it might happen that $\vec{y}_k = \vec{x}_k$, meaning that we are able to measure $\vec{x}_k$ directly).
+
+Notice, that for measurements at many moments in time, we may stack all the collected vectors $\vec{y}_i$ for different times $i$ to create a matrix whose columns represent time snapshots and whose rows represent position in space.
+
+\section{Linear dynamical systems}
+
+We are from now interested in systems where the governing equation from eq.(\ref{eq:system_DE}) is not known (in other words, the function $f$ is unknown) and we solely rely on measurements of the system which, in general, form a high-dimensional data set.
+
+In the Dynamic Mode Decomposition we approximate that data set by a linear dynamical system of the form:
+
+\begin{equation} \label{eq:system_linear}
+\frac{d \vec{x}}{dt} = \bm{A} \vec{x}
+\end{equation}
+
+This is in fact a very handy approximation since we are able to write down exact solutions to linear systems.
+
+Once we assume that the general solution is of the form:
+
+\begin{equation} \label{eq:general_solution}
+\vec{x} = \vec{v} e^{\bm{\lambda} t}
+\end{equation}
+
+to obtain the parameters we effectively solve the eigenvalue problem:
+
+\begin{equation} \label{eq:eigenvalue_solution}
+\bm{A} \vec{v} = \bm{\lambda} \vec{v}
+\end{equation}
+
+The exact solution to the linear system from eq.(\ref{eq:system_linear}) is:
+
+\begin{equation} \label{eq:soln_exact}
+x = \sum_{j = 1}^{n} b_j \phi_j e^{\lambda_j t}
+\end{equation}
+
+For a reader who is now shaky about how this solution was derived, more can be found in appendix \ref{app:A}. 
+
+\section{Dynamic Mode Decomposition theory}
+
+\subsection{Exact DMD}
+
+For the moment, we assume that we can measure the system directly, that is we measure $\vec{y}_i = \vec{x}_i$. Moreover, we assume that our data is collected in equal\footnote{Which is indeed a special case for real life measurements. Check section \ref{sec:view} for more information.} time steps $\Delta t$. The measurements are combined inside a large matrix $\bm{X}$ where each of its columns represents one time snapshot:
+
+\begin{equation} \label{eq:X}
+\bm{X} = 
+\begin{bmatrix}
+    \vec{x}_1 & \vec{x}_2 & \vec{x}_3 & \dots & \vec{x}_{m}
+\end{bmatrix}
+\end{equation}
+
+We split the large matrix $\bm{X}$ into two matrices $\bm{X_1}$ and $\bm{X_2}$ such that:
+
+\begin{equation} \label{eq:X1}
+\bm{X_1} = 
+\begin{bmatrix}
+    \vec{x}_1 & \vec{x}_2 & \vec{x}_3 & \dots & \vec{x}_{m-1}
+\end{bmatrix}
+\end{equation}
+
+\begin{equation} \label{eq:X2}
+\bm{X_2} = 
+\begin{bmatrix}
+    \vec{x}_2 & \vec{x}_3 & \vec{x}_4 & \dots & \vec{x}_{m}
+\end{bmatrix}
+\end{equation}
+
+If we now assume that a linear operator will map the first element of $\bm{X_1}$ with the first element of $\bm{X_2}$, second with the second, third with the third, and so on, matrix $\bm{X_2}$ can be thought of as a matrix representing the \textit{future state} of the matrix $\bm{X_1}$. That linear operator is assumed to be a matrix $\bm{A}$. 
+
+\begin{figure}[H]
+\centering\includegraphics[width=5.5cm]{data-split.png}
+\caption{Spliting the data matrix into \textit{past} and \textit{future} matrices $\bm{X_1}$ and $\bm{X_2}$, linked by the linear operator $\bm{A}$.}
+\label{fig:linear_system}
+\end{figure}
+
+Note here, that for nonlinear systems, a matrix that transforms $\vec{x}_1$ to $\vec{x}_2$ is different from a matrix that transforms $\vec{x}_2$ to $\vec{x}_3$ and so on. DMD assumes, however, that there is one matrix $\bm{A}$ that does all these transformations at once, with the least amount of error. It finds the \textit{best-fit} linear dynamical system for the non-linear data set. In mathematical terms, we are looking for such $\bm{A}$ that:
+
+\begin{equation} \label{eq:linear_dynamics}
+\bm{X_2} = \bm{A} \bm{X_1}
+\end{equation}
+
+To solve such system we multiply both sides by the pseudoinverse of matrix $\bm{X_1}$ which we denote by $\bm{X_1}^{+}$:
+
+\begin{equation} \label{eq:linear_dynamics_A}
+\bm{A} = \bm{X_2} \bm{X_1}^{+}
+\end{equation}
+
+The pseudoinverse described here, also known as the Moore-Penrose inverse\footnote{Check appendix \ref{app:B} for more information.}, is computed using the least squares method. There is therefore certain information lost when going from eq.(\ref{eq:linear_dynamics}) to eq.(\ref{eq:linear_dynamics_A}).
+
+Once we have solved for matrix $\bm{A}$, we can go back to eq.(\ref{eq:eigenvalue_solution}) and solve for eigenvalues and eigenvectors.
+
+Up to this point, this is what the \textbf{exact DMD} computes. 
+
+\subsection{Going low-rank}
+
+There is a problem that the eq.(\ref{eq:linear_dynamics_A}) may pose. Matrices $\bm{X_1}^{+}$ and $\bm{X_2}$ typically represent huge spacial dimensionality\footnote{This is often the case for data sets where we have few snapshots in time but a large number of spacial points where the measurements were taken.} which in turn means that the matrix $\bm{A}$ can become a square matrix of a massive size. 
+
+\begin{wrapfigure}{R}{0.2\textwidth}
+\centering\includegraphics[width=3.5cm]{getting-A.png}
+\caption{Building the linear operator $\bm{A}$.}
+\label{fig:data-matrix}
+\end{wrapfigure}
+
+We are hence reluctant to perform the multiplication of matrices as is stated in eq.(\ref{eq:linear_dynamics_A}). 
+
+The hope comes from the \textit{Singular Value Decomposition} (SVD). We belive that there are low-rank structures hidden in the data set and we are able to reduce the dimensionality of matrix $\bm{A}$ without significant loss of information.
+
+We perform the SVD on matrix $\bm{X_1}$ and later replace it it with its lower-rank approximation:
+
+\begin{equation} \label{eq:solution}
+\bm{X_1} = \bm{U} \bm{\Sigma} \bm{V}^T 
+\end{equation}
+
+\begin{equation} \label{eq:solution-approx}
+\bm{X_1} \approx \bm{X_{1r}} = \bm{U_r} \bm{\Sigma_r} \bm{V_r}^T 
+\end{equation}
+
+\subsection{Going back to the original dimensions}
+
+DMD modes are not orthogonal.
+
+\section{A broader view to more possibilities} \label{sec:view}
+
+What can go wrong with our data sets?
+
+\subsection{Optimized DMD}
+
+- varying time steps
+
+We mentioned earlier, that 
+
+\subsection{Robust DMD}
+
+
+
+Sparse Identification
+
+
+\section{Python example}
+
+
+
+\appendix
+
+\section{Solution to linear dynamical systems} \label{app:A}
+
+The general solution to the linear dynamical system of the form:
+
+\begin{equation} \label{eq:system_linear_A}
+\frac{d \vec{x}}{dt} = \bm{A} \vec{x}
+\end{equation}
+
+is:
+
+\begin{equation} \label{eq:general_solution_A}
+\vec{x} = \vec{v} e^{\bm{\lambda} t}
+\end{equation}
+
+Computing the time derivative of the eq. \ref{eq:general_solution_A} we get:
+
+\begin{equation} \label{eq:sub1}
+\frac{d \vec{x}}{dt} = \vec{v} \bm{\lambda} e^{\bm{\lambda} t}
+\end{equation}
+
+And substituting the eq. \ref{eq:general_solution_A} to eq. \ref{eq:system_linear_A} we get:
+
+\begin{equation} \label{eq:sub2}
+\frac{d \vec{x}}{dt} = \bm{A} \vec{v} e^{\bm{\lambda} t}
+\end{equation}
+
+The nontrivial solution for the equality of these two above equations is obtained when:
+
+\begin{equation} \label{eq:eigval}
+\bm{A} \vec{v} = \bm{\lambda} \vec{v} 
+\end{equation}
+
+which is the statement of eigenvalue problem.
+
+
+
+\begin{figure}[H]
+\centering\includegraphics[width=5cm]{linear_system.png}
+\caption{Linear dynamical system.}
+\label{fig:linear_system}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+\section{Moore-Penrose inverse} \label{app:B}
+
+
+
+
+
+
+
+\thebibliography{}
+
+\bibitem{Prof_Nathan_Kutz} N. Kutz, Dynamic Mode Decomposition (Theory) \texttt{https://youtu.be/bYfGVQ1Sg98} \label{bib:kutz_1}
+
+\bibitem{Prof_Nathan_Kutz} N. Kutz, Dynamic Mode Decomposition Code \texttt{https://youtu.be/KAau5TBU0Sc} \label{bib:kutz_2}
+
+\bibitem{Prof_Gilbert_Strang} G. Strang, "Introduction to Linear Algebra", 5th edition
+
+\end{document}
