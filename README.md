@@ -18,6 +18,10 @@ General notes on combustion: [Combustion notes](https://github.com/camillejr/ulb
 
 General notes on PCA: [Notes on PCA](https://github.com/camillejr/ulb-atm-phd/raw/master/PCA/PCA.pdf)
 
+## Dynamic Mode Decomposition (DMD)
+
+General notes on DMD: [Notes on DMD](https://github.com/camillejr/ulb-atm-phd/raw/master/DMD/DMD.pdf)
+
 ## Gaussian Process Regression (GPR)
 
 General notes on GPR: [Notes on GPR](https://github.com/camillejr/ulb-atm-phd/raw/master/GPR/GPR.pdf)
