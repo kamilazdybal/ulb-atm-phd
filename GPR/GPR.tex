@@ -23,40 +23,36 @@
 \usepackage{xcolor}
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
-
+% Document font:
 \usepackage{charter}
-\newcommand{\highlight}[1]{%
-  \colorbox{orange!50}{$\displaystyle#1$}}
 
 \begin{document}
 
 \twocolumn[{
 \begin{@twocolumnfalse}
 
-
   \begin{center}
-
-    \vskip-3em
+%\textcolor{lgray}
+    \vskip-5em
 
     \hfill
-    \textbf{Bruxelles, November 2018}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, November 2018}}
 
-    \rule{\textwidth}{0.5pt}
     \vskip2ex
-
-    {\Large\textbf{Notes on Gaussian Process Regression (GPR)}}
-  
-    \vspace{2ex}
-
-      \vspace{1ex}
+    
+	\vspace{5ex}
+	
+    \fontsize{24}{10}\selectfont {Notes on Gaussian Process Regression}
    
-	\texttt{https://camillejr.github.io/science-docs/}
+    
+      \vspace{1ex}
+   \fontsize{10}{10}\selectfont {camillejr.github.io/science-docs}
           
   \noindent%
     
 \vskip1ex
 
-\rule{\textwidth}{0.5pt}
+{\rule{\textwidth}{0.5pt}}
 
   \end{center}
   
@@ -65,10 +61,18 @@
 \end{@twocolumnfalse}
 }]
 
-\vspace{10mm}
-
 \setlength{\parindent}{0cm}
 
+
+\section*{Preface}
+
+\textit{Gaussian Process Regression} (GPR)
+
+\,\,
+
+This document is still in preparation.
+
+\tableofcontents
 
 \section{Introduction}
 

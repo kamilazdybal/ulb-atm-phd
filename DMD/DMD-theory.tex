@@ -25,13 +25,6 @@
 \usepackage[utf8]{inputenc}
 % Document font:
 \usepackage{charter}
-
-
-\newcommand{\highlight}[1]{%
-  \colorbox{orange!50}{$\displaystyle#1$}}
-\definecolor{lgray}{cmyk}{0.2,0.2,0.2,0}
-\definecolor{llgray}{cmyk}{0.1,0.1,0.1,0}
-\definecolor{dgray}{cmyk}{0.3,0.3,0.3, 0}
 \graphicspath{{DWGs/}}
 
 \begin{document}
@@ -223,7 +216,7 @@ We perform the SVD on matrix $\bm{X_1}$:
 \bm{X_1} = \bm{U} \bm{\Sigma} \bm{V}^T 
 \end{equation}
 
-Based on the rank structure of the matrix $\bm{X_1}$ (one way) we perform a rank-$r$ truncation on the SVD decomposition and approximate the matrix $\bm{X_1}$ by its low-rank (rank-$r$) representation:
+Based on the rank structure of the matrix $\bm{X_1}$ (one way to get information about the rank structure is to plot the elements from the diagonal of the matrix $\bm{\Sigma}$) we perform a rank-$r$ truncation on the SVD decomposition and approximate the matrix $\bm{X_1}$ by its low-rank (rank-$r$) representation:
 
 \begin{equation} \label{eq:solution-approx}
 \bm{X_1} \approx \bm{X_{1r}} = \bm{U_r} \bm{\Sigma_r} \bm{V_r}^T 
@@ -326,7 +319,16 @@ Sparse Identification
 
 \section{Solution to linear dynamical systems} \label{app:A}
 
-The general solution to the linear dynamical system of the form:
+We first recall the general solution to the differential equation:
+
+\begin{equation} \label{eq:DE_exp}
+\frac{d f(x)}{dt} = f(x)
+\end{equation}
+
+to be the exponential function: $f(x) = a \cdot e^{x}$.
+
+
+In an analogous way, the general solution to the linear dynamical system of the form:
 
 \begin{equation} \label{eq:system_linear_A}
 \frac{d \vec{x}}{dt} = \bm{A} \vec{x}
@@ -396,10 +398,10 @@ which is the statement of eigenvalue problem.
 
 \bibitem{Prof_Nathan_Kutz} N. Kutz, \textit{Dynamic Mode Decomposition Code }, an online lecture: https://youtu.be/KAau5TBU0Sc \label{bib:kutz_2}
 
-\bibitem{Prof_Gilbert_Strang} G. Strang, \textit{Introduction to Linear Algebra}, 5th edition
-
 \bibitem{Prof_Edward_Scheinerman} E. R. Scheinerman, \textit{Invitation to Dynamical Systems}
 
-\bibitem{} K. Zdybal, Stagiaire report: \textit{POD and DMD decomposition of numerical and experimental data}, The von Karman Institute for Fluid Dynamics
+\bibitem{Prof_Gilbert_Strang} G. Strang, \textit{Introduction to Linear Algebra}, 5th edition
+
+\bibitem{} K. Zdybal, The von Karman Institute for Fluid Dynamics: \textit{POD and DMD decomposition of numerical and experimental data}, stagiaire report 
 
 \end{document}
