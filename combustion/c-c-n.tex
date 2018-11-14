@@ -40,29 +40,28 @@
 \twocolumn[{
 \begin{@twocolumnfalse}
 
-
   \begin{center}
-
-    \vskip-3em
+%\textcolor{lgray}
+    \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont \textcolor{lgray}{\textit{Bruxelles, November 2018}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, November 2018}}
 
-    \textcolor{llgray}{\rule{\textwidth}{1pt}}
     \vskip2ex
     
 	\vspace{5ex}
 	
-    \fontsize{24}{10}\selectfont \textcolor{dgray}{Condensed Combustion Notes}
- 
+    \fontsize{24}{10}\selectfont {Condensed Notes on Combustion}
+   
+    
       \vspace{1ex}
-   \fontsize{10}{10}\selectfont \textcolor{lgray}{camillejr.github.io/science-docs}
+   \fontsize{10}{10}\selectfont {camillejr.github.io/science-docs}
           
   \noindent%
     
 \vskip1ex
 
-\textcolor{llgray}{\rule{\textwidth}{0.5pt}}
+{\rule{\textwidth}{0.5pt}}
 
   \end{center}
   
@@ -70,6 +69,8 @@
 
 \end{@twocolumnfalse}
 }]
+
+\setlength{\parindent}{0cm}
 
 \vspace{10mm}
 
@@ -81,6 +82,8 @@
 These are dense notes on \textit{combustion} concepts. They start from the preliminary notions that are needed in understanding the combustion language. Next, they introduce the elements of \textit{thermodynamics} relevant to the study of combustion, and finally present the governing \textit{differential relations} for \textit{reactive flows} in various systems.
 
 These notes are collected from numerous sources from which I studied combustion theory, the main that are ought to be mentioned are: [\ref{bib:turns}] and [\ref{bib:pitsch}].
+
+If you would like to see computational examples that support concepts presented here, I encourage you to take a look at my other document \textit{Computational examples in transport phenomena with Python}.
 
 \,\,
 
@@ -155,7 +158,7 @@ Z = \frac{m_1}{m_{u, TOT}} = \frac{m_1}{m_1 + m_2}
 \end{equation}
 
 \begin{figure}[H]
-\centering\includegraphics[width=8cm]{mixture-fraction.png}
+\centering\includegraphics[width=8.5cm]{mixture-fraction.png}
 \caption{Fuel-oxidizer stream system.}			
 \label{fig:mixture-fraction}
 \end{figure}
@@ -221,6 +224,8 @@ The adiabatic flame temperature (AdFT) is the temperature of combustion products
 
 \section{Species transport}
 
+
+
 \subsection{1-D species transport}
 
 The mechanical transport of species can be twofold: due to a bulk motion of the fluid and/or due to molecular diffusion. Below, we consider one-dimensional binary transport.
@@ -253,9 +258,13 @@ For a one-dimensional, binary diffusion (diffusion between two species A and B) 
 
 where $\dot{m}_{TOT} = \dot{m}_A + \dot{m}_B$.
 
+It is worth mentioning here, that the above result does not yet contain information about possible chemical reactions in which species A and B might take part. The eq.(\ref{eq:1d-bin-diff}) describes only the pure transport of species.
+
 \subsubsection{1-D species conservation}
 
-Differential relations for one-dimensional species conservation can be derived by considering a 1-D control volume $\Delta x$. The change of mass of a species A in the control volume can be written as:
+Differential relations for one-dimensional species conservation can be derived by considering a 1-D control volume $\Delta x$. We now assume that the species can react, and so the mass of a particular species within the control volume can change due to transport, as well as due to creation/destruction of species in a chemical reaction. 
+
+The change of mass of a species A in the control volume can be written as:
 
 \begin{equation}
 \frac{d m_{A, CV} }{dt} = \Big[ \frac{d \dot{m}_A}{d A} A \Big]_x - \Big[ \frac{d \dot{m}_A}{d A} A \Big]_{x + \Delta x} + r_A V
@@ -284,6 +293,11 @@ Finally taking the limit as $\Delta x \rightarrow 0$:
 \begin{equation}
 \frac{d \rho Y_{A} }{dt} = - \frac{\partial}{\partial x}\Big[ Y_A \frac{d \dot{m}_{TOT}}{d A} - \rho \mathcal{D}_{AB} \frac{dY_A}{dx} \Big] + r_A
 \end{equation}
+
+
+
+
+
 
 \subsection{Source terms}
 
