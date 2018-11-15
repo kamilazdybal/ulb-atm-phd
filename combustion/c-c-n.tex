@@ -101,7 +101,7 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \subsection{Species}
 
-A \textit{Species} is a general name for any chemical compound that takes role in a chemical reaction. In the context of combustion, the most encountered species are for instance: CO2, CO, H2O, O2, N2, etc.
+A \textit{species} is a general name for any chemical compound that takes role in a chemical reaction. In the context of combustion, the most encountered species are for instance: CO2, CO, H2O, O2, N2, etc.
 
 \subsection{Species mass fraction}
 
@@ -185,6 +185,10 @@ Y_{u, F} = \frac{m_F}{m_1 + m_2} = \frac{m_F}{m_1} \frac{m_1}{m_1 + m_2} = Y_{1,
 
 Similar reasoning can be done for the oxidizer in the oxidizer stream.
 
+
+
+
+
 \subsection{Adiabatic flame temperature}
 
 The adiabatic flame temperature (AdFT) is the temperature of combustion products if the combustion happens without heat exchange with the surroundings. It thus represents the maximum theoretical temperature for a given combustion system.
@@ -201,12 +205,27 @@ The adiabatic flame temperature (AdFT) is the temperature of combustion products
 
 
 
+\subsection{Dissociation}
 
-
-
+The dissociation of a species is the process of spliting that species into smaller particles: either atoms or other species such as ions or radicals.
 
 \section{Energy considerations}
 
+\subsection{Equations of state}
+
+The equation of state owes its name to the fact that it relates variables describing \textit{state} of the system. Among those are: pressure $P$, volume $V$ and temperature $T$.
+
+\begin{equation}
+PV = mRT
+\end{equation}
+
+\subsubsection{Calorific equation of state}
+
+On the other hand, the calorific equation of state relates internal energy with the state variables.
+
+\begin{equation}
+du = \Big( \frac{\partial u}{\partial T} \Big)_V dT + \Big( \frac{\partial u}{\partial V} \Big)_T dV
+\end{equation}
 
 \subsection{Thermodynamic potentials}
 
@@ -216,11 +235,24 @@ The adiabatic flame temperature (AdFT) is the temperature of combustion products
 
 \subsection{Enthalpy of formation}
 
+The \textit{enthalpy of formation} for a given species is the amount of energy required to form this species from elements in a given state (described by the temperature and pressure).
+
+
+\subsection{Enthalpy of combustion}
+
+The \textit{enthalpy of combustion} is the amount of heat produced by the combustion process. It is the difference between enthalpy of products and enthalpy of reactants.
 
 \subsection{First law of thermodynamics}
 
+The first law of thermodynamics states, that the total change in energy of the system is equal to the difference of the heat added to the system and work done by the system on the surroundings.
+
+
 
 \subsection{Second law of thermodynamics}
+
+The second law of thermodynamics states, that the total entropy of an isolated system can never be negative.
+
+\subsection{Clausius-Clapeyron equation}
 
 
 
