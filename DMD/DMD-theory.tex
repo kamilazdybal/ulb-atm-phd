@@ -75,7 +75,7 @@ These notes are taken from two lectures on Dynamic Mode Decomposition: [\ref{bib
 
 \,\,
 
-This document is still in preparation.
+This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
 
 \tableofcontents
 
@@ -203,12 +203,12 @@ Matrices $\bm{X_1}^{+}$ and $\bm{X_2}$ typically represent huge spacial dimensio
 \begin{wrapfigure}{R}{0.2\textwidth}
 \centering\includegraphics[width=3.5cm]{getting-A.png}
 \caption{Building the linear operator $\bm{A}$ in exact DMD.}
-\label{fig:data-matrix}
+\label{fig:building-A}
 \end{wrapfigure}
 
 We are hence reluctant to perform the multiplication of matrices as is stated in eq.(\ref{eq:linear_dynamics_A}). 
 
-The hope comes from the \textit{Singular Value Decomposition} (SVD). We belive that there are low-rank structures hidden in the data set and we are able to reduce the dimensionality of matrix $\bm{A}$ without significant loss of information.
+The hope comes from the \textit{Singular Value Decomposition} (SVD). We belive that there are low-rank structures hidden in the data set and we are able to reduce the dimensionality of matrix $\bm{A}$ without significant loss of information\footnote{Professor Kutz said a very interesting sentence here, that the multiplication presented in Figure \ref{fig:building-A} completely ignores the fact that there might be low-rank structures in our data set.}.
 
 We perform the SVD on matrix $\bm{X_1}$:
 
