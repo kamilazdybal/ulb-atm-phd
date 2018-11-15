@@ -32,4 +32,4 @@ General notes on PDF Methods: [Notes on PDF Methods](https://github.com/camillej
 
 # Contact
 
-If you wish, contact me via e-mail: kamila.zdybal@ulb.ac.be
+Please feel free to contact me with any suggestions, corrections or comments via e-mail: kamila.zdybal@ulb.ac.be
