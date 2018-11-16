@@ -4,6 +4,13 @@ from matplotlib import pyplot as plt
 import numpy
 import matplotlib.patches as patches
 
+# Styles:
+nfont = {"name": "cmr10", "style": "normal", "weight": "normal"}
+ifont = {"name": "cmr10", "style": "normal", "weight": "normal"}
+demand_col = '#282850'
+renewables_col = '#f44242'
+background_col = "#f9f7f2"
+
 # Data:
 T0 = 0 # deg C
 L = 200 # m
@@ -24,8 +31,8 @@ T = - Q/(2*lam) * (x**2 - L * x) + T0
 figure = plt.figure(figsize=(10, 5))
 ax1 = figure.add_subplot(1,1,1)
 # plt.title('Temperature distribution in $^oC$ in a rod with internal heat production of ' + str(Q) + ' Watt')
-plt.xlabel(r'$x$ [m]', fontsize=12)
-plt.ylabel(r'$T(x)$ [$^o C$]', fontsize=12)
+plt.xlabel(r'x [m]', fontsize=12, **nfont)
+plt.ylabel(r'T(x) [$^o C$]', fontsize=12, **nfont)
 plt.xlim(-0.05*L, 1.05*L)
 plt.ylim(-0.15*max(T), 1.1*max(T))
 ax1.spines["top"].set_visible(False)
@@ -58,8 +65,8 @@ ax1.add_patch(
 
 # To plot the line:
 plt.plot(x, T, color=lineColour, linestyle='-', linewidth=2.0, zorder=1)
-ax1.text(30,30, r'Heat production $Q = 20 W$', fontsize=10, color=barColour, fontweight='bold')
-ax1.text(30,10, r'Thermal conductivity $\lambda = 400 \frac{W}{m \cdot ^oC}$', fontsize=10, color=barColour, fontweight='bold')
+ax1.text(30,30, r'Heat production $Q = 20 W$', fontsize=10, color=barColour, **ifont)
+ax1.text(30,10, r'Thermal conductivity $\lambda = 400 \frac{W}{m \cdot ^oC}$', fontsize=10, color=barColour, **ifont)
 
 
 # Plot helping lines for the temperature:
