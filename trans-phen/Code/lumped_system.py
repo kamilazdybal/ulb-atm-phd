@@ -1,5 +1,5 @@
 """
-Modeling the temperature function T(t) change with increasing coefficient
+Modeling how the temperature function T(t) change with increasing coefficient
 b = hA/(rho*V*Cp) in a lumped system analysis of a steel plate.
                  _____________________________
 T_inf           |____________T(t)_____________|
@@ -27,7 +27,7 @@ V = L*D*H # m^3
 A = D*H # m^2
 
 # Time span:
-t_end = 100 # s
+t_end = 40 # s
 
 # Assume the Nusselt number Nu=1 for a plate:
 h = lambda_steel/D
@@ -55,7 +55,7 @@ def animate(i):
     line.set_data(t, T)
     return line,
 
-anim = animation.FuncAnimation(fig, animate, init_func=init, frames=60, interval=100, blit=True, repeat=False)
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=30, interval=100, blit=True, repeat=False)
 
 anim.save("./lumped_system.gif", writer='imagemagick', fps=10, bitrate=-1)
 

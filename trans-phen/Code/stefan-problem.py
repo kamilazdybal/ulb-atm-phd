@@ -45,7 +45,7 @@ for Y in Y_vals:
     dim_mass_flux_A.append(mass_flux)
 
 # Plot graph:
-figure1 = plt.figure(figsize=(10, 10))
+figure1 = plt.figure(figsize=(10, 5))
 ax1 = figure1.add_subplot(1,1,1)
 plt.plot(mass_flux_A, l, color=lineColour, linestyle='--', linewidth=4.0, zorder=1)
 plt.xlabel(r'$\dot{m}_A$ $[\frac{g}{s m^2}]$', fontsize=12)
