@@ -67,7 +67,7 @@ for y in numpy.arange(min(T), 1.1*max(T), 50):
     plt.plot([-0.05*L, 1.05*L], [y, y], "--", lw=1, color=helpLines, zorder=-1)
 
 # Save plot:
-filename = 'temperature_distribution.png'
+filename = 'conduction-rod.png'
 plt.savefig(filename, dpi = 500)
 plt.show()
 plt.close()

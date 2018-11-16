@@ -50,6 +50,6 @@ def animate(i):
 
 anim = animation.FuncAnimation(fig, animate, init_func=init, frames=145, interval=100, blit=True)
 
-anim.save("./evaporating_sphere.gif", writer='imagemagick', fps=60, bitrate=-1)
+anim.save("./evaporating-sphere.gif", writer='imagemagick', fps=60, bitrate=-1)
 
 plt.show()

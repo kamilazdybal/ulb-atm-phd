@@ -57,6 +57,6 @@ def animate(i):
 
 anim = animation.FuncAnimation(fig, animate, init_func=init, frames=30, interval=100, blit=True, repeat=False)
 
-anim.save("./lumped_system.gif", writer='imagemagick', fps=10, bitrate=-1)
+anim.save("./lumped-system.gif", writer='imagemagick', fps=10, bitrate=-1)
 
 plt.show()

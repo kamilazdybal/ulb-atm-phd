@@ -45,7 +45,7 @@ lineColour = '#0e2f44'
 plt.plot(t, D, color=lineColour, linestyle='-', linewidth=2.0, zorder=1)
 
 # Save plot:
-filename = 'evaporating_sphere.png'
+filename = 'evaporating-sphere.png'
 plt.savefig(filename, dpi = 500)
 
 plt.show()
