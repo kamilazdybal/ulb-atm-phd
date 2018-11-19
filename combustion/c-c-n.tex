@@ -358,6 +358,50 @@ We now extend our previous relations to the 3-D case.
 
 \section{Chemical reactors}
 
+The quantities that we are interested in finding for a chemical reactor system are temperature function $T(t)$, as well as the species concentrations $[X_i] = [X_i](t)$.
+
+\subsection{Constant pressure, fixed mass reactor}
+
+We look for the solution to two differential equations:
+
+\begin{equation}
+\frac{d T(t)}{dt} = f([X_i], T)
+\end{equation}
+
+\begin{equation}
+\frac{d [X_i](t)}{dt} = f([X_i], T)
+\end{equation}
+
+\subsubsection{Temperature}
+
+We start by applying the first law of thermodynamics to the reactor:
+
+\begin{equation}
+\frac{du}{dt} = \frac{dq}{dt} - \frac{dw}{dt}
+\end{equation}
+
+We then substitute for the values of internal energy (the enthalpy equation) and work (assuming the only work done by the system is in moving the piston):
+
+\begin{equation}
+\frac{dh}{dt} = \frac{du}{dt} + P \frac{dv}{dt} \rightarrow \frac{du}{dt} = \frac{dh}{dt} - P \frac{dv}{dt}
+\end{equation}
+
+\begin{equation}
+w = Pv \rightarrow \frac{d w}{dt} = P \frac{dv}{dt} 
+\end{equation}
+
+Substitution gives:
+
+\begin{equation}
+\frac{dq}{dt} = \frac{dh}{dt}
+\end{equation}
+
+We would like the temperature and species fractions to appear in the equation.
+
+\subsubsection{Species concentrations}
+
+
+
 
 
 
@@ -371,8 +415,6 @@ We now extend our previous relations to the 3-D case.
 
 \bibitem{Pitsch} H. Pitsch, \textit{Combustion Theory and Applications in CFD}, Lecture Series \label{bib:pitsch}
 
-
- \label{bib:pope}
-
+\label{bib:pope}
 
 \end{document}
