@@ -278,13 +278,17 @@ Now that we have computed the similar matrix $\underline{\bm{A}}$, we move on to
 
 \subsection{Going back to the original dimensions}
 
-Once the model has been built in the low-dimensional subspace, we want to move to the original dimensions. The DMD modes are obtained from:
+Once the model has been built in the low-dimensional subspace, we want to move to the original dimensions. 
+
+The DMD modes are obtained from:
 
 \begin{equation} \label{eq:A_underline}
 \bm{\Phi} = \bm{X_2} \bm{V} \bm{\Sigma}^{-1} \bm{W}
 \end{equation}
 
-DMD modes are not orthogonal. This creates a great capacity of DMD to be applicable to systems where data structure does not exhibit orthogonality.
+The above equation can be interpreted as transforming the eigenvectors matrix $\bm{W}$ to a new \textit{basis vectors} matrix $\bm{\Phi}$ where the linear transformation is given by the composition: $\bm{X_2} \bm{V} \bm{\Sigma}^{-1}$.
+
+What is worth mentioning here, is that DMD modes are not guaranteed to be orthogonal after such transformation. This creates a great capacity of DMD to be applicable to systems where data structure does not exhibit orthogonality.
 
 The solution to the original dynamical system is finally computed:
 
