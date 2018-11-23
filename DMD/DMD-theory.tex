@@ -290,6 +290,8 @@ The above equation can be interpreted as transforming the eigenvectors matrix $\
 
 What is worth mentioning here, is that DMD modes are not guaranteed to be orthogonal after such transformation. This creates a great capacity of DMD to be applicable to systems where data structure does not exhibit orthogonality.
 
+\subsection{DMD solution}
+
 The solution to the original dynamical system is finally computed:
 
 \begin{equation} \label{eq:x-solution-matrix}
@@ -301,6 +303,10 @@ the above equation is equivalent to:
 \begin{equation} \label{eq:x-solution-summation}
 \vec{x}(t)  = \sum_{k=1}^{r} \phi_k e^{\omega_k t} b_k
 \end{equation}
+
+The vector $\vec{b}$ is a vector of initial amplitudes for each mode. It is computed by projecting the initial state of the data matrix (given by $\vec{x}_1$) onto the DMD modes. This is done in order for our initial condition to be formulated in the obtained DMD basis.
+
+
 
 \section{A broader view on DMD} \label{sec:view}
 
@@ -318,6 +324,10 @@ We mentioned earlier, that
 
 Sparse Identification
 
+
+
+
+\subsection{Multi-diagnostics DMD}
 
 \section{Python example}
 
