@@ -71,7 +71,7 @@
 
 \textit{Dynamic Mode Decomposition} (DMD) is a data-driven method of finding low-rank structures in high-dimensional data sets. 
 
-These notes are taken from two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington.
+Most of the content of this document are notes taken from two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington. 
 
 \,\,
 
@@ -82,13 +82,25 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \vspace{10mm}
 
+\section{Setting the stage}
 
-\section{Description of the system}
+This small opening section is there to give a bit of intuition for DMD, which will be complimentary in understanding the incoming mathematical formulation. It is assumed that you have some general idea about what it means to perform data decomposition.
+
+The main purpose of DMD is to find the \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution (given by frequency). In other words, in DMD we not only know how the system can be decomposed spatially, but also how each spatial structure behaves in time.
+
+To take a pictorial example, we may perform a DMD decomposition of a flipbook \ref{bib:andymation}. Let's say each slide is composed of a background which is the same on every slide (it is constant in time). Then, there might be an animation happening on the foreground, where some parts are animated as moving faster and some as moving slowly.
+
+Let's associate a certain number, say $\lambda$, to describe the evolution in time. Each element of the animation will have its own $\lambda$.
+
+The background might then be thought of as a spatial mode that has got a 
+
+
+\section{Description of a dynamical system}
 
 We have a system described by a differential equation:
 
 \begin{equation} \label{eq:system_DE}
-\frac{d \vec{x}}{dt} = f(\vec{x}, t, \mu)
+\frac{d \vec{x}(t)}{dt} = f(\vec{x}, t, \mu)
 \end{equation}
 
 The function $f(\vec{x}, t, \mu)$ is a way of \textit{modeling} that system.
@@ -116,7 +128,7 @@ We are from now interested in systems where the governing equation from eq.(\ref
 In the Dynamic Mode Decomposition we approximate that data set by a linear dynamical system of the form:
 
 \begin{equation} \label{eq:system_linear}
-\frac{d \vec{x}}{dt} = \bm{A} \vec{x}
+\frac{d \vec{x}(t)}{dt} = \bm{A} \vec{x}(t)
 \end{equation}
 
 This is in fact a very handy approximation since we are able to write down exact solutions to linear systems.
@@ -124,7 +136,7 @@ This is in fact a very handy approximation since we are able to write down exact
 Once we assume that the general solution is of the form:
 
 \begin{equation} \label{eq:general_solution}
-\vec{x} = \vec{v} e^{\bm{\lambda} t}
+\vec{x}(t) = \vec{v} e^{\bm{\lambda} t}
 \end{equation}
 
 to obtain the parameters we effectively solve the eigenvalue problem:
@@ -260,7 +272,7 @@ The similar matrix $\underline{\bm{A}}$ can be written as:
 
 taking into account that $\bm{U_r}^T \bm{U_r} = \bm{I}$.
 
-We have thus chosen a low-dimensional subspace by performing rank-$r$ truncation in which we now find the solution to the linear dynamical system presented initially. The model for the solution is built in this low-dimensional subspace.
+We have thus chosen a low-dimensional subspace by performing rank-$r$ truncation in which we now find the solution to the linear dynamical system presented initially. The solution is built in this low-dimensional subspace.
 
 \subsection{Eigendecomposition}
 
@@ -269,12 +281,6 @@ Now that we have computed the similar matrix $\underline{\bm{A}}$, we move on to
 \begin{equation} \label{eq:A_underline}
 [\bm{W}, \bm{\Lambda}] = \text{eig}(\underline{\bm{A}})
 \end{equation}
-
-
-
-
-
-
 
 \subsection{Going back to the original dimensions}
 
@@ -289,6 +295,12 @@ The DMD modes are obtained from:
 The above equation can be interpreted as transforming the eigenvectors matrix $\bm{W}$ to a new \textit{basis vectors} matrix $\bm{\Phi}$ where the linear transformation is given by the composition: $\bm{X_2} \bm{V} \bm{\Sigma}^{-1}$.
 
 What is worth mentioning here, is that DMD modes are not guaranteed to be orthogonal after such transformation. This creates a great capacity of DMD to be applicable to systems where data structure does not exhibit orthogonality.
+
+\begin{figure}[H]
+\centering\includegraphics[width=8cm]{dmd-modes-transformation.png}
+\caption{Every of the $r$ vectors in the eigenvectors matrix $\bm{W}$ gets transformed into one of the $r$ vectors in the DMD modes matrix $\bm{\Phi}$. $\bm{M}$ is the matrix associated with this transformation. We have moved from the $r$-dimensional space onto the original space.}
+\label{fig:linear_system}
+\end{figure}
 
 \subsection{DMD solution}
 
@@ -416,10 +428,12 @@ which is the statement of eigenvalue problem.
 
 \bibitem{Prof_Nathan_Kutz} N. Kutz, \textit{Dynamic Mode Decomposition Code }, an online lecture: https://youtu.be/KAau5TBU0Sc \label{bib:kutz_2}
 
+\bibitem{Andymation} https://www.youtube.com/watch?v=ZCCETV-8950 \label{bib:andymation}
+
 \bibitem{Prof_Edward_Scheinerman} E. R. Scheinerman, \textit{Invitation to Dynamical Systems}
 
 \bibitem{Prof_Gilbert_Strang} G. Strang, \textit{Introduction to Linear Algebra}, 5th edition
 
-\bibitem{} K. Zdybal, The von Karman Institute for Fluid Dynamics: \textit{POD and DMD decomposition of numerical and experimental data}, stagiaire report 
+\bibitem{Zdybal} K. Zdybal, \textit{POD and DMD decomposition of numerical and experimental data}, von Karman Institute for Fluid Dynamics, stagiaire report 
 
 \end{document}
