@@ -24,6 +24,7 @@
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
 \graphicspath{{DWGs/}}
+\usepackage{framed}
 
 % Document font:
 \usepackage{charter}
@@ -100,15 +101,46 @@ There are several questions which stimulated the development of data reduction t
 
 \section{Datasets for PCA}
 
+For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represends one variable and the rows correspond to variable observations (e.g. at different positions in space, or in time).
+
+\begin{figure}[H]
+\centering\includegraphics[width=5cm]{data-set-PCA.png}
+\caption{Data matrix for PCA.}
+\label{fig:data-matrix}
+\end{figure}
+
+This is also the data format that is needed for the MATLAB command \texttt{pca}. From the MATLAB documentation:
+
+
+\begin{framed}
+\texttt{pca(X)}
+
+\,\,
+
+Rows of X correspond to observations and columns correspond to variables.
+\end{framed}
 
 \section{Covariance matrix}
 
+We start our discussion of PCA with explaining the concept of a \textit{covariance matrix}, since computing this matrix is a starting point for performing PCA.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{cov-matrix.png}
-\caption{Covariance matrix $\bm{S}$ graphical interpretation.}			
-\label{fig:linear_PCA_data}
+\caption{Covariance matrix $\bm{S}$ graphical interpretation.}
+\label{fig:covariance-matrix}
 \end{figure}
+
+
+\begin{equation}
+\bm{S} = \frac{1}{n-1} \bm{X^T} \bm{X}
+\end{equation}
+
+
+\section{PCA workflow}
+
+
+
+
 
 \section{PCA example}
 
