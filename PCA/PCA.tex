@@ -24,6 +24,7 @@
 \usepackage[utf8]{inputenc}
 \graphicspath{{DWGs/}}
 \usepackage{framed}
+\usepackage{textcomp}
 
 % Document font:
 \usepackage{charter}
@@ -54,7 +55,10 @@
    
     
       \vspace{1ex}
-   \fontsize{10}{10}\selectfont {camillejr.github.io/science-docs}
+      
+
+      
+
           
   \noindent%
     
@@ -76,6 +80,16 @@
 
 \setlength{\parindent}{0cm}
 
+\fontsize{14}{10}\selectfont {Kamila Zdybał}
+
+\vspace{2mm}
+
+\fontsize{10}{10}\selectfont {\textit{camillejr.github.io/science-docs}}
+
+\vspace{2mm}
+
+\fontsize{10}{10}\selectfont {\textit{kamila.zdybal@ulb.ac.be, kamila.zdybal@gmail.com}}
+
 \section*{Preface}
 
 These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which the data set is reduced to maintain only the directions of the largest variance.
@@ -87,6 +101,10 @@ The deep and intuitive understanding of PCA requires the deep and intuitive unde
 \,\,
 
 This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
+
+\section*{Keywords}
+
+\textit{principal component analysis, data reduction, dimensionality reduction, linear algebra, MATLAB\textregistered}
 
 \tableofcontents
 
@@ -114,7 +132,7 @@ For the rest of this document, we assume that the dataset for performing PCA is 
 \label{fig:data-matrix}
 \end{figure}
 
-This is also the data format that is needed for the MATLAB command \texttt{pca}. From the MATLAB documentation:
+This is also the data format that is needed for the MATLAB\textregistered \, command \texttt{pca}. From the documentation:
 
 
 \begin{framed}
