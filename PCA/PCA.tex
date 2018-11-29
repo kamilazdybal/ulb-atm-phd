@@ -4,7 +4,6 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage[font=small]{caption}
-\usepackage{cleveref}
 \usepackage{amsmath,amssymb,latexsym}
 \usepackage{marvosym}
 \usepackage{url}
@@ -79,7 +78,13 @@
 
 \section*{Preface}
 
-These are notes on \textbf{Principal Component Analysis} (PCA), a technique for finding low-dimensional manifolds in high-dimensional data sets.
+These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which the data set is reduced to maintain only the directions of the largest variance.
+
+\,\,
+
+The deep and intuitive understanding of PCA requires the deep and intuitive understanding of basic linear algebra. I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel, which, to my belief, will be everything you need to master about linear algebra to gain a great intuition behind PCA.
+
+\,\,
 
 This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
 
@@ -87,10 +92,10 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{Motivation for data reduction}
 
-There are several questions which stimulated the development of data reduction techniques and reduced-order modelling:
+There are several questions which stimulated the development of data reduction techniques and reduced-order modeling:
 
 \begin{enumerate}
-\item Can we send less information but preserve the resolution of the data (data compression)?
+\item Can we send less data but preserve maximum information contained by the data (data compression)?
 
 \item If the data were measurements from an experiment, can we predict what the outcome of another measurement will be?
 
@@ -138,9 +143,43 @@ We start our discussion of PCA with explaining the concept of a \textit{covarian
 
 \section{PCA workflow}
 
+The next step in PCA is to perform the eigendecomposition of the covariance matrix:
 
+\begin{equation} \label{eq:eig-dec}
+\text{eig}(\bm{S}) = [\bm{A}, \bm{\Lambda}]
+\end{equation}
 
+The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector is called a \textit{principal component} in the PCA world. The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of corresponding eigenvalues.
 
+The principal components now form a new basis in which we can represent our data set. We therefore perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the eigenvectors of the covariance matrix. This transformation is achieved by the following multiplication:
+
+\begin{equation}
+\bm{Z} = \bm{X} \bm{A}
+\end{equation}
+
+The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the PC-\textit{scores} since one may think of every element in this matrix as the "score" that the corresponding element in the original data matrix would get when represented in the new coordinate system after transformation.
+
+We now approach the dimensionality reduction but first let's obtain the original data set back given that we know the PC-scores and the transformation matrix:
+
+\begin{equation}
+\bm{X} = \bm{Z} \bm{A}^T
+\end{equation}
+
+The above equation is our route back to obtain the original data set in which the PC-scores are projected on the basis associated with a transposed eigenvectors matrix $A$.
+
+Suppose that we would like to find the approximation of the data matrix $\bm{X}$ with only $q$ principal components (we project the PC-scores onto only $q$ out of $Q$ principal components).
+
+We shrink the transformation matrix $\bm{A}$ to be of size $(Q \times q)$ (we only keep $q$ principal components). To match the matrix sizes we also need to shrink in size the PC-scores matrix which originally is size $(n \times Q)$ - the same size as the data matrix $\bm{X}$. We will denote these truncated matrices $\bm{A_q}$ and $\bm{Z_q}$ respectively.
+
+Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approximation of the original data set:
+
+\begin{equation}
+\bm{X_q} = \bm{Z_q} \bm{A_q}^T
+\end{equation}
+
+\section{Why does it need to be eigenvectors?}
+
+In this section we come back to equation (\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? If you are new to PCA, this indeed might seem like a not-related-to-anything thing to do. So why is it eigenvectors? And why does it need to be eigenvectors of this special matrix called covariance matrix?
 
 \section{PCA example}
 
