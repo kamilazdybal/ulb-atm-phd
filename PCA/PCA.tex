@@ -124,7 +124,7 @@ There are several questions which stimulated the development of data reduction t
 
 \section{Datasets for PCA}
 
-For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represends one variable and the rows correspond to variable observations (e.g. at different positions in space, or in time).
+For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represents one variable $\text{Var}_j$ and the rows correspond to variable observations $\text{Obs}_i$ (e.g. at different positions in space, or in time).
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{data-set-PCA.png}
@@ -145,7 +145,15 @@ Rows of X correspond to observations and columns correspond to variables.
 
 \section{Covariance matrix}
 
-We start our discussion of PCA with explaining the concept of a \textit{covariance matrix}, since computing this matrix is a starting point for performing PCA.
+We start our discussion of PCA with explaining the concept of a \textit{covariance matrix}, since computing this matrix is a starting point for performing PCA. The covariance matrix is given by:
+
+\begin{equation}
+\bm{S} = \frac{1}{Q-1} \bm{X^T} \bm{X}
+\end{equation}
+
+The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
+
+We will start with exploring the meaning of $\bm{X^T} \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{cov-matrix.png}
@@ -153,10 +161,42 @@ We start our discussion of PCA with explaining the concept of a \textit{covarian
 \label{fig:covariance-matrix}
 \end{figure}
 
+Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $\text{Var}_p$ and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$, since this is simply a transpose of the data matrix $\bm{X}$.
+
+Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. 
 
 \begin{equation}
-\bm{S} = \frac{1}{n-1} \bm{X^T} \bm{X}
+s_{(p,k)} = dot( \bm{X}^T(p, :), \bm{X}(:,k))
 \end{equation}
+
+In a special case, where we multiply the row $p$ with the column $p$, we get a dot product of a vector with itself.
+
+\begin{equation}
+s_{(p,p)} = dot( \bm{X}^T(p, :), \bm{X}(:,p))
+\end{equation}
+
+In general, the dot product between two vectors $x$ and $y$ represents how much vector $x$ lays in the direction of vector $y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $\text{Var}_p$ is carried by a variable $\text{Var}_k$ (and vice versa).
+
+
+
+A covariance of two vectors:
+
+\begin{equation}
+cov(x, y) = 
+\end{equation}
+
+
+\subsection{The goal of PCA in terms of a covariance matrix}
+
+What Principal Component Analysis aims to do is to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix:
+
+\begin{equation}
+\bm{S}_Z =  \bm{Z^T} \bm{Z}
+\end{equation}
+
+
+
+the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$.
 
 
 \section{PCA workflow}
@@ -254,6 +294,10 @@ This will give us a centered approximation to the original data.
 To conclude, the non-linear-PCA is helpful at times when there is no preferred direction in a data set, however there is an underlying non-linear relation that describes the data. The linear-PCA would in such case not give a satisfactory approximation after truncating the number of PCs. 
 
 
+\section{Interesting questions}
+
+Is the covariance matrix of PC-scores a diagonal matrix?
+
 
 
 \appendix
@@ -267,6 +311,7 @@ To conclude, the non-linear-PCA is helpful at times when there is no preferred d
 \bibitem{Jolliffe} Ian T. Jolliffe \textit{Principal Component Analysis}, Second Edition, 1986
 \bibitem{Strang} Gilbert Strang \textit{Introduction to Linear Algebra}, Fifth Edition, 2016
 \bibitem{Shlens} Jonathon Shlens, \textit{A Tutorial on Principal Component Analysis}, 2016, \texttt{https://arxiv.org/abs/1404.1100}
+\bibitem{cov-dot} \texttt{http://people.sju.edu/~pklingsb/dot.cov.pdf}
 
  \label{bib:pope}
 
