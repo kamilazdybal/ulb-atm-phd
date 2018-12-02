@@ -46,20 +46,10 @@
 
     \hfill
     \fontsize{10}{10}\selectfont {\textit{Bruxelles, December 2018}}
-
     \vskip2ex
-    
 	\vspace{5ex}
-	
     \fontsize{24}{10}\selectfont {Notes on Principal Component Analysis}
-   
-    
       \vspace{1ex}
-      
-
-      
-
-          
   \noindent%
     
 \vskip1ex
@@ -110,7 +100,7 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{Motivation for data reduction}
 
-There are several questions which stimulated the development of data reduction techniques and reduced-order modeling:
+There are several questions which stimulated the usage of data reduction and data decomposition techniques:
 
 \begin{enumerate}
 \item Can we send less data but preserve maximum information contained by the data (data compression)?
@@ -137,23 +127,25 @@ This is also the data format that is needed for the MATLAB\textregistered \, com
 
 \begin{framed}
 \texttt{pca(X)}
-
 \,\,
-
 Rows of X correspond to observations and columns correspond to variables.
 \end{framed}
+
+\section{Data pre-processing}
+
+In data science we are typically given a raw data set which is not centered and not scaled. 
 
 \section{Covariance matrix}
 
 We start our discussion of PCA with explaining the concept of a \textit{covariance matrix}, since computing this matrix is a starting point for performing PCA. The covariance matrix is given by:
 
 \begin{equation}
-\bm{S} = \frac{1}{Q-1} \bm{X^T} \bm{X}
+\bm{S} = \frac{1}{n-1} \bm{X}^T \bm{X}
 \end{equation}
 
 The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
 
-We will start with exploring the meaning of $\bm{X^T} \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
+We will start with exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{cov-matrix.png}
@@ -161,7 +153,7 @@ We will start with exploring the meaning of $\bm{X^T} \bm{X}$. Let's look at the
 \label{fig:covariance-matrix}
 \end{figure}
 
-Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $\text{Var}_p$ and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$, since this is simply a transpose of the data matrix $\bm{X}$.
+Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $\text{Var}_p$ (or $\text{Var}_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
 Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. 
 
@@ -188,16 +180,19 @@ cov(x, y) =
 
 \subsection{The goal of PCA in terms of a covariance matrix}
 
-What Principal Component Analysis aims to do is to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix:
+Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix:
 
 \begin{equation}
 \bm{S}_Z =  \bm{Z^T} \bm{Z}
 \end{equation}
 
-
-
 the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$.
 
+\begin{figure}[H]
+\centering\includegraphics[width=6cm]{PC-scores.png}
+\caption{New transformed data set $\bm{Z}$ and its covariance matrix $\bm{S}_Z$.}
+\label{fig:PC-scores}
+\end{figure}
 
 \section{PCA workflow}
 
