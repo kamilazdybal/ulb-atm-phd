@@ -207,17 +207,23 @@ The next step in PCA is to perform the eigendecomposition of the covariance matr
 \text{eig}(\bm{S}) = [\bm{A}, \bm{\Lambda}]
 \end{equation}
 
-The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector is called a \textit{principal component} in the PCA world. The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of corresponding eigenvalues.
+The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector is called a \textit{principal component} in the PCA world. The principal components are orthogonal, and therefore the following holds: $\bm{A}^T = \bm{A}^{-1}$. The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of corresponding eigenvalues.
 
-The principal components now form a new basis in which we can represent our data set. We therefore perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the eigenvectors of the covariance matrix. This transformation is achieved by the following multiplication:
+\begin{wrapfigure}{R}{0.2\textwidth}
+\centering\includegraphics[width=3cm]{new-basis.png}
+\caption{Eigenvalues of the covariance matrix form a new basis.}
+\label{fig:new-basis}
+\end{wrapfigure}
+
+The principal components form a new basis in which we can represent our data set. We therefore perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the eigenvectors of the covariance matrix. This transformation is achieved by the following multiplication:
 
 \begin{equation}
 \bm{Z} = \bm{X} \bm{A}
 \end{equation}
 
-The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the PC-\textit{scores} since one may think of every element in this matrix as the "score" that the corresponding element in the original data matrix would get when represented in the new coordinate system after transformation.
+The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the PC-\textit{scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in the original data matrix would get when represented in the new coordinate system after transformation.
 
-We now approach the dimensionality reduction but first let's obtain the original data set back given that we know the PC-scores and the transformation matrix:
+We now approach the dimensionality reduction but first let's obtain the original data set back, given the PC-scores and the transformation matrix:
 
 \begin{equation}
 \bm{X} = \bm{Z} \bm{A}^T
