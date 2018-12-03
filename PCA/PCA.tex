@@ -148,23 +148,23 @@ The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
 We will start with exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{cov-matrix.png}
+\centering\includegraphics[width=7.5cm]{cov-matrix.png}
 \caption{Covariance matrix $\bm{S}$ graphical interpretation.}
 \label{fig:covariance-matrix}
 \end{figure}
 
 Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $\text{Var}_p$ (or $\text{Var}_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
-Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. 
+Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. There is also the $\frac{1}{n-1}$ factor out front to which we will come back later.
 
 \begin{equation}
-s_{(p,k)} = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,k))
+s(p,k) = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,k))
 \end{equation}
 
 In a special case, where we multiply the row $p$ with the column $p$, we get a dot product of a vector with itself.
 
 \begin{equation}
-s_{(p,p)} = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,p))
+s(p,p) = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,p))
 \end{equation}
 
 In general, the dot product between two vectors $x$ and $y$ represents how much vector $x$ lays in the direction of vector $y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $\text{Var}_p$ is carried by a variable $\text{Var}_k$ (and vice versa).
@@ -172,7 +172,7 @@ In general, the dot product between two vectors $x$ and $y$ represents how much 
 In other words, every element in the covariance matrix is:
 
 \begin{equation}
-s_{(i,j)} = \frac{1}{n-1} \sum\limits_{k=1}^n \text{Var}_i(k) \text{Var}_j(k)
+s(i,j) = \frac{1}{n-1} \sum\limits_{k=1}^n \text{Var}_i(k) \text{Var}_j(k)
 \end{equation}
 
 \subsection{The goal of PCA in terms of a covariance matrix}
@@ -241,7 +241,20 @@ Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approxima
 
 In this section we come back to equation (\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? If you are new to PCA, this indeed might seem like a not-related-to-anything thing to do. So why is it eigenvectors? And why does it need to be eigenvectors of this special matrix called covariance matrix?
 
-\section{PCA example}
+\section{PCA Python example}
+
+
+
+
+
+
+
+
+\subsection{Cheatsheet}
+
+
+
+
 
 
 \section{Interesting questions}
@@ -261,8 +274,7 @@ Is the covariance matrix of PC-scores a diagonal matrix?
 \bibitem{Strang} Gilbert Strang \textit{Introduction to Linear Algebra}, Fifth Edition, 2016
 \bibitem{Shlens} Jonathon Shlens, \textit{A Tutorial on Principal Component Analysis}, 2016, \texttt{https://arxiv.org/abs/1404.1100}
 \bibitem{cov-dot} \texttt{http://people.sju.edu/~pklingsb/dot.cov.pdf}
-
- \label{bib:pope}
-
+\bibitem{Jackson} J. Edward Jackson \textit{A User's Guide To Principal Components}, 1991
+\bibitem{Smith} Lindsay I. Smith \textit{A tutorial on Principal Component Analysis}, 2002
 
 \end{document}
