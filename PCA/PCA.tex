@@ -158,25 +158,22 @@ Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all mea
 Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. 
 
 \begin{equation}
-s_{(p,k)} = dot( \bm{X}^T(p, :), \bm{X}(:,k))
+s_{(p,k)} = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,k))
 \end{equation}
 
 In a special case, where we multiply the row $p$ with the column $p$, we get a dot product of a vector with itself.
 
 \begin{equation}
-s_{(p,p)} = dot( \bm{X}^T(p, :), \bm{X}(:,p))
+s_{(p,p)} = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,p))
 \end{equation}
 
 In general, the dot product between two vectors $x$ and $y$ represents how much vector $x$ lays in the direction of vector $y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $\text{Var}_p$ is carried by a variable $\text{Var}_k$ (and vice versa).
 
-
-
-A covariance of two vectors:
+In other words, every element in the covariance matrix is:
 
 \begin{equation}
-cov(x, y) = 
+s_{(i,j)} = \frac{1}{n-1} \sum\limits_{k=1}^n \text{Var}_i(k) \text{Var}_j(k)
 \end{equation}
-
 
 \subsection{The goal of PCA in terms of a covariance matrix}
 
@@ -202,7 +199,15 @@ The next step in PCA is to perform the eigendecomposition of the covariance matr
 \text{eig}(\bm{S}) = [\bm{A}, \bm{\Lambda}]
 \end{equation}
 
-The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector is called a \textit{principal component} in the PCA world. The principal components are orthogonal, and therefore the following holds: $\bm{A}^T = \bm{A}^{-1}$. The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of corresponding eigenvalues.
+The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector is called a \textit{principal component} (PC). The principal components are orthogonal to each other, and therefore the following important property holds: $\bm{A}^T = \bm{A}^{-1}$ (proof\footnote{Proof: for orthogonal columns of $\bm{A}$ we have $\bm{A}^T \bm{A} = \bm{I}$ Multiplying both sides by $\bm{A}^{-1}$ we get $(\bm{A}^T \bm{A}) \bm{A}^{-1}= \bm{I}\bm{A}^{-1}$. Since matrix multiplication is associative, we may also perform: $\bm{A}^T (\bm{A} \bm{A}^{-1}) = \bm{A}^{-1}$. From definition of an inverse matrix,  $\bm{A} \bm{A}^{-1} = \bm{I}$, hence: $\bm{A}^T = \bm{A}^{-1}$.}).
+
+The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of corresponding eigenvalues.
+
+The principal components form a new basis in which we can represent our data set. We therefore perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the PCs. This transformation is achieved by the following multiplication:
+
+\begin{equation} \label{eq:data-transform}
+\bm{Z} = \bm{X} \bm{A}
+\end{equation}
 
 \begin{wrapfigure}{R}{0.2\textwidth}
 \centering\includegraphics[width=3cm]{new-basis.png}
@@ -210,13 +215,9 @@ The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. E
 \label{fig:new-basis}
 \end{wrapfigure}
 
-The principal components form a new basis in which we can represent our data set. We therefore perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the eigenvectors of the covariance matrix. This transformation is achieved by the following multiplication:
+The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the PC-\textit{scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation.
 
-\begin{equation}
-\bm{Z} = \bm{X} \bm{A}
-\end{equation}
-
-The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the PC-\textit{scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in the original data matrix would get when represented in the new coordinate system after transformation.
+In the matrix multiplication from eq.(\ref{eq:data-transform}), every variable vector inside $\bm{X}$ gets transformed by the transformation matrix $\bm{A}$ and attains new scores in the basis associated with $\bm{A}$. The new representation of the old variable is now kept in the matrix $\bm{Z}$.
 
 We now approach the dimensionality reduction but first let's obtain the original data set back, given the PC-scores and the transformation matrix:
 
@@ -224,7 +225,7 @@ We now approach the dimensionality reduction but first let's obtain the original
 \bm{X} = \bm{Z} \bm{A}^T
 \end{equation}
 
-The above equation is our route back to obtain the original data set in which the PC-scores are projected on the basis associated with a transposed eigenvectors matrix $A$.
+The above equation is our route back to obtain the original data set in which the PC-scores are projected on the basis associated with a transposed eigenvectors matrix $\bm{A}$ (recall that $\bm{A}^T = \bm{A}^{-1}$).
 
 Suppose that we would like to find the approximation of the data matrix $\bm{X}$ with only $q$ principal components (we project the PC-scores onto only $q$ out of $Q$ principal components).
 
