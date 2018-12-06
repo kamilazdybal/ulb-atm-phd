@@ -41,7 +41,7 @@ plt.yticks([3, 4, 5, 6]), plt.xticks([3, 4, 5, 6])
 
 plt.subplot(2,3,2)
 plt.scatter(Dataset_proc[:,0], Dataset_proc[:,1], color=lineColour, marker='.', linewidth=ln)
-plt.title('Raw dataset centered', **csfont)
+plt.title('Dataset centered', **csfont)
 plt.axis('equal')
 plt.yticks([-1, 0, 1]), plt.xticks([-1, 0, 1])
 

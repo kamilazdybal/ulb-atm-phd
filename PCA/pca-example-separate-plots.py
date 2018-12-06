@@ -42,7 +42,7 @@ figure2 = plt.figure(figsize=(4, 4))
 plt.scatter(Dataset_proc[:,0], Dataset_proc[:,1], color=lineColour, marker='.', linewidth=ln)
 plt.axis('equal')
 plt.yticks([-1, 0, 1]), plt.xticks([-1, 0, 1])
-plt.savefig('DWGs/python-raw-data-centered.png', dpi = 300)
+plt.savefig('DWGs/python-data-centered.png', dpi = 300)
 
 figure3 = plt.figure(figsize=(4, 4))
 plt.scatter(Dataset_proc[:,0], Dataset_proc[:,1], color=lineColour, marker='.', linewidth=ln)
