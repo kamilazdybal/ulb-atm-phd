@@ -187,7 +187,7 @@ Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ s
 the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$.
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{PC-scores.png}
+\centering\includegraphics[width=5cm]{PC-scores.png}
 \caption{New transformed data set $\bm{Z}$ and its covariance matrix $\bm{S}_Z$.}
 \label{fig:PC-scores}
 \end{figure}
@@ -206,15 +206,19 @@ The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of corresp
 
 Given the eigendecomposition of matrix $\bm{S}$, we may state that: $\bm{S} = \bm{A} \bm{\Lambda} \bm{A}^T$.
 
-The principal components form a new basis in which we can represent our data set. We therefore perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the PCs. This transformation is achieved by the following multiplication:
+The principal components form a new basis in which we can represent our data set. We perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the PCs. This transformation is achieved by the following multiplication:
 
 \begin{equation} \label{eq:data-transform}
 \bm{Z} = \bm{X} \bm{A}
 \end{equation}
 
+\begin{figure}[H]
+\centering\includegraphics[width=6cm]{data-transformation.png}
+\caption{Data transformation to a new basis.}
+\label{fig:data-transformation}
+\end{figure}
 
-
-The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the PC-\textit{scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation.
+The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the \textit{PC-scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation.
 
 \begin{wrapfigure}{R}{0.2\textwidth}
 \centering\includegraphics[width=3cm]{new-basis.png}
