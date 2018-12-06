@@ -1,21 +1,20 @@
-# PCA example
-
+# PCA example on a 2D, randomized linear data set
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.decomposition import PCA
 
 # Styles:
-lineColour = '#FF6666'
+lineColour = '#f44242'
 PCColour = '#002f72'
-scoresColour = '#FFB366'
+scoresColour = '#ff7d14'
 ln = 1
 
 # Fonts:
 csfont = {'fontname':'cmr10'}
 hfont = {'fontname':'cmr10'}
 
-# Generate dataset with random points with a directionality
-Np = 50
+# Generate randomized dataset with linearity
+Np = 100
 Nq = 2
 x = np.linspace(3, 6, Np)
 y = 0.8*x + 1*np.random.rand(Np)
@@ -25,9 +24,9 @@ Dataset_proc = Dataset - np.mean(Dataset, axis=0)
 # Perform PCA
 pca = PCA(n_components=Nq)
 pca.fit(Dataset)
+scores = pca.transform(Dataset)
 PCs = pca.components_
 eigvals = pca.explained_variance_ratio_
-scores = pca.transform(Dataset)
 
 Dataset_projected = np.dot(Dataset_proc, np.transpose(np.mat(PCs[0,:])))
 Dataset_approx = np.dot(np.transpose(np.mat(scores[:,0])), np.mat(PCs[0,:])) + np.mean(Dataset, axis=0)
@@ -75,7 +74,7 @@ plt.axis('equal')
 plt.yticks([3, 4, 5, 6]), plt.xticks([3, 4, 5, 6])
 
 # Save plot:
-filename = 'PCA-example.png'
+filename = 'DWGs/PCA-example-subplot.png'
 plt.savefig(filename, dpi = 500)
 plt.show()
 plt.close()
