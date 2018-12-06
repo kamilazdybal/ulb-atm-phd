@@ -201,11 +201,17 @@ The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. E
 
 The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of corresponding eigenvalues.
 
+Given the eigendecomposition of matrix $\bm{S}$, we may state that: $\bm{S} = \bm{A} \bm{\Lambda} \bm{A}^T$.
+
 The principal components form a new basis in which we can represent our data set. We therefore perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the PCs. This transformation is achieved by the following multiplication:
 
 \begin{equation} \label{eq:data-transform}
 \bm{Z} = \bm{X} \bm{A}
 \end{equation}
+
+
+
+The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the PC-\textit{scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation.
 
 \begin{wrapfigure}{R}{0.2\textwidth}
 \centering\includegraphics[width=3cm]{new-basis.png}
@@ -213,7 +219,6 @@ The principal components form a new basis in which we can represent our data set
 \label{fig:new-basis}
 \end{wrapfigure}
 
-The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the PC-\textit{scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation.
 
 In the matrix multiplication from eq.(\ref{eq:data-transform}), every variable vector inside $\bm{X}$ gets transformed by the transformation matrix $\bm{A}$ and attains new scores in the basis associated with $\bm{A}$. The new representation of the old variable is now kept in the matrix $\bm{Z}$.
 
@@ -235,9 +240,24 @@ Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approxima
 \bm{X_q} = \bm{Z_q} \bm{A_q}^T
 \end{equation}
 
+
+\begin{figure}[H]
+\centering\includegraphics[width=7.5cm]{data-approx.png}
+\caption{Data approximation with $q$-PCs.}
+\label{fig:data-approx}
+\end{figure}
+
+
+
+
 \section{Why does it need to be eigenvectors?}
 
 In this section we come back to equation (\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? If you are new to PCA, this indeed might seem like a not-related-to-anything thing to do. So why is it eigenvectors? And why does it need to be eigenvectors of this special matrix called covariance matrix?
+
+To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What we want to achieve with PCA is to diagonalize the new covariance matrix. And we already have produced one diagonal matrix even before computing PC-scores - it was the matrix of eigenvalues $\bm{\Lambda}$.
+
+
+
 
 \section{PCA Python example}
 

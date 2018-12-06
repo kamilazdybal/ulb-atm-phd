@@ -5,7 +5,6 @@
 \usepackage{tgbonum}
 \usepackage{xcolor}
 \usepackage[font=small]{caption}
-\usepackage{cleveref}
 \usepackage{amsmath,amssymb,latexsym}
 \usepackage{marvosym}
 \usepackage{url}
@@ -25,10 +24,14 @@
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
 
-\definecolor{pink-orange}{rgb}{1.0, 0.6, 0.4}
+\definecolor{Phi}{HTML}{FF6666}
+\definecolor{Z}{HTML}{FFB366}
 
-\newcommand{\highlight}[1]{%
-  \colorbox{pink-orange}{$\displaystyle#1$}}
+\newcommand{\highlightPhi}[1]{%
+  \colorbox{Phi}{$\displaystyle#1$}}
+  
+  \newcommand{\highlightZ}[1]{%
+  \colorbox{Z}{$\displaystyle#1$}}
 
 \begin{document}
 
@@ -98,7 +101,7 @@ S_{\phi}(\phi) = f(T, p, Y_1, \dots, Y_{N_S - 1})
 \end{equation*}
 
 \begin{equation*}
-\rho \frac{\partial \bm{\mathrm{z}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \bm{\mathrm{z}} = \nabla \rho \mathbb{D}_{\mathrm{z}} \nabla \bm{\mathrm{z}} + \highlight{\bm{S}_{\mathrm{z}}}
+\rho \frac{\partial \bm{\mathrm{z}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \highlightZ{\bm{\mathrm{z}}} = \nabla \rho \mathbb{D}_{\mathrm{z}} \nabla \highlightZ{\bm{\mathrm{z}}} + \highlightZ{\bm{S}_{\mathrm{z}}}
 \end{equation*}
 
 \begin{equation*}
@@ -107,6 +110,17 @@ S_{\phi}(\phi) = f(T, p, Y_1, \dots, Y_{N_S - 1})
 
 \begin{equation*}
 k(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
+\end{equation*}
+
+
+
+
+\begin{equation*}
+\rho \frac{\partial \highlightPhi{\bm{\Phi}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \highlightPhi{\bm{\Phi}} = \nabla \rho \mathbb{D}_{\Phi} \nabla \highlightPhi{\bm{\Phi}} + \highlightPhi{\bm{S}_{\Phi}}
+\end{equation*}
+
+\begin{equation*}
+\rho \frac{\partial \highlightZ{\bm{\mathrm{z}}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \highlightZ{\bm{\mathrm{z}}} = \nabla \rho \mathbb{D}_{\mathrm{z}} \nabla \highlightZ{\bm{\mathrm{z}}} + \highlightZ{\bm{S}_{\mathrm{z}}}
 \end{equation*}
 
 \section{Regression}
