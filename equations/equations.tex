@@ -26,12 +26,17 @@
 
 \definecolor{Phi}{HTML}{FF6666}
 \definecolor{Z}{HTML}{FFB366}
+\definecolor{Source}{HTML}{9dd4e0}
 
 \newcommand{\highlightPhi}[1]{%
   \colorbox{Phi}{$\displaystyle#1$}}
   
   \newcommand{\highlightZ}[1]{%
   \colorbox{Z}{$\displaystyle#1$}}
+
+  \newcommand{\highlightSource}[1]{%
+  \colorbox{Source}{$\displaystyle#1$}}
+
 
 \begin{document}
 
@@ -122,6 +127,12 @@ k(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
 \begin{equation*}
 \rho \frac{\partial \highlightZ{\bm{\mathrm{z}}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \highlightZ{\bm{\mathrm{z}}} = \nabla \rho \mathbb{D}_{\mathrm{z}} \nabla \highlightZ{\bm{\mathrm{z}}} + \highlightZ{\bm{S}_{\mathrm{z}}}
 \end{equation*}
+
+\begin{equation*}
+\rho \frac{\partial \bm{\Phi}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \bm{\Phi} = \nabla \rho \mathbb{D}_{\Phi} \nabla \bm{\Phi}}+ \highlightSource{\bm{S}_{\Phi}}
+\end{equation*}
+
+
 
 \section{Regression}
 
