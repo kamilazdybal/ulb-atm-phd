@@ -8,8 +8,6 @@ Find out more information about our group here: http://burn-research.be/ or abou
 
 # Study notes
 
-This is a collection of my study notes.
-
 ## Condensed Combustion Notes
 
 General notes on combustion: [Combustion notes](https://github.com/camillejr/ulb-atm-phd/raw/master/combustion/c-c-n.pdf)
