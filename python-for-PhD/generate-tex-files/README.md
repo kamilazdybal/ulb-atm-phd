@@ -42,9 +42,9 @@ Then, in your master `.tex` file you can `\input{}` the populated files.
 
 ## File generation with only a bash script
 
-Here is a template of a `.bash` script to `touch` files.
+Here is a template of a `.bash` script to `touch` files just in case you have something unique that needs to be populated by hand.
 
-No need to run this with the above Python scripts, since they will generate the files anyway if they don't yet exist.
+Note: No need to `touch` files with the above Python scripts, since Python will generate the files anyway if they don't yet exist.
 
 ```
 #!/bin/bash
