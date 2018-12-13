@@ -40,7 +40,7 @@ Then, in your master `.tex` file you can `\input{}` the populated files.
   \end{tabular}
 ```
 
-## File generation with only a bash script
+## File generation with a bash script
 
 Here is a template of a `.bash` script to `touch` files just in case you have something unique that needs to be populated by hand.
 
