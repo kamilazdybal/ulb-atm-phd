@@ -1,4 +1,4 @@
-# Populate .tex files with graphs
+# Populate .tex file with graphs
 
 scalings = ['scale1', 'scale2']
 centerings = ['center1', 'center2']

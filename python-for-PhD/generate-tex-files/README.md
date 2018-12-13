@@ -6,6 +6,8 @@ As it is, it is mostly suitable to adjust for populating with figures that have 
 
 Then, in your master `.tex` file you can `\input{}` the populated files.
 
+**Note: These Python scripts will overwrite files with every run!**
+
 ## Example output inside `.tex` file
 
 ```
@@ -36,4 +38,24 @@ Then, in your master `.tex` file you can `\input{}` the populated files.
   		\addheight{\includegraphics[width=80mm]{pp_Thing3_cent_center1_scale_scale1_100.eps}} &
   		\addheight{\includegraphics[width=80mm]{pp_Thing4_cent_center1_scale_scale1_100.eps}} \\
   \end{tabular}
+```
+
+## File generation with only a bash script
+
+Here is a template of a `.bash` script to `touch` files.
+
+No need to run this with the above Python scripts, since they will generate the files anyway if they don't yet exist.
+
+```
+#!/bin/bash
+DATAALIAS="100"
+CENTERING="center1"
+
+touch "$DATAALIAS""_cent_$CENTERING"".tex"
+touch "$DATAALIAS""_cent_$CENTERING"".tex"
+touch "$DATAALIAS""_cent_$CENTERING"".tex"
+touch "$DATAALIAS""_cent_$CENTERING"".tex"
+touch "$DATAALIAS""_cent_$CENTERING"".tex"
+touch "$DATAALIAS""_cent_$CENTERING"".tex"
+touch "comparison_cent_$CENTERING"".tex"
 ```
