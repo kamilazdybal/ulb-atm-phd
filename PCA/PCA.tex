@@ -135,6 +135,8 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \tableofcontents
 
+\newpage
+
 \section{Motivation for data reduction}
 
 There are several questions which stimulated the usage of data reduction and data decomposition techniques:
@@ -142,14 +144,16 @@ There are several questions which stimulated the usage of data reduction and dat
 \begin{enumerate}
 \item Can we send less data but preserve maximum information contained by the data (data compression)?
 
-\item If the data were measurements from an experiment, can we predict what the outcome of another measurement will be?
+\item Can we predict what the outcome of another observation will be?
 
-\item Can we build a model that will make predictions about a system?
+\item Can we build a model in a purely data-driven way - based on data that we have collected (e.g. from experiments or numerics)?
 
-\item Can we make sense of a large data set with high-dimensionality (which cannot be plotted graphically)?
+\item Can we make sense of a large, multi-dimensional data set (which cannot be plotted graphically)?
+
+\item Can we extract low-dimensional features that underlay the data?
 \end{enumerate}
 
-\section{Datasets for PCA}
+\section{Data sets for PCA}
 
 For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represents one variable $\text{Var}_j$ and the rows correspond to variable observations $\text{Obs}_i$ (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.
 
@@ -171,6 +175,12 @@ Rows of X correspond to observations and columns correspond to variables.
 \section{Data pre-processing}
 
 In data science we are typically given a raw data set which is not centered and not scaled. 
+
+Data centering allows to look at it as variations from some center. Typically we might center each variable by subtracting the mean of this variable's observations (realizations). Such centering will shift the "cloud" of data points (which in general is multi-dimensional) to the origin. However, other values for centering are possible.
+
+Scaling, on the other hand, allow us to cancel the effect of unit that a variable might have and treat all variables with equal importance. You might for instance think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300$K$-1500$K$ and associated pressures in the units of $[atm]$ which range from 1$atm$-1.1 $atm$. If we did not scale the data, the largest "spread" or the variance would be found in temperature, since on purely numerical  grounds, the range 300-1500 is much larger than the range 1-1.1.
+
+
 
 \section{Covariance matrix}
 
@@ -212,24 +222,7 @@ In other words, every element in the covariance matrix is:
 s(i,j) = \frac{1}{n-1} \sum\limits_{k=1}^n \text{Var}_i(k) \text{Var}_j(k)
 \end{equation}
 
-\textbf{The goal of PCA in terms of a covariance matrix}
 
-\,\,
-\,\,
-
-Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix:
-
-\begin{equation}
-\bm{S}_Z =  \bm{Z^T} \bm{Z}
-\end{equation}
-
-the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$.
-
-\begin{figure}[H]
-\centering\includegraphics[width=5cm]{PC-scores.png}
-\caption{New transformed data set $\bm{Z}$ and its covariance matrix $\bm{S}_Z$.}
-\label{fig:PC-scores}
-\end{figure}
 
 \section{PCA workflow}
 
@@ -307,20 +300,49 @@ To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What 
 
 \section{PCA Python example}
 
-We will now go on to visualizing on a real 2D data set every step of PCA. We will use the PCA function from a Python library \pythoninline{sklearn.decompositions}. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code to explain what is happening.
+We will now go on to visualizing on an artificial 2D data set every step of PCA. We will use the \pythoninline{PCA} function from a Python library \pythoninline{sklearn.decompositions}. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code to explain what is happening.
 
+We create the \pythoninline{Dataset} (the equivalent of $\bm{X}$) as follows:
+
+\begin{python}
+import numpy as np
+Np = 100
+x = np.linspace(3, 6, Np)
+y = 0.8*x + 1*np.random.rand(Np)
+Dataset = np.column_stack((x, y))
+\end{python}
+
+Let's assume that the first column of this data set are realizations of the first variable $x$ and the second column are realizations of the second variable $y$.
+
+The two variables $x$ and $y$ span two dimensional space but the data set exhibits a low-dimensional structure which is easily visible to the eye just by looking at the Figure \ref{fig:python-raw-data}. We already see that the data seems to be spread along some linear function. Perhaps changing the basis to a basis associated with this linear function will be a more effective representation by our data set? Note here also, that for multidimensional data sets "seeing" such data structures is no longer possible (as it still is in 2-D or 3D). We need to rely on the dimensionality reduction technique that we chose to find this low-dimensional structure for us.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{python-raw-data.png}
-\caption{Raw dataset $\bm{X}$.}
+\caption{Raw data set.}
 \label{fig:python-raw-data}
 \end{figure}
 
+We center the dataset, which simply moves the center of the cloud of points to the origin of the coordinate system. If necessary, data set would also be scaled to allow for even comparison of the two variables.
+
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{python-data-centered.png}
-\caption{Dataset $\bm{X}$ centered.}
+\caption{Data set centered.}
 \label{fig:python-raw-data-centered}
 \end{figure}
+
+Next, PCA is performed on the dataset and the eigenvectors (the Principal Components) \pythoninline{PCs} are found, with the corresponding eigenvalues \pythoninline{eigvals}.
+
+\begin{python}
+from sklearn.decomposition import PCA
+pca = PCA(n_components=2)
+pca.fit(Dataset)
+PCs = pca.components_
+eigvals = pca.explained_variance_ratio_
+\end{python}
+
+In the above code, we create an object \pythoninline{pca} of class \pythoninline{PCA}. We train the model with our \pythoninline{Dataset} using the \pythoninline{fit} function.
+
+The eigenvectors are plotted on the dataset in Figure \ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is simply perpendicular to the first one.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{python-PCs.png}
@@ -328,17 +350,27 @@ We will now go on to visualizing on a real 2D data set every step of PCA. We wil
 \label{fig:python-PCs}
 \end{figure}
 
+We may now find the PC-scores matrix which represents the "scores" each point from the data set attains when the new coordinate system was associated with the directions of the Principal Components.
+ 
+\begin{python}
+scores = pca.transform(Dataset)
+\end{python}
+
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{python-PC-scores.png}
 \caption{PC-scores.}
 \label{fig:python-PC-scores}
 \end{figure}
 
+Next, the PC-scores can be projected on the first PC, to reduce the dimensionality - from two dimensions to one. The data representation from Figure \ref{fig:python-data-projection} can be viewed as the "scores" each data point would attain it represented on 1-dimensional structure associated with the first Principal Component.
+
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{python-data-projection.png}
 \caption{Data projection on low dimension.}
 \label{fig:python-data-projection}
 \end{figure}
+
+The data set can be reconstructed. This represents going back from the 1-dimensional space to the original dimensions. The mean of the data set is added back to undo the data centering.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{python-data-approximation.png}
@@ -362,10 +394,26 @@ We will now go on to visualizing on a real 2D data set every step of PCA. We wil
 
 \section{Interesting questions}
 
-Is the covariance matrix of PC-scores a diagonal matrix?
+\subsection{Is the covariance matrix of PC-scores a diagonal matrix?}
 
+\textbf{The goal of PCA in terms of a covariance matrix}
 
+\,\,
+\,\,
 
+Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix:
+
+\begin{equation}
+\bm{S}_Z =  \bm{Z^T} \bm{Z}
+\end{equation}
+
+the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$.
+
+\begin{figure}[H]
+\centering\includegraphics[width=5cm]{PC-scores.png}
+\caption{New transformed data set $\bm{Z}$ and its covariance matrix $\bm{S}_Z$.}
+\label{fig:PC-scores}
+\end{figure}
 
 \appendix
 
