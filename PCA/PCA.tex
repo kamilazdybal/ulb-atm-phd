@@ -25,12 +25,51 @@
 \graphicspath{{DWGs/}}
 \usepackage{framed}
 \usepackage{textcomp}
-
-% Document font:
-\usepackage{charter}
-
 \newcommand{\highlight}[1]{%
   \colorbox{orange!50}{$\displaystyle#1$}}
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+% Document font:
+\usepackage{charter}
 
 \begin{document}
 
@@ -112,7 +151,7 @@ There are several questions which stimulated the usage of data reduction and dat
 
 \section{Datasets for PCA}
 
-For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represents one variable $\text{Var}_j$ and the rows correspond to variable observations $\text{Obs}_i$ (e.g. at different positions in space, or in time).
+For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represents one variable $\text{Var}_j$ and the rows correspond to variable observations $\text{Obs}_i$ (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{data-set-PCA.png}
@@ -135,7 +174,7 @@ In data science we are typically given a raw data set which is not centered and 
 
 \section{Covariance matrix}
 
-We start our discussion of PCA with explaining the concept of a \textit{covariance matrix}, since computing this matrix is a starting point for performing PCA. The covariance matrix is given by:
+The starting point of performing PCA is to compute a \textit{covariance matrix} from the raw data set. The covariance matrix is given by:
 
 \begin{equation}
 \bm{S} = \frac{1}{n-1} \bm{X}^T \bm{X}
@@ -143,7 +182,7 @@ We start our discussion of PCA with explaining the concept of a \textit{covarian
 
 The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
 
-We will start with exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
+We will start by exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7.5cm]{cov-matrix.png}
@@ -268,7 +307,7 @@ To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What 
 
 \section{PCA Python example}
 
-We will now go on to visualizing on a real 2D data set every step of PCA. We will use the PCA function from a Python library sklearn.decompositions. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code to explain what is happening.
+We will now go on to visualizing on a real 2D data set every step of PCA. We will use the PCA function from a Python library \pythoninline{sklearn.decompositions}. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code to explain what is happening.
 
 
 \begin{figure}[H]
@@ -297,7 +336,7 @@ We will now go on to visualizing on a real 2D data set every step of PCA. We wil
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{python-data-projection.png}
-\caption{Data projection.}
+\caption{Data projection on low dimension.}
 \label{fig:python-data-projection}
 \end{figure}
 
@@ -307,7 +346,7 @@ We will now go on to visualizing on a real 2D data set every step of PCA. We wil
 \label{fig:python-data-approximation}
 \end{figure}
 
-\section{Another look}
+\section{Another look, or how it all links together}
 
 \begin{figure}[H]
 \centering\includegraphics[width=4cm]{variable-basis.png}
