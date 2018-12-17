@@ -87,8 +87,10 @@ showstringspaces=false            %
     \fontsize{10}{10}\selectfont {\textit{Bruxelles, December 2018}}
     \vskip2ex
 	\vspace{5ex}
-    \fontsize{24}{10}\selectfont {Notes on Principal Component Analysis}
+    \fontsize{20}{10}\selectfont {The linear algebra of Principal Component Analysis}
       \vspace{1ex}
+      
+      \fontsize{16}{10}\selectfont {\textit{(with some Python)}}
   \noindent%
     
 \vskip1ex
@@ -176,11 +178,23 @@ Rows of X correspond to observations and columns correspond to variables.
 
 In data science we are typically given a raw data set which is not centered and not scaled. 
 
-Data centering allows to look at it as variations from some center. Typically we might center each variable by subtracting the mean of this variable's observations (realizations). Such centering will shift the "cloud" of data points (which in general is multi-dimensional) to the origin. However, other values for centering are possible.
+Data centering allows to look at it as variations from some center. Typically we might center each variable by subtracting the mean of this variable's observations (realizations). This would substitute the original data set with:
 
-Scaling, on the other hand, allow us to cancel the effect of unit that a variable might have and treat all variables with equal importance. You might for instance think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300$K$-1500$K$ and associated pressures in the units of $[atm]$ which range from 1$atm$-1.1 $atm$. If we did not scale the data, the largest "spread" or the variance would be found in temperature, since on purely numerical  grounds, the range 300-1500 is much larger than the range 1-1.1.
+\begin{equation}
+\bm{X'} = \bm{X} - \text{mean}(\bm{X})
+\end{equation}
 
+Such centering will shift the "cloud" of data points (which in general is multi-dimensional) to the origin. However, other values for centering are possible.
 
+Scaling, on the other hand, allow us to cancel the effect of unit that a variable might have and treat all variables with equal importance. 
+
+\begin{equation}
+\bm{X''} = \frac{\bm{X'}}{\bm{D}}
+\end{equation}
+
+You might for instance think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300$K$-1500$K$ and associated pressures in the units of $[atm]$ which range from 1$atm$-1.1 $atm$. If we did not scale the data, the largest "spread" or the variance would be found in temperature, since on purely numerical  grounds, the range 300-1500 is much larger than the range 1-1.1.
+
+For simplicity, for the rest of this document we assume that $\bm{X}$ represents pre-processed data.
 
 \section{Covariance matrix}
 
@@ -192,7 +206,7 @@ The starting point of performing PCA is to compute a \textit{covariance matrix} 
 
 The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
 
-We will start by exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
+We will start by exploring the meaning of $\bm{X}^T \bm{X}$\footnote{It is worth noticing here, that a matrix constructed as: $\bm{S} = \bm{A}^T \bm{A}$ is square and symmetric and has got at all eigenvalues at least non-negative. It is therefore at least a \textit{positive semidefinite} matrix. If it also happens that this matrix has got only positive eigenvalues we call it a \textit{positive definite} matrix.}. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7.5cm]{cov-matrix.png}
@@ -417,7 +431,18 @@ the variances (the elements on the diagonal) are maximized and the covariances (
 
 \appendix
 
-\section{APP1} \label{app:A}
+\section{Properties of interesting matrices}
+
+\subsection{Symmetric matrices} \label{app:A}
+
+The properties of symmetric matrices:
+
+\begin{enumerate}
+\item Their eigenvectors are orthogonal.
+\item Their eigenvalues are real.
+\end{enumerate}
+
+
 
 \section{APP2} \label{app:B}
 
