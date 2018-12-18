@@ -25,6 +25,7 @@
 \graphicspath{{DWGs/}}
 \usepackage{framed}
 \usepackage{textcomp}
+\usepackage{braket}
 \newcommand{\highlight}[1]{%
   \colorbox{orange!50}{$\displaystyle#1$}}
 % Default fixed font does not support bold face
@@ -157,7 +158,7 @@ There are several questions which stimulated the usage of data reduction and dat
 
 \section{Data sets for PCA}
 
-For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represents one variable $\text{Var}_j$ and the rows correspond to variable observations $\text{Obs}_i$ (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.
+For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represents one variable $V_j$, where $j \in \braket{1, Q}$, and the rows correspond to variable observations $O_i$, where $i \in \braket{1, n}$, (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{data-set-PCA.png}
@@ -178,7 +179,7 @@ Rows of X correspond to observations and columns correspond to variables.
 
 In data science we are typically given a raw data set which is not centered and not scaled. 
 
-Data centering allows to look at it as variations from some center. Typically we might center each variable by subtracting the mean of this variable's observations (realizations). This would substitute the original data set with:
+Data centering allows to look at it as variations from some center. Typically we might center each variable by subtracting the mean of this variable's observations (realizations) - we would then look at the data as variations from the mean. This would substitute the original data set with:
 
 \begin{equation}
 \bm{X'} = \bm{X} - \text{mean}(\bm{X})
@@ -189,12 +190,14 @@ Such centering will shift the "cloud" of data points (which in general is multi-
 Scaling, on the other hand, allow us to cancel the effect of unit that a variable might have and treat all variables with equal importance. 
 
 \begin{equation}
-\bm{X''} = \frac{\bm{X'}}{\bm{D}}
+\bm{X''} = \bm{X'}\bm{D}^{-1}
 \end{equation}
 
-You might for instance think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300$K$-1500$K$ and associated pressures in the units of $[atm]$ which range from 1$atm$-1.1 $atm$. If we did not scale the data, the largest "spread" or the variance would be found in temperature, since on purely numerical  grounds, the range 300-1500 is much larger than the range 1-1.1.
+In the above equation, the matrix $\bm{D}$ is a diagonal matrix whose entries are the corresponding scalings. Hence, every column of the matrix $\bm{X'}$ gets divided by a corresponding scale from the diagonal of the matrix $\bm{D}$.
 
-For simplicity, for the rest of this document we assume that $\bm{X}$ represents pre-processed data.
+You might for instance think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300-1500 $K$ and associated pressures in the units of $[atm]$ which range from 1-1.1 $atm$. If we did not scale the data, the largest "spread" or the variance would be found in temperature, since on purely numerical  grounds, the range 300-1500 is more significant than the range 1-1.1.
+
+For simplicity, for the rest of this document we assume that $\bm{X}$ represents pre-processed data (in place of $\bm{X'}$ or $\bm{X''}$).
 
 \section{Covariance matrix}
 
@@ -214,7 +217,7 @@ We will start by exploring the meaning of $\bm{X}^T \bm{X}$\footnote{It is worth
 \label{fig:covariance-matrix}
 \end{figure}
 
-Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $\text{Var}_p$ (or $\text{Var}_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
+Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $V_p$ (or $V_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
 Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. There is also the $\frac{1}{n-1}$ factor out front to which we will come back later.
 
@@ -228,12 +231,12 @@ In a special case, where we multiply the row $p$ with the column $p$, we get a d
 s(p,p) = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,p))
 \end{equation}
 
-In general, the dot product between two vectors $x$ and $y$ represents how much vector $x$ lays in the direction of vector $y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $\text{Var}_p$ is carried by a variable $\text{Var}_k$ (and vice versa).
+In general, the dot product between two vectors $x$ and $y$ represents how much vector $x$ lays in the direction of vector $y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $V_p$ is carried by a variable $V_k$ (and vice versa).
 
 In other words, every element in the covariance matrix is:
 
 \begin{equation}
-s(i,j) = \frac{1}{n-1} \sum\limits_{k=1}^n \text{Var}_i(k) \text{Var}_j(k)
+s(i,j) = \frac{1}{n-1} \sum\limits_{k=1}^n V_i(k) V_j(k)
 \end{equation}
 
 
