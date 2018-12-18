@@ -206,7 +206,7 @@ The starting point of performing PCA is to compute a \textit{covariance matrix} 
 
 The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
 
-We will start by exploring the meaning of $\bm{X}^T \bm{X}$\footnote{It is worth noticing here, that a matrix constructed as: $\bm{S} = \bm{A}^T \bm{A}$ is square and symmetric and has got at all eigenvalues at least non-negative. It is therefore at least a \textit{positive semidefinite} matrix. If it also happens that this matrix has got only positive eigenvalues we call it a \textit{positive definite} matrix.}. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
+We will start by exploring the meaning of $\bm{X}^T \bm{X}$\footnote{It is worth noticing here, that a matrix constructed as: $\bm{S} = \bm{A}^T \bm{A}$ is square and symmetric and has got at all eigenvalues at least non-negative. It is therefore at least a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it then a \textit{positive definite} matrix.}. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7.5cm]{cov-matrix.png}
