@@ -219,7 +219,7 @@ We will start by exploring the meaning of $\bm{X}^T \bm{X}$\footnote{It is worth
 
 Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $V_p$ (or $V_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
-Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. There is also the $\frac{1}{n-1}$ factor out front to which we will come back later.
+Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. There is also the $\frac{1}{n-1}$ factor out front to which we come back in the Appendix \ref{app:B}.
 
 \begin{equation}
 s(p,k) = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,k))
@@ -298,7 +298,7 @@ Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approxima
 
 
 \begin{figure}[H]
-\centering\includegraphics[width=7.5cm]{data-approx.png}
+\centering\includegraphics[width=5.5cm]{data-approx.png}
 \caption{Data approximation with $q$-PCs.}
 \label{fig:data-approx}
 \end{figure}
@@ -313,7 +313,7 @@ In this section we come back to equation (\ref{eq:eig-dec}) and answer the quest
 To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What we want to achieve with PCA is to diagonalize the new covariance matrix. And we already have produced one diagonal matrix even before computing PC-scores - it was the matrix of eigenvalues $\bm{\Lambda}$.
 
 
-
+\newpage
 
 \section{PCA Python example}
 
@@ -395,6 +395,8 @@ The data set can be reconstructed. This represents going back from the 1-dimensi
 \label{fig:python-data-approximation}
 \end{figure}
 
+\newpage
+
 \section{Another look, or how it all links together}
 
 \begin{figure}[H]
@@ -447,7 +449,9 @@ The properties of symmetric matrices:
 
 
 
-\section{APP2} \label{app:B}
+\section{Highlights of statistics} \label{app:B}
+
+The intuition behind $\frac{1}{1-n}$.
 
 \thebibliography{}
 
