@@ -161,7 +161,7 @@ To motivate why studying techniques such as PCA and learning to apply them on re
 
 \section{Data sets for PCA}
 
-For the rest of this document, we assume that the dataset for performing PCA is structured as follows: each column represents one variable $V_j$, where $j \in \braket{1, Q}$, and the rows correspond to variable observations $O_i$, where $i \in \braket{1, n}$, (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.
+For the rest of this document, we assume that the data set for performing PCA is structured as follows: each column represents one variable $V_j$, where $j \in \braket{1, Q}$, and the rows correspond to variable observations $O_i$, where $i \in \braket{1, n}$, (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{data-set-PCA.png}
@@ -212,7 +212,7 @@ The starting point for performing PCA is to compute a \textit{covariance matrix}
 
 The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
 
-We will start by exploring the meaning of $\bm{X}^T \bm{X}$\footnote{It is worth noticing here, that a matrix constructed as: $\bm{S} = \bm{A}^T \bm{A}$ is square and symmetric and has got at all eigenvalues at least non-negative. It is therefore at least a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.}. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
+We will start by exploring the meaning\footnote{It is worth noticing here, that a matrix constructed as: $\bm{S} = \bm{A}^T \bm{A}$ is square and symmetric and has got at all eigenvalues at least non-negative. It is therefore at least a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.} of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7.5cm]{cov-matrix.png}
@@ -236,7 +236,7 @@ s(p,p) = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,p))
 
 In general, the dot product between two vectors $x$ and $y$ represents how much vector $x$ lays in the direction of vector $y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $V_p$ is carried by a variable $V_k$ (and vice versa).
 
-In other words, every element in the covariance matrix is:
+In other words, every element in the covariance matrix is computed as:
 
 \begin{equation}
 s(i,j) = \frac{1}{n-1} \sum\limits_{k=1}^n V_i(k) V_j(k)
@@ -254,7 +254,7 @@ The next step in PCA is to perform the eigendecomposition of the covariance matr
 
 The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector is called a \textit{principal component} (PC). The principal components are orthogonal to each other, and therefore the following important property holds: $\bm{A}^T = \bm{A}^{-1}$ (proof\footnote{Proof: for orthogonal columns of $\bm{A}$ we have $\bm{A}^T \bm{A} = \bm{I}$ Multiplying both sides by $\bm{A}^{-1}$ we get $(\bm{A}^T \bm{A}) \bm{A}^{-1}= \bm{I}\bm{A}^{-1}$. Since matrix multiplication is associative, we may also perform: $\bm{A}^T (\bm{A} \bm{A}^{-1}) = \bm{A}^{-1}$. From definition of an inverse matrix,  $\bm{A} \bm{A}^{-1} = \bm{I}$, hence: $\bm{A}^T = \bm{A}^{-1}$.}).
 
-The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of corresponding eigenvalues.
+The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of the corresponding eigenvalues.
 
 Given the eigendecomposition of matrix $\bm{S}$, we may state that: $\bm{S} = \bm{A} \bm{\Lambda} \bm{A}^T$.
 
