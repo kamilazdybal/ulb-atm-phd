@@ -85,13 +85,13 @@ showstringspaces=false            %
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, December 2018}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, January 2019}}
     \vskip2ex
 	\vspace{5ex}
     \fontsize{20}{10}\selectfont {The linear algebra of Principal Component Analysis}
       \vspace{1ex}
       
-      \fontsize{16}{10}\selectfont {\textit{(with some Python)}}
+      \fontsize{16}{10}\selectfont {(with some Python)}
   \noindent%
     
 \vskip1ex
@@ -122,11 +122,16 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which the data set is reduced to maintain only the directions of the largest variance.
+These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large data set is reduced to maintain only the directions of the largest variance.
 
 \,\,
 
-The deep and intuitive understanding of PCA requires the deep and intuitive understanding of basic linear algebra. I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel, which, to my belief, will be everything you need to master about linear algebra to gain a great intuition behind PCA.
+These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects that govern this method, compared to other PCA tutorials that I have so far found on the web. I have an aim that the reader will both gain a deep and intuitive understanding as well as an appreciation for PCA after going through these notes. This requires a deep and intuitive understanding of several linear algebra concepts such as the eigendecomposition or matrix operations. 
+
+\,\,
+
+Some initial level of linear algebra knowledge and intuition is hence required.
+I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel, which, to my belief, will be everything you need to master about linear algebra to gain a great intuition behind PCA.
 
 \,\,
 
@@ -138,11 +143,9 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \tableofcontents
 
-\newpage
-
 \section{Motivation for data reduction}
 
-There are several questions which stimulated the usage of data reduction and data decomposition techniques:
+To motivate why studying techniques such as PCA and learning to apply them on real data sets is important, there are several questions which stimulated the development of data reduction and data decomposition techniques:
 
 \begin{enumerate}
 \item Can we send less data but preserve maximum information contained by the data (data compression)?
@@ -201,7 +204,7 @@ For simplicity, for the rest of this document we assume that $\bm{X}$ represents
 
 \section{Covariance matrix}
 
-The starting point of performing PCA is to compute a \textit{covariance matrix} from the raw data set. The covariance matrix is given by:
+The starting point for performing PCA is to compute a \textit{covariance matrix} from the data set. The covariance matrix is given by:
 
 \begin{equation}
 \bm{S} = \frac{1}{n-1} \bm{X}^T \bm{X}
@@ -209,7 +212,7 @@ The starting point of performing PCA is to compute a \textit{covariance matrix} 
 
 The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
 
-We will start by exploring the meaning of $\bm{X}^T \bm{X}$\footnote{It is worth noticing here, that a matrix constructed as: $\bm{S} = \bm{A}^T \bm{A}$ is square and symmetric and has got at all eigenvalues at least non-negative. It is therefore at least a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it then a \textit{positive definite} matrix.}. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
+We will start by exploring the meaning of $\bm{X}^T \bm{X}$\footnote{It is worth noticing here, that a matrix constructed as: $\bm{S} = \bm{A}^T \bm{A}$ is square and symmetric and has got at all eigenvalues at least non-negative. It is therefore at least a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.}. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7.5cm]{cov-matrix.png}
@@ -222,13 +225,13 @@ Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all mea
 Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. There is also the $\frac{1}{n-1}$ factor out front to which we come back in the Appendix \ref{app:B}.
 
 \begin{equation}
-s(p,k) = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,k))
+s(p,k) = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,k))
 \end{equation}
 
 In a special case, where we multiply the row $p$ with the column $p$, we get a dot product of a vector with itself.
 
 \begin{equation}
-s(p,p) = \frac{1}{n-1} dot( \bm{X}^T(p, :), \bm{X}(:,p))
+s(p,p) = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,p))
 \end{equation}
 
 In general, the dot product between two vectors $x$ and $y$ represents how much vector $x$ lays in the direction of vector $y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $V_p$ is carried by a variable $V_k$ (and vice versa).
