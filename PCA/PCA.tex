@@ -147,6 +147,7 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \begin{tabular}{ll}
     $\bm{A}$ & is a matrix \\
+     $\bm{A}^T$ & denotes a matrix transpose \\
     $A_{:,j}$ & is a vector formed by the $j^{th}$ column of a matrix $\bm{A}$, \\
     & it is equivalent to  $\bm{A}(:,j)$ \\
     $A_{i,:}$ & is a vector formed by the $i^{th}$ row of a matrix $\bm{A}$, \\
@@ -175,11 +176,7 @@ To motivate why studying techniques such as PCA and learning to apply them on re
 
 For the rest of this document, we assume that the data set for performing PCA is structured as follows: each column represents one variable $V_j$, where $j \in \braket{1, Q}$, and the rows correspond to variable observations $O_i$, where $i \in \braket{1, n}$, (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.
 
-\begin{figure}[H]
-\centering\includegraphics[width=5cm]{data-set-PCA.png}
-\caption{Data matrix for PCA.}
-\label{fig:data-matrix}
-\end{figure}
+
 
 This is also the data format that is needed for the MATLAB\textregistered \, command \texttt{pca}. From the documentation \cite{Matlab-pca}:
 
@@ -189,6 +186,12 @@ This is also the data format that is needed for the MATLAB\textregistered \, com
 \,\,
 Rows of X correspond to observations and columns correspond to variables.
 \end{framed}
+
+\begin{figure}[H]
+\centering\includegraphics[width=5cm]{data-set-PCA.png}
+\caption{Data matrix for PCA.}
+\label{fig:data-matrix}
+\end{figure}
 
 \section{Data pre-processing}
 
@@ -228,8 +231,6 @@ and is therefore size $(Q \times Q)$.
 
 We will start by exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Figure \ref{fig:covariance-matrix}.
 
-
-
 Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $V_p$ (or $V_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
 \begin{figure}[H]
@@ -238,24 +239,24 @@ Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all mea
 \label{fig:covariance-matrix}
 \end{figure}
 
-Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. There is also the $\frac{1}{n-1}$ factor out front to which we come back in the Appendix \ref{app:B}.
+Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$, with the $\frac{1}{n-1}$ factor out front to which we come back in the Appendix \ref{app:B}.
 
 \begin{equation}
-s(p,k) = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,k))
+s_{p,k} = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,k))
 \end{equation}
 
 In a special case, where we multiply the row $p$ with the column $p$, we get a dot product of a vector with itself.
 
 \begin{equation}
-s(p,p) = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,p))
+s_{p,p} = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,p))
 \end{equation}
 
-In general, the dot product between two vectors $x$ and $y$ represents how much vector $x$ lays in the direction of vector $y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $V_p$ is carried by a variable $V_k$ (and vice versa).
+In general, the dot product between two vectors $X$ and $Y$ represents how much vector $X$ lays in the direction of vector $Y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $V_p$ is carried by a variable $V_k$ (and vice versa).
 
 In other words, every element in the covariance matrix is computed as:
 
 \begin{equation}
-s(i,j) = \frac{1}{n-1} \sum\limits_{k=1}^n V_i(k) V_j(k)
+s_{i,j} = \frac{1}{n-1} \sum\limits_{k=1}^n V_i(k) V_j(k)
 \end{equation}
 
 \subsection{Properties}
