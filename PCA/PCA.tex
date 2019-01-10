@@ -143,6 +143,18 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \tableofcontents
 
+\section{Nomenclature}
+
+\begin{tabular}{ll}
+    $\bm{A}$ & is a matrix \\
+    $A_{:,j}$ & is a vector formed by the $j^{th}$ column of a matrix $\bm{A}$, \\
+    & it is equivalent to  $\bm{A}(:,j)$ \\
+    $A_{i,:}$ & is a vector formed by the $i^{th}$ row of a matrix $\bm{A}$, \\
+    & it is equivalent to  $\bm{A}(i,:)$ \\
+    $a_{i,j}$ & is an element from $i^{th}$ row and $j^{th}$ column of a matrix $\bm{A}$, \\ 
+    & it is equivalent to  $\bm{A}(i,j)$ \\
+\end{tabular}
+
 \section{Motivation for data reduction}
 
 To motivate why studying techniques such as PCA and learning to apply them on real data sets is important, there are several questions which stimulated the development of data reduction and data decomposition techniques:
@@ -204,23 +216,27 @@ For simplicity, for the rest of this document we assume that $\bm{X}$ represents
 
 \section{Covariance matrix}
 
+\subsection{Construction}
+
 The starting point for performing PCA is to compute a \textit{covariance matrix} from the data set. The covariance matrix is given by:
 
 \begin{equation}
 \bm{S} = \frac{1}{n-1} \bm{X}^T \bm{X}
 \end{equation}
 
-The covariance matrix $\bm{S}$ is therefore size $(Q \times Q)$.
+and is therefore size $(Q \times Q)$.
 
-We will start by exploring the meaning\footnote{It is worth noticing here, that a matrix constructed as: $\bm{S} = \bm{A}^T \bm{A}$ is square and symmetric and has got at all eigenvalues at least non-negative. It is therefore at least a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.} of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig. \ref{fig:covariance-matrix}.
+We will start by exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Figure \ref{fig:covariance-matrix}.
+
+
+
+Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $V_p$ (or $V_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7.5cm]{cov-matrix.png}
 \caption{Covariance matrix $\bm{S}$ graphical interpretation.}
 \label{fig:covariance-matrix}
 \end{figure}
-
-Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $V_p$ (or $V_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
 Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$. There is also the $\frac{1}{n-1}$ factor out front to which we come back in the Appendix \ref{app:B}.
 
@@ -242,11 +258,17 @@ In other words, every element in the covariance matrix is computed as:
 s(i,j) = \frac{1}{n-1} \sum\limits_{k=1}^n V_i(k) V_j(k)
 \end{equation}
 
+\subsection{Properties}
 
+The covariance matrix is a very special matrix and it is worth pointing out some of its interesting properties that the Principal Component Analysis makes use of.
+
+First of all, a matrix constructed as: $\bm{S} = \bm{C}^T \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric (the reason for this is easy to see from Figure \ref{fig:covariance-matrix}). Apart from that, the eigenvalues of such matrix are real and all are at least non-negative - such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
+
+Another important property is that the eigenvectors of the covariance matrix are orthogonal, which is a very special thing indeed. You may already see some interesting uses for such eigenvectors. One of which could be: they can form a new coordinate system, in other words: a \textit{basis}. The question thus remains: can such basis be any interesting basis?
 
 \section{PCA workflow}
 
-The next step in PCA is to perform the eigendecomposition of the covariance matrix:
+As you may have already anticipated, the next step in PCA is to perform the eigendecomposition of the covariance matrix:
 
 \begin{equation} \label{eq:eig-dec}
 \text{eig}(\bm{S}) = [\bm{A}, \bm{\Lambda}]
@@ -272,14 +294,12 @@ The principal components form a new basis in which we can represent our data set
 
 The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the \textit{PC-scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation.
 
-\begin{wrapfigure}{R}{0.2\textwidth}
-\centering\includegraphics[width=3cm]{new-basis.png}
-\caption{Eigenvalues of the covariance matrix form a new basis.}
-\label{fig:new-basis}
-\end{wrapfigure}
+
 
 
 In the matrix multiplication from eq.(\ref{eq:data-transform}), every variable vector inside $\bm{X}$ gets transformed by the transformation matrix $\bm{A}$ and attains new scores in the basis associated with $\bm{A}$. The new representation of the old variable is now kept in the matrix $\bm{Z}$.
+
+
 
 We now approach the dimensionality reduction but first let's obtain the original data set back, given the PC-scores and the transformation matrix:
 
@@ -288,6 +308,12 @@ We now approach the dimensionality reduction but first let's obtain the original
 \end{equation}
 
 The above equation is our route back to obtain the original data set in which the PC-scores are projected on the basis associated with a transposed eigenvectors matrix $\bm{A}$ (recall that $\bm{A}^T = \bm{A}^{-1}$).
+
+\begin{wrapfigure}{R}{0.2\textwidth}
+\centering\includegraphics[width=3cm]{new-basis.png}
+\caption{Eigenvalues of the covariance matrix form a new basis.}
+\label{fig:new-basis}
+\end{wrapfigure}
 
 Suppose that we would like to find the approximation of the data matrix $\bm{X}$ with only $q$ principal components (we project the PC-scores onto only $q$ out of $Q$ principal components).
 
