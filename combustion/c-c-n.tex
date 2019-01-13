@@ -46,7 +46,7 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, December 2018}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, January 2019}}
 
     \vskip2ex
     
@@ -266,17 +266,23 @@ The mechanical transport of species can be twofold: due to a bulk motion of the 
 
 \subsubsection{1-D diffusion from Fick's law}
 
-One way to model molecular diffusion is to use Fick's law. It states that the mass flow rate is proportional to the concentration gradient with the constant $-\rho \mathcal{D}$:
+One way to model molecular diffusion is to use Fick's law. It states that the mass flow rate of species $i$ through species $j$ is proportional to the concentration gradient (which is the driving force of diffusion) with the constant $-\rho_i \mathcal{D}_{ij}$:
 
 \begin{equation}
-\frac{d \dot{m}_{i, diff}}{dA} = - \rho \mathcal{D} \frac{d Y_i}{dx}
+\frac{d \dot{m}_{i, diff}}{dA} = - \rho_i \mathcal{D}_{ij} \frac{d Y_i}{dx}
 \end{equation}
 
-In the 1-D case, the quantity $\mathcal{D}$ is called \textit{binary diffusivity} and its units are $m^2/s$. In the above equation, $\dot{m}_{i, diff}$ is the mass flux of species due to diffusion, $\rho$ is the density and $Y$ is the concentration of species.
+The units of the above equation:
+
+\begin{equation*}
+\frac{kg}{s \cdot m^2} = \frac{kg}{m^3} \frac{m^2}{s} \frac{1}{m}
+\end{equation*}
+
+In the 1-D case, the quantity $\mathcal{D}$ is called \textit{binary diffusivity} and its units are $m^2/s$. In the above equation, $\dot{m}_{i, diff}$ is the mass flux of species due to diffusion, $\rho_i$ is the density of species $i$ and $Y_i$ is the concentration of species.
 
 \subsubsection{1-D bulk flow}
 
-The bulk transport of species A is simply the fraction of the total mixture mass flux that contributes to the transport of species A. That fraction is equal to the mass fraction $Y_A$ of species A.
+The bulk transport of species $i$ is simply the fraction of the total mixture mass flux that contributes to the transport of that species $i$. That fraction is equal to the mass fraction $Y_i$ of species $i$.
 
 \begin{equation}
 \frac{d \dot{m}_{i, bulk}}{dA} = Y_i \frac{d \dot{m}_{TOT}}{d A}
@@ -287,7 +293,7 @@ The bulk transport of species A is simply the fraction of the total mixture mass
 For a one-dimensional, binary diffusion (diffusion between two species A and B) we have the mass flow rate of species A per unit area described as:
 
 \begin{equation}
-\frac{d \dot{m}_A }{dA} = Y_A \frac{d \dot{m}_{TOT}}{d A} - \rho \mathcal{D}_{AB} \frac{dY_A}{dx}
+\frac{d \dot{m}_A }{dA} = \frac{d \dot{m}_{A, bulk}}{dA} + \frac{d \dot{m}_{A, diff}}{dA} = Y_A \frac{d \dot{m}_{TOT}}{d A} - \rho_A \mathcal{D}_{AB} \frac{dY_A}{dx}
 \end{equation}\label{eq:1d-bin-diff}
 
 where $\dot{m}_{TOT} = \dot{m}_A + \dot{m}_B$.
