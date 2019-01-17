@@ -53,10 +53,9 @@ end
 
 ## Font size adjusting
 
-`set(gca,'FontSize', 14);` - font size of axis ticks
-
-`xlabel(['x'], 'FontSize', 14);` - font size for x-axis xlabel
-
-`ylabel(['y'], 'FontSize', 14);` - font size for y-axis xlabel
-
-`title(['Graph $y(x)$'], 'FontSize', 14);` - font size for title
+```matlab
+set(gca,'FontSize', 14); % font size of axis ticks
+xlabel(['x'], 'FontSize', 14); % font size for x-axis xlabel
+ylabel(['y'], 'FontSize', 14); % font size for y-axis xlabel
+title(['Graph $y(x)$'], 'FontSize', 14); % font size for title
+```
