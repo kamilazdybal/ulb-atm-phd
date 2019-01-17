@@ -2,7 +2,7 @@
 
 ## Set default LaTeX interpreters
 
-```
+```matlab
 set(groot, 'DefaultTextInterpreter', 'LaTex');
 set(groot, 'DefaultLegendInterpreter', 'LaTex');
 set(groot, 'DefaultAxesTickLabelInterpreter', 'LaTex');
@@ -12,7 +12,7 @@ set(groot, 'DefaultAxesTickLabelInterpreter', 'LaTex');
 
 ## Scatter
 
-```
+```matlab
 scatter(x, y, 20, 'k+', 'LineWidth', 2)
 ```
 
@@ -26,7 +26,7 @@ scatter(x, y, 20, 'k+', 'LineWidth', 2)
 
 ## Plotting in a loop
 
-```
+```matlab
 plotmarkers = {'-o', '-s', '-d', '-^', '-p', '->', '-*', '-+'};
 
 colors = [
@@ -40,12 +40,14 @@ colors = [
 [    0.6350    0.0780    0.1840]];
 
 for iter 1:1:length(plotmarkers)
+
   p = plot(variable(iter), char(plotmarkers(iter))), hold on, grid 'on'
   set(gca,'YScale','log');
   p.Color = colors(iter,:);
   p.MarkerSize = 8;
   p.MarkerFaceColor = colors(iter),:);
   p.LineWidth = 0.5;
+
 end
 ```
 
