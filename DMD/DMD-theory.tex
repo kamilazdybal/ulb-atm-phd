@@ -75,7 +75,9 @@
 
 \section*{Preface}
 
-\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method of finding low-rank structures in high-dimensional data sets. 
+\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for finding the underlying dynamics 
+
+ finding low-rank structures in high-dimensional data sets. It can also be used for approximation of a matrix with a matrix of lower rank.
 
 Most of the content of this document are notes taken from two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington. 
 
@@ -92,13 +94,21 @@ This document is still in preparation. Please feel free to contact me with any s
 
 This small opening section is there to give a bit of intuition for DMD, which will be complimentary in understanding the incoming mathematical formulation. It is assumed that you have some general idea about what it means to perform data decomposition.
 
-The main purpose of DMD is to find the \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution (given by frequency). In other words, in DMD we not only know how the system can be decomposed spatially, but also how each spatial structure behaves in time.
+The main purpose of DMD is to find the \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution, given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially, but also how each spatial structure behaves in time. The original data set can then be reconstructed by summing up the dynamic modes. 
 
-To take a pictorial example, we may perform a DMD decomposition of a flipbook [\ref{bib:andymation}]. Let's say each slide is composed of a background which is the same on every slide (it is constant in time). Then, there might be an animation happening on the foreground, where some parts are animated as moving faster and some as moving slowly.
+\begin{figure}[H]
+\centering\includegraphics[width=5.5cm]{DMD-modal-decomposition.png}
+\caption{Modal decomposition of the data matrix $\bm{D}$.}
+\label{fig:modal-decomposition}
+\end{figure}
 
-Let's associate a certain number, say $\lambda$, to describe the evolution in time. Each element of the animation will be associated with some $\lambda$.
+\subsection{DMD of a flipbook}
 
-The background might then be thought of as a spatial mode that has got a 
+To take a pictorial example, we may think of DMD as designing the frames for a flipbook [\ref{bib:andymation}]. Let's say each slide is composed of a background which is the same on every slide (it is constant in time). There might also be an animation of moving objects happening on the foreground, where some parts are animated as moving faster and some as moving slowly.
+
+We associate a certain number, say $\lambda$, to describe the evolution in time of every separate element of the animation.
+
+To make the analogy clear, each DMD mode is not one page of a flipbook, rather, each mode is such element of all the flipbook pages which has got the same evolution in time. And hence the background might be thought of as one spatial mode that has got a a constant time behaviour - it is present on every flipbook page. A ball bouncing on the foreground might be another mode, associated with its $\lambda$. 
 
 
 \section{Description of a dynamical system}
@@ -192,7 +202,7 @@ If we now assume that a linear operator will map the first element of $\bm{X_1}$
 
 \begin{figure}[H]
 \centering\includegraphics[width=5.5cm]{data-split.png}
-\caption{Spliting the data matrix into \textit{past} and \textit{future} matrices $\bm{X_1}$ and $\bm{X_2}$, linked by the linear operator $\bm{A}$.}
+\caption{Splitting the data matrix into \textit{past} and \textit{future} matrices $\bm{X_1}$ and $\bm{X_2}$, linked by the linear operator $\bm{A}$.}
 \label{fig:linear_system}
 \end{figure}
 
