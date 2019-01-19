@@ -238,7 +238,7 @@ We are hence reluctant to perform the multiplication of matrices as is stated in
 
 The hope comes from the \textit{Singular Value Decomposition} (SVD). We belive that there are low-rank structures hidden in the data set and we are able to reduce the dimensionality of matrix $\bm{A}$ without significant loss of information\footnote{Professor Kutz said a very interesting sentence here, that the multiplication presented in Figure \ref{fig:building-A} completely ignores the fact that there might be low-rank structures in our data set.}.
 
-We perform the SVD on matrix $\bm{X_1}$:
+We perform the SVD on matrix $\bm{X_1}$ and decompose it to the component matrices: $\bm{U}$, $\bm{\Sigma}$ and $\bm{V}$.
 
 \begin{equation} \label{eq:solution}
 \bm{X_1} = \bm{U} \bm{\Sigma} \bm{V}^T 
