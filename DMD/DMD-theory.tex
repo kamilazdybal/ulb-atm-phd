@@ -46,6 +46,8 @@
     
     \fontsize{18}{10}\selectfont {(with some code)}
 
+
+
   \noindent%
     
 \vskip1ex
@@ -54,7 +56,9 @@
 
   \end{center}
   
-\vspace{8mm}
+    \fontsize{7}{10}\selectfont {This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.}
+
+\vspace{6mm}
 
 \end{@twocolumnfalse}
 }]
@@ -67,17 +71,17 @@
 
 \fontsize{14}{10}\selectfont {Kamila Zdybał}
 
-\vspace{2mm}
-
 \fontsize{8}{10}\selectfont {\textit{Université libre de Bruxelles, kamila.zdybal@ulb.ac.be}}
 
 \fontsize{8}{10}\selectfont {\textit{camillejr.github.io/science-docs, kamila.zdybal@gmail.com}}
 
+\vspace{2mm}
+
+
+
 \section*{Preface}
 
-\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for finding the underlying dynamics 
-
- finding low-rank structures in high-dimensional data sets. It can also be used for approximation of a matrix with a matrix of lower rank.
+\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for approximating a generally nonlinear dynamical system with a linear one. It can be used for finding low-rank structures in multi-dimensional data sets..
 
 Most of the content of this document are notes taken from two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington. 
 
@@ -85,31 +89,38 @@ Most of the content of this document are notes taken from two lectures on Dynami
 
 This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
 
+\section*{Keywords}
+
+\textit{Dynamic Mode Decomposition (DMD), linear algebra, matrix decomposition, matrix approximation, linear dynamical systems, complex plane}
+
+
+
 \tableofcontents
 
 
-\vspace{10mm}
+\newpage
 
 \section{Setting the stage}
 
-This small opening section is there to give a bit of intuition for DMD, which will be complimentary in understanding the incoming mathematical formulation. It is assumed that you have some general idea about what it means to perform data decomposition.
+This small opening section is there to give you a bit of intuition for DMD, which will be complimentary in understanding the incoming mathematical formulation. It is assumed that you have some general idea about what it means to perform data decomposition.
 
-The main purpose of DMD is to find the \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution, given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially, but also how each spatial structure behaves in time. The original data set can then be reconstructed by summing up the dynamic modes. 
+The main purpose of DMD is to find \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially, but also how each spatial structure behaves in time. The original data set can then be reconstructed by summing up the dynamic modes. 
 
 \begin{figure}[H]
 \centering\includegraphics[width=5.5cm]{DMD-modal-decomposition.png}
-\caption{Modal decomposition of the data matrix $\bm{D}$.}
+\caption{Modal decomposition of a data matrix $\bm{D}$.}
 \label{fig:modal-decomposition}
 \end{figure}
 
 \subsection{DMD of a flipbook}
 
-To take a pictorial example, we may think of DMD as designing the frames for a flipbook [\ref{bib:andymation}]. Let's say each slide is composed of a background which is the same on every slide (it is constant in time). There might also be an animation of moving objects happening on the foreground, where some parts are animated as moving faster and some as moving slowly.
+To take a pictorial example, we may think of DMD as designing the frames for a flipbook [\ref{bib:andymation}]. Let's say that each slide is composed of a background which is the same in every slide (it is constant in time). There might also be an animation of moving objects happening in the foreground where some parts are animated as moving faster and some as moving slowly.
 
-We associate a certain number, say $\lambda$, to describe the evolution in time of every separate element of the animation.
+We associate a certain number, say $\lambda$, to describe the evolution in time of every separate element of the animation. This number will have a meaning of frequency of appearance.
 
-To make the analogy clear, each DMD mode is not one page of a flipbook, rather, each mode is such element of all the flipbook pages which has got the same evolution in time. And hence the background might be thought of as one spatial mode that has got a a constant time behaviour - it is present on every flipbook page. A ball bouncing on the foreground might be another mode, associated with its $\lambda$. 
+To make the analogy clear, every page of a flipbook is not a DMD mode. Rather, each mode is such element of all the flipbook pages which has got the same evolution in time. And hence the background might be thought of as one spatial mode that has got a a constant time behaviour - it is present on every flipbook page. A ball bouncing on the foreground might be another mode, associated with its $\lambda$. 
 
+\newpage
 
 \section{Description of a dynamical system}
 
@@ -451,5 +462,7 @@ which is the statement of eigenvalue problem.
 \bibitem{Prof_Gilbert_Strang} G. Strang, \textit{Introduction to Linear Algebra}, 5th edition
 
 \bibitem{Zdybal} K. Zdybal, \textit{POD and DMD decomposition of numerical and experimental data}, von Karman Institute for Fluid Dynamics, stagiaire report 
+
+
 
 \end{document}
