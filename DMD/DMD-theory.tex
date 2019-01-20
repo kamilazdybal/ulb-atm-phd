@@ -71,6 +71,8 @@
 
 \fontsize{14}{10}\selectfont {Kamila Zdybał}
 
+\vspace{2mm}
+
 \fontsize{8}{10}\selectfont {\textit{Université libre de Bruxelles, kamila.zdybal@ulb.ac.be}}
 
 \fontsize{8}{10}\selectfont {\textit{camillejr.github.io/science-docs, kamila.zdybal@gmail.com}}
@@ -81,7 +83,7 @@
 
 \section*{Preface}
 
-\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for approximating a generally nonlinear dynamical system with a linear one. It can be used for finding low-rank structures in multi-dimensional data sets..
+\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for approximating a generally nonlinear dynamical system with a linear one. It can be used for finding low-rank structures in multi-dimensional data sets, as well as predicting the future state of the system with inference made solely from the collected data.
 
 Most of the content of this document are notes taken from two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington. 
 
@@ -98,13 +100,11 @@ This document is still in preparation. Please feel free to contact me with any s
 \tableofcontents
 
 
-\newpage
-
 \section{Setting the stage}
 
 This small opening section is there to give you a bit of intuition for DMD, which will be complimentary in understanding the incoming mathematical formulation. It is assumed that you have some general idea about what it means to perform data decomposition.
 
-The main purpose of DMD is to find \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially, but also how each spatial structure behaves in time. The original data set can then be reconstructed by summing up the dynamic modes. 
+The main purpose of DMD is to find \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each spatial structure behaves in time. The original data set can then be reconstructed by summing up the dynamic modes, or approximated by summing up a portion of the dynamic modes. 
 
 \begin{figure}[H]
 \centering\includegraphics[width=5.5cm]{DMD-modal-decomposition.png}
@@ -114,28 +114,42 @@ The main purpose of DMD is to find \textit{dynamic modes} underlying the data se
 
 \subsection{DMD of a flipbook}
 
-To take a pictorial example, we may think of DMD as designing the frames for a flipbook [\ref{bib:andymation}]. Let's say that each slide is composed of a background which is the same in every slide (it is constant in time). There might also be an animation of moving objects happening in the foreground where some parts are animated as moving faster and some as moving slowly.
+To take a pictorial example, we may think of DMD as designing a flipbook [\ref{bib:andymation}]. However, every page of a flipbook is not a DMD mode. Rather, each mode is such element of all the flipbook pages which has got the same behaviour in time.
 
-We associate a certain number, say $\lambda$, to describe the evolution in time of every separate element of the animation. This number will have a meaning of frequency of appearance.
+Let's say that each slide is composed of a background which is the same in every slide (it is constant in time). There might also be an animation of moving objects happening in the foreground where some parts are animated as moving faster and some as moving slowly.
 
-To make the analogy clear, every page of a flipbook is not a DMD mode. Rather, each mode is such element of all the flipbook pages which has got the same evolution in time. And hence the background might be thought of as one spatial mode that has got a a constant time behaviour - it is present on every flipbook page. A ball bouncing on the foreground might be another mode, associated with its $\lambda$. 
+We associate a certain number, say $\lambda$, to describe the evolution in time of every separate element (spatial structure) of the animation. This number will have a meaning of frequency of appearance.
 
-\newpage
+And hence the background might be thought of as one spatial mode that has got a a constant time behaviour - it is present on every flipbook page. A ball bouncing on the foreground might be another mode, associated with its $\lambda$. 
+
+The analogy presented in this section is based on \cite{Grosek}.
+
+\section{Dynamical systems}
+
+Dynamic Mode Decomposition connects strongly with the arguments made for \textit{dynamical systems} - systems that change in time. There is an interesting intuition carried from one-dimensional linear dynamical systems to multi-dimensional linear dynamical systems which we will briefly present here. For a more thorough explanation the reader is encouraged to look into \cite{Prof_Edward_Scheinerman}. 
+
+Introducing the dynamical systems will be a good tool to understand the underlying concepts of DMD, especially the role of eigendecomposition which will appear as we present the theory in section \ref{sec:theory}.
+
+\subsection{One-dimensional linear dynamical system}
+
+
+\subsection{Multi-dimensional linear dynamical system}
+
 
 \section{Description of a dynamical system}
 
 We have a system described by a differential equation:
 
 \begin{equation} \label{eq:system_DE}
-\frac{d \vec{x}(t)}{dt} = f(\vec{x}, t, \mu)
+\frac{d \vec{\bm{x}}(t)}{dt} = f(\vec{\bm{x}}, t, \text{varargin})
 \end{equation}
 
-The function $f(\vec{x}, t, \mu)$ is a way of \textit{modeling} that system.
+where the function $f(\vec{\bm{x}}, t, \text{varargin})$ is a way of \textit{modeling} that system.
 
-We also have \textit{measurements} of the system in different points in space at time $k$, in the form of a vector(s) $\vec{y}_k$:
+We also have collected \textit{measurements} of the system at different points in space at time $k$, in the form of a vector(s) $\vec{\bm{y}}_k$:
 
 \begin{equation}
-\vec{y}_k = g(\vec{x}_k)
+\vec{\bm{y}}_k = g(\vec{x}_k)
 \end{equation}
 
 \begin{wrapfigure}{R}{0.2\textwidth}
@@ -146,9 +160,9 @@ We also have \textit{measurements} of the system in different points in space at
 
 where $\vec{x}_k$ is the quantity of interest that we are aiming at measuring. The fact that we might not be able to measure it directly is accounted for by some function $g()$ (although it might happen that $\vec{y}_k = \vec{x}_k$, meaning that we are able to measure $\vec{x}_k$ directly).
 
-Notice, that for measurements at many moments in time, we may stack all the collected vectors $\vec{y}_i$ for different times $i$ to create a matrix whose columns represent time snapshots and whose rows represent position in space.
+Notice, that for measurements at many moments in time, we may stack all the collected vectors $\vec{y}_i$ for different times $i$ to create a matrix whose columns represent time snapshots and whose rows represent position in space - see Figure \ref{fig:data-matrix}. This is a matrix that we are going to work with.
 
-\section{Linear dynamical systems}
+\subsection{Linearizing the nonlinear dynamical systems}
 
 We are from now interested in systems where the governing equation from eq.(\ref{eq:system_DE}) is not known (in other words, the function $f$ is unknown) and we solely rely on measurements of the system which, in general, form a high-dimensional data set.
 
@@ -178,9 +192,9 @@ The exact solution to the linear system from eq.(\ref{eq:system_linear}) is:
 x = \sum_{j = 1}^{n} b_j \phi_j e^{\lambda_j t}
 \end{equation}
 
-For a reader who is now shaky about how this solution was derived, more can be found in appendix \ref{app:A}. 
+For a reader interested in how this solution was derived, more can be found in appendix \ref{app:A}. 
 
-\section{Dynamic Mode Decomposition theory}
+\section{Dynamic Mode Decomposition theory}\label{sec:theory}
 
 \subsection{Exact DMD}
 
@@ -450,6 +464,8 @@ which is the statement of eigenvalue problem.
 
 
 \thebibliography{}
+
+\bibitem{Grosek} J. Grosek, N. Kutz, textit{Dynamic Mode Decomposition for Real-Time Background/Foreground Separation in Video}, 2014
 
 \bibitem{Prof_Nathan_Kutz} N. Kutz, \textit{Dynamic Mode Decomposition Theory}, an online lecture: \verb|https://youtu.be/bYfGVQ1Sg98| \label{bib:kutz_1}
 
