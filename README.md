@@ -28,6 +28,10 @@ General notes on GPR: [Notes on GPR](https://github.com/camillejr/ulb-atm-phd/ra
 
 General notes on PDF Methods: [Notes on PDF Methods](https://github.com/camillejr/ulb-atm-phd/raw/master/PDF-methods/PDF-methods.pdf)
 
+## Computational Examples in Transport Phenomena with Python
+
+Selected problems in transport phenomena accompanied with Python codes: [Transport Phenomena](https://github.com/camillejr/ulb-atm-phd/raw/master/trans-phen/comp-examp-trans-phen.pdf)
+
 # Contact
 
 Please feel free to contact me with any suggestions, corrections or comments via e-mail: kamila.zdybal@ulb.ac.be
