@@ -16,8 +16,8 @@
 a4paper,% other options: a3paper, a5paper, etc
 left=2.2cm,
 right=2.2cm,
-top=3cm,
-bottom=3cm,
+top=2cm,
+bottom=2cm,
 ]{geometry}
 %\geometry{hmargin=3.5cm, vmargin=2.5cm}
 \usepackage{fancyhdr}
@@ -106,7 +106,8 @@ The course materials by Delft University of Technology are subjected to copyrigh
 
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
-\vspace*{7cm}
+\vspace*{6cm}
+
 
 \setlength{\parskip}{0.0em}
 \setlength{\parindent}{0cm}
@@ -123,13 +124,21 @@ To contact me personally drop me a line at:
 
 \verb|kamilazdybal@gmail.com|
 
-\vspace*{2cm}
+\vspace*{1cm}
+
+Cover picture: \textit{Forêt de Soignes, Belgium}
+
+Photo taken on: 16 Jan 2017
+
+Copyright \textcopyright \, K. Zdybał, 2017
+
+\vspace*{6cm}
 
 \verb|Computational examples in transport phenomena with Python|
 
 Typeset with \LaTeX
 
-\vspace*{1.8cm}
+\vspace*{2cm}
 
 \noindent This work is licensed under the Creative Commons
 
@@ -137,10 +146,10 @@ Attribution-NonCommercial-ShareAlike 4.0 International
 
 (CC BY-NC-SA
 4.0) license.
-\end{center}
 
+\end{center}
 \setlength{\parskip}{0.6em}
-\setlength{\parindent}{0cm}
+\setlength{\parindent}{0.5cm}
 
 \newpage
 
@@ -156,9 +165,21 @@ Attribution-NonCommercial-ShareAlike 4.0 International
 
 \normalsize
 
+\section{General remarks on transport of physical properties}
+
+The general equation for the transport of a property $\psi$ within a control volume is:
+
+\begin{equation}
+\frac{d \psi}{dt} = \Psi_{in} - \Psi_{out} + \Psi_{production} - \Psi_{consumption}
+\end{equation}
+
+where $\frac{d \psi}{dt} = \dot{\psi}$ is the flux of the property $\psi$.
+
+\newpage
+
 \section{Steady-state conduction in a lengthwise-insulated rod with internal heat production}
 
-This is a derivation of the temperature distribution function $T(x)$ for a steady-state heat conduction in a straight rod of length $L$. We assume that the internal heat production $Q_p$ is present in every point inside the rod volume (which may simulate heating up of an electrical wire). The rod is perfectly insulated along its length and it loses heat only through its endpoints which in a steady-state case are kept at a fixed temperature $T_0$.
+We derive a one-dimensional temperature distribution function $T(x)$ for a steady-state heat conduction in a straight rod of length $L$. We assume that the internal heat production $Q_p$ in units of $W/m^3$ is present at every point inside the rod volume. This may for instance simulate heating up of a wire due to electrical current. The rod is perfectly insulated along its length and it loses heat only through its endpoints which in a steady-state case are kept at a fixed temperature $T_0$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=16cm]{DWGs/cond-rod.png}
@@ -166,24 +187,24 @@ This is a derivation of the temperature distribution function $T(x)$ for a stead
 \label{fig:conduction}
 \end{figure}
 
-We will take for the control volume a slice $dx$ from the rod. 
-
-The energy balance for the rod element $dx$ reads
+We will take for the control volume a slice $dx$ from the rod.  The energy balance for the rod element $dx$:
 
 \begin{equation}
 \frac{dE_{dx}}{dt} = E_{dx, in} - E_{dx, out} + E_{dx, production}
 \end{equation}
 
-(note here that $E_{dx, in}$, $E_{dx, out}$ and $E_{dx, production}$ are energies per unit time and so have the units of $W$)
+Note here that $E_{dx, in}$, $E_{dx, out}$ and $E_{dx, production}$ are energies per unit time and so have the units of $W$.
 
-The heat flow can be described by the Fourier's law for one-dimensional heat conduction
+The heat flux $\phi$ which has units of $W$ can be modeled using the Fourier's law for one-dimensional heat conduction:
 
 \begin{equation}
 \phi = \lambda A \Big(- \frac{dT}{dx} \Big)
 \label{eq:fourier}
 \end{equation}
 
-Hence
+where $\lambda$ is the thermal conductivity and is a property of the material, $A$ is the rod's cross-sectional area and $\frac{dT}{dx}$ is a temperature gradient which plays a role of the driving force for thermal energy transport.
+
+Hence:
 
 \begin{equation}
 E_{dx, in} = \lambda A \Big(- \frac{dT}{dx} \Big)_x
@@ -193,19 +214,19 @@ E_{dx, in} = \lambda A \Big(- \frac{dT}{dx} \Big)_x
 E_{dx, out} = \lambda A \Big(- \frac{dT}{dx} \Big)_{x + dx}
 \end{equation}
 
-The energy per unit time coming from the production can be written as $Q_p$ multiplied by the volume of the slice $dx$
+The energy per unit time coming from the heat production can be written as $Q_p$ multiplied by the volume of the slice $dx$:
 
 \begin{equation}
 E_{dx, production} = Q_p A dx
 \end{equation}
 
-In the steady-state $\frac{dE}{dt} = 0$ and the energy balance becomes
+In the steady-state $\frac{dE}{dt} = 0$ and the energy balance becomes:
 
 \begin{equation}
 \lambda A \Big(- \frac{dT}{dx} \Big)_x - \lambda A \Big(- \frac{dT}{dx} \Big)_{x + dx} + Q_p A dx = 0
 \end{equation}
 
-Simplifying the above energy balance we get
+Simplifying the above energy balance we get:
 
 \begin{equation*}
 \frac{\Big(\frac{dT}{dx} \Big)_{x + dx} - \Big(\frac{dT}{dx} \Big)_x  }{dx} = - \frac{Q_p}{\lambda}
@@ -213,45 +234,48 @@ Simplifying the above energy balance we get
 
 It is interesting to note here that we have lost the dependence on the cross-sectional surface area of the rod.
 
-If we now substitute some function $f(x) = \frac{dT}{dx}$ we notice that we have
+If we now substitute some function $f(x) = \frac{dT}{dx}$ we notice that we have:
 
 \begin{equation*}
 \frac{f(x + dx) - f(x)}{dx} = - \frac{Q_p}{\lambda}
 \end{equation*}
 
-in other words
+in other words:
 
 \begin{equation}
 \frac{df(x)}{dx} = - \frac{Q_p}{\lambda}
 \end{equation}
 
-With the above substitution, the differential equation that we are about to solve becomes
+With the above substitution, the differential equation that we are about to solve becomes:
 
 \begin{equation}
 \frac{d^2T}{dx^2} = - \frac{Q_p}{\lambda}
 \end{equation}
 
-Applying the boundary conditions from both ends of the rod, the solution to the above differential equation is
+Applying the boundary conditions from both ends of the rod, the solution to the above differential equation is:
 
 \begin{equation}
 T(x) = - \frac{Q_p}{2 \lambda} (x^2 - Lx) + T_0
 \label{eq:solution}
 \end{equation}
 
-\newpage
+\subsection{Final remarks}
 
-
-
+Note that even though the heat flow was assumed to be one-dimensional in this exercise, it does not mean that the geometry of the problem needs to be one-dimensional. In fact, we assumed the rod to be a three-dimensional object having length and a cross-sectional area. Rather, the one-dimensionality of the problem means that it is practical to assume only one of the three directions as an important direction for heat transport. Since the rod was perfectly insulated along its length, the temperature gradient along directions perpendicular to the $x$-axis is zero.
 
 \subsection{Computational example}
 
-As a computational example we will draw the graph of the temperature distribution in a copper rod $200 m$ long. We take that the thermal conductivity for this rod is $400 \frac{W}{m \cdot K}$. The internal heat production in the entire rod is $20 W$.
+As a computational example we will draw the graph of the temperature distribution in a copper rod $200 m$ long. We assume that the thermal conductivity for this rod is $400 \frac{W}{m \cdot K}$. The internal heat production in the entire rod is $20 W$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=16cm]{Code/conduction-rod.png}
-\caption{Temperature distribution in a rod with internal heat production of $20 W$}
+\caption{Temperature distribution in a rod with internal heat production of $20 W$.}
 \label{fig:python_graph}
 \end{figure}
+
+\newpage
+
+\section{Laminar flows of Newtonian fluids}
 
 \newpage
 
@@ -269,6 +293,9 @@ As a computational example we will draw the graph of the temperature distributio
 \label{fig:stefan-problem}
 \end{figure}
 
+\newpage
+
+\section{One-dimensional binary diffusion}
 
 
 
