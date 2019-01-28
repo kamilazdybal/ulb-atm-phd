@@ -41,7 +41,7 @@ figureSubplot.spines["left"].set_visible(False)
 
 # Save plot:
 filename = 'DWGs/random-matrix-original.eps'
-plt.savefig(filename, dpi = 500, bbox_inches='tight')
+plt.savefig(filename, dpi = 100, bbox_inches='tight')
 plt.close()
 
 for Nq in range(1,7):
@@ -78,7 +78,7 @@ for Nq in range(1,7):
 
     # Save plot:
     filename = 'DWGs/random-matrix-reconstruction-PCs-' + str(Nq) + '.eps'
-    plt.savefig(filename, dpi = 500, bbox_inches='tight')
+    plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
 # Generate semi-structured data set: ===========================================
@@ -116,7 +116,7 @@ figureSubplot.spines["left"].set_visible(False)
 
 # Save plot:
 filename = 'DWGs/semi-structured-matrix-original.eps'
-plt.savefig(filename, dpi = 500, bbox_inches='tight')
+plt.savefig(filename, dpi = 100, bbox_inches='tight')
 plt.close()
 
 for Nq in range(1,7):
@@ -153,7 +153,7 @@ for Nq in range(1,7):
 
     # Save plot:
     filename = 'DWGs/semi-structured-matrix-reconstruction-PCs-' + str(Nq) + '.eps'
-    plt.savefig(filename, dpi = 500, bbox_inches='tight')
+    plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
 # Generate structured data set =================================================
@@ -227,7 +227,7 @@ for Nq in range(1,7):
 
     # Save plot:
     filename = 'DWGs/structured-matrix-reconstruction-PCs-' + str(Nq) + '.eps'
-    plt.savefig(filename, dpi = 500, bbox_inches='tight')
+    plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
 # Save eigenvalues comparison: =================================================
@@ -238,5 +238,5 @@ p2, = plt.plot(range(1,7), eigvals_semi_structured, color=semiColour, linestyle=
 p3, = plt.plot(range(1,7), eigvals_structured, color=structuredColour, linestyle='-', linewidth=ln)
 figureSubplot.legend((p1, p2, p3), ('Random', 'Semi-structured', 'Structured'))
 filename = 'DWGs/matrix-reconstruction-eigenvalues-comparison.eps'
-plt.savefig(filename, dpi = 500, bbox_inches='tight')
+plt.savefig(filename, dpi = 100, bbox_inches='tight')
 plt.close()
