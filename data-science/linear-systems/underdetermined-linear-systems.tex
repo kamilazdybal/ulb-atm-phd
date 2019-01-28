@@ -1,10 +1,9 @@
-\documentclass[20pt,twocolumn]{article}
+\documentclass[10pt,twocolumn]{article}
 \usepackage{geometry}
 \geometry{verbose,headsep=3cm,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.0cm,rmargin=2.0cm}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage[font=small]{caption}
-\usepackage{cleveref}
 \usepackage{amsmath,amssymb,latexsym}
 \usepackage{marvosym}
 \usepackage{url}
@@ -23,57 +22,78 @@
 \usepackage{xcolor}
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
-
-
-\newcommand{\highlight}[1]{%
-  \colorbox{orange!50}{$\displaystyle#1$}}
-
 % Document font:
 \usepackage{charter}
-
+\graphicspath{{DWGs/}}
 
 \begin{document}
 
 \twocolumn[{
 \begin{@twocolumnfalse}
 
-
   \begin{center}
-
-    \vskip-3em
+%\textcolor{lgray}
+    \vskip-5em
 
     \hfill
-    \textbf{Bruxelles, November 2018}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, January 2019}}
 
-    \rule{\textwidth}{0.5pt}
     \vskip2ex
+    
+	\vspace{5ex}
+	
+    \fontsize{24}{10}\selectfont {Underdetermined linear systems}
+    
+    \fontsize{18}{10}\selectfont {a short story with some code}
 
-    {\Large\textbf{Underdetermined linear system histograms}}
-  
-    \vspace{2ex}
 
-      \vspace{1ex}
-   
-	\texttt{https://camillejr.github.io/science-docs/}
-          
+
   \noindent%
     
 \vskip1ex
 
-\rule{\textwidth}{0.5pt}
+{\rule{\textwidth}{0.5pt}}
 
   \end{center}
   
-\vspace{8mm}
+    \fontsize{7}{10}\selectfont {This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.}
+
+\vspace{6mm}
 
 \end{@twocolumnfalse}
 }]
 
+\setlength{\parindent}{0cm}
 
 \vspace{10mm}
 
 \setlength{\parindent}{0cm}
 
+\fontsize{14}{10}\selectfont {Kamila Zdybał}
+
+\vspace{2mm}
+
+\fontsize{8}{10}\selectfont {\textit{Université libre de Bruxelles, kamila.zdybal@ulb.ac.be}}
+
+\fontsize{8}{10}\selectfont {\textit{camillejr.github.io/science-docs, kamila.zdybal@gmail.com}}
+
+\vspace{2mm}
+
+
+
+\section*{Preface}
+
+
+
+\,\,
+
+This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
+
+\section*{Keywords}
+
+\textit{underdetermined linear systems, linear algebra, matrix decomposition, matrix approximation}
+
+\tableofcontents
 
 \section{Introduction}
 
@@ -91,7 +111,7 @@ an infinite number of solutions exists. MATLAB implements various methods of com
 We focus on an example where matrix $\bm{A}$ is size $(100 \times 500)$ and a vector $b$ is size $(100 \times 1)$; both are populated by normally distributed random numbers.
 
 \begin{figure}[H]
-\centering\includegraphics[width=10cm]{DWGs/histograms.png}
+\centering\includegraphics[width=8cm]{DWGs/histograms.eps}
 \caption{Histograms of four solutions to an undetermined linear system.}			
 \label{fig:histograms}
 \end{figure}
