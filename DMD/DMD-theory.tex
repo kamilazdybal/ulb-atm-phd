@@ -287,7 +287,7 @@ The usefulness of this decomposition might not yet be evident, since the matrix 
 
 \begin{wrapfigure}{R}{0.25\textwidth}
 \centering\includegraphics[width=4cm]{similar-matrices.png}
-\caption{Similarity transform of matrix $\bm{A}$ to reduce the size.}
+\caption{Similarity transform of matrix $\bm{A}$ to reduce its size.}
 \label{fig:similar-matrices}
 \end{wrapfigure}
 
@@ -324,6 +324,10 @@ Now that we have computed the similar matrix $\underline{\bm{A}}$, we move on to
 \begin{equation} \label{eq:A_underline}
 [\bm{W}, \bm{\Lambda}] = \text{eig}(\underline{\bm{A}})
 \end{equation}
+
+The matrix $\bm{W}$ is a matrix whose columns are the eigenvectors of $\underline{\bm{A}}$. The matrix $\bm{\Lambda}$ is a diagonal matrix of eigenvalues which, in the most general case, are complex numbers. We have therefore obtained "coupled" quantities - each eigenvector has got its corresponding eigenvalue - and that link is exploited by the Dynamic Mode Decomposition to give a physical meaning to eigenvectors and eigenvalues.
+
+The eigenvectors will form the spacial modes of DMD. The real part of the eigenvalue corresponds to the growth rate of that particular mode and the imaginary part of the eigenvalue represents the oscillatory frequency of a mode.
 
 \subsection{Going back to the original dimensions}
 
@@ -363,9 +367,9 @@ The vector $\vec{b}$ is a vector of initial amplitudes for each mode. It is comp
 
 
 
-\section{A broader view on DMD} \label{sec:view}
+\section{A broader view} \label{sec:view}
 
-What can go wrong with our data sets?
+What can go different with our data sets?
 
 \subsection{Optimized DMD}
 
