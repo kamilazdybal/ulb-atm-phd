@@ -11,6 +11,9 @@
 \usepackage{bm}
 \usepackage{float}
 \usepackage[english]{babel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{subfloat}
 \usepackage{hyperref}
 \usepackage{epsf}
 \usepackage{float}
@@ -25,6 +28,9 @@
 % Document font:
 \usepackage{charter}
 \graphicspath{{DWGs/}}
+\newcommand*{\addheight}[2][.5ex]{%
+  \raisebox{0pt}[\dimexpr\height+(#1)\relax]{#2}%
+}
 
 \begin{document}
 
@@ -125,11 +131,31 @@ We focus on an example where matrix $\bm{A}$ is size $(100 \times 500)$ and a ve
 \section{Possible applications}
 
 
+\subsection{Principal Component Analysis}
 
+\begin{figure}[H]
+\begin{tabular}{ccc}
+		\addheight{\includegraphics[width=25mm]{DWGs/random-matrix-original.eps}} &
+		\addheight{\includegraphics[width=25mm]{DWGs/semi-structured-matrix-original.eps}} &
+		\addheight{\includegraphics[width=25mm]{DWGs/structured-matrix-original.eps}} \\
+\end{tabular}
+\caption{Random, semi-structured and structured raw data sets.}	
+\end{figure}
 
-
-
-
+\twocolumn[{
+\begin{@twocolumnfalse}
+  \begin{center}
+\begin{figure}[H]
+\begin{tabular}{ccc}
+		\addheight{\includegraphics[width=35mm]{DWGs/random-matrix-reconstruction-PCs-1.eps}} &
+		\addheight{\includegraphics[width=35mm]{DWGs/semi-structured-matrix-reconstruction-PCs-1.eps}} &
+		\addheight{\includegraphics[width=35mm]{DWGs/structured-matrix-reconstruction-PCs-1.eps}} \\
+\end{tabular}
+\caption{Random, semi-structured and structured raw data sets. PCA reconstruction with $1^{st}$ Principal Component.}	
+\end{figure}
+\end{center}
+\end{@twocolumnfalse}
+}]
 
 
 
