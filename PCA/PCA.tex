@@ -370,7 +370,7 @@ Let's assume that the first column of this data set are realizations of the firs
 The two variables $x$ and $y$ span two dimensional space but the data set exhibits a low-dimensional structure which is easily visible to the eye just by looking at the Figure \ref{fig:python-raw-data}. We already see that the data seems to be spread along some linear function. Perhaps changing the basis to a basis associated with this linear function will be a more effective representation by our data set? Note here also, that for multidimensional data sets "seeing" such data structures is no longer possible (as it still is in 2-D or 3D). We need to rely on the dimensionality reduction technique that we chose to find this low-dimensional structure for us.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{python-raw-data.eps}
+\centering\includegraphics[width=6cm]{python-raw-data.eps}
 \caption{Raw data set.}
 \label{fig:python-raw-data}
 \end{figure}
@@ -378,7 +378,7 @@ The two variables $x$ and $y$ span two dimensional space but the data set exhibi
 We center the dataset, which simply moves the center of the cloud of points to the origin of the coordinate system. If necessary, data set would also be scaled to allow for even comparison of the two variables.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{python-data-centered.eps}
+\centering\includegraphics[width=6cm]{python-data-centered.eps}
 \caption{Data set centered.}
 \label{fig:python-raw-data-centered}
 \end{figure}
@@ -398,7 +398,7 @@ In the above code, we create an object \pythoninline{pca} of class \pythoninline
 The eigenvectors are plotted on the dataset in Figure \ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is simply perpendicular to the first one.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{python-PCs.eps}
+\centering\includegraphics[width=6cm]{python-PCs.eps}
 \caption{Data set with principal components.}
 \label{fig:python-PCs}
 \end{figure}
@@ -410,7 +410,7 @@ scores = pca.transform(Dataset)
 \end{python}
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{python-PC-scores.eps}
+\centering\includegraphics[width=6cm]{python-PC-scores.eps}
 \caption{PC-scores.}
 \label{fig:python-PC-scores}
 \end{figure}
@@ -418,7 +418,7 @@ scores = pca.transform(Dataset)
 Next, the PC-scores can be projected on the first PC, to reduce the dimensionality - from two dimensions to one. The data representation from Figure \ref{fig:python-data-projection} can be viewed as the "scores" each data point would attain it represented on 1-dimensional structure associated with the first Principal Component.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{python-data-projection.eps}
+\centering\includegraphics[width=6cm]{python-data-projection.eps}
 \caption{Data projection on low dimension.}
 \label{fig:python-data-projection}
 \end{figure}
@@ -426,7 +426,7 @@ Next, the PC-scores can be projected on the first PC, to reduce the dimensionali
 The data set can be reconstructed. This represents going back from the 1-dimensional space to the original dimensions. The mean of the data set is added back to undo the data centering.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{python-data-approximation.eps}
+\centering\includegraphics[width=6cm]{python-data-approximation.eps}
 \caption{Data approximation with $q = 1$.}
 \label{fig:python-data-approximation}
 \end{figure}
