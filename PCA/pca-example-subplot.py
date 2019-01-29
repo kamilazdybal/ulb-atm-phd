@@ -28,7 +28,7 @@ scores = pca.transform(Dataset)
 PCs = pca.components_
 eigvals = pca.explained_variance_ratio_
 
-Dataset_projected = np.dot(Dataset_proc, np.transpose(np.mat(PCs[0,:])))
+Dataset_projected = np.dot(Dataset_proc, np.transpose(pca.components_[:q,:]))
 Dataset_approx = np.dot(pca.transform(Dataset)[:,:q], pca.components_[:q,:]) + np.mean(Dataset, axis=0)
 
 # Plot PCA steps

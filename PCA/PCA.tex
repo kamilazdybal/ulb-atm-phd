@@ -178,18 +178,9 @@ To motivate why studying techniques such as PCA and learning to apply them on re
 
 \section{Data sets for PCA}
 
-For the rest of this document, we assume that the data set for performing PCA is structured as follows: each column represents one variable $V_j$, where $j \in \braket{1, Q}$, and the rows correspond to variable observations $O_i$, where $i \in \braket{1, n}$, (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.
+For the rest of this document, we assume that the data set for performing PCA is structured as follows: each column represents one variable (feature) $V_j$, where $j \in \braket{1, Q}$, and the rows correspond to variable observations (samples) $O_i$, where $i \in \braket{1, n}$, (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} and for the Python function \texttt{sklearn.decomposition.PCA}.}
 
 
-
-This is also the data format that is needed for the MATLAB\textregistered \, command \texttt{pca}. From the documentation \cite{Matlab-pca}:
-
-
-\begin{framed}
-\texttt{pca(X)}
-\,\,
-Rows of X correspond to observations and columns correspond to variables.
-\end{framed}
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{data-set-PCA.png}
@@ -353,7 +344,7 @@ To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What 
 
 \subsection{PCA workflow}
 
-We will now go on to visualizing on an artificial 2D data set every step of PCA. We will use the \pythoninline{PCA} function from a Python library \pythoninline{sklearn.decompositions}. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code to explain what is happening.
+We will now go on to visualizing on an artificial 2D data set every step of PCA. We will use the \pythoninline{PCA} function from a Python library \pythoninline{sklearn.decompositions}. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code that are for performing PCA.
 
 We create the \pythoninline{Dataset} (the equivalent of $\bm{X}$) as follows:
 
@@ -375,7 +366,12 @@ The two variables $x$ and $y$ span two dimensional space but the data set exhibi
 \label{fig:python-raw-data}
 \end{figure}
 
-We center the dataset, which simply moves the center of the cloud of points to the origin of the coordinate system. If necessary, data set would also be scaled to allow for even comparison of the two variables.
+We center the data set, which simply moves the center of the cloud of points to the origin of the coordinate system. If necessary, data set would also be scaled to allow for even comparison of the two variables.
+
+\begin{python}
+Dataset_mean = np.mean(Dataset, axis=0)
+Dataset_proc = Dataset - Dataset_mean
+\end{python}
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-data-centered.eps}
@@ -387,15 +383,17 @@ Next, PCA is performed on the dataset and the eigenvectors (the Principal Compon
 
 \begin{python}
 from sklearn.decomposition import PCA
-pca = PCA(n_components=2)
+pca = PCA()
 pca.fit(Dataset)
-PCs = pca.components_
+
 eigvals = pca.explained_variance_ratio_
+PCs = pca.components_
+PCscores = pca.transform(Dataset)
 \end{python}
 
-In the above code, we create an object \pythoninline{pca} of class \pythoninline{PCA}. We train the model with our \pythoninline{Dataset} using the \pythoninline{fit} function.
+In the above code, we create an object \pythoninline{pca} of class \pythoninline{PCA}. We train the model with our \pythoninline{Dataset} using the \pythoninline{fit} function. 
 
-The eigenvectors are plotted on the dataset in Figure \ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is simply perpendicular to the first one.
+The eigenvectors are plotted on the data set in Figure \ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is perpendicular to the first one.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-PCs.eps}
@@ -403,12 +401,8 @@ The eigenvectors are plotted on the dataset in Figure \ref{fig:python-PCs}. Thei
 \label{fig:python-PCs}
 \end{figure}
 
-We may now find the PC-scores matrix which represents the "scores" each point from the data set attains when the new coordinate system was associated with the directions of the Principal Components.
+We also compute the transformed data set \pythoninline{PCscores} represented in the basis associated with the obtained \pythoninline{PCs}.
  
-\begin{python}
-scores = pca.transform(Dataset)
-\end{python}
-
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-PC-scores.eps}
 \caption{PC-scores.}
@@ -417,13 +411,25 @@ scores = pca.transform(Dataset)
 
 Next, the PC-scores can be projected on the first PC, to reduce the dimensionality - from two dimensions to one. The data representation from Figure \ref{fig:python-data-projection} can be viewed as the "scores" each data point would attain it represented on 1-dimensional structure associated with the first Principal Component.
 
+\begin{python}
+q = 1
+Dataset_projected = np.dot(Dataset_proc,
+np.transpose(pca.components_[:q,:]))
+\end{python}
+
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-data-projection.eps}
 \caption{Data projection on low dimension.}
 \label{fig:python-data-projection}
 \end{figure}
 
-The data set can be reconstructed. This represents going back from the 1-dimensional space to the original dimensions. The mean of the data set is added back to undo the data centering.
+We reconstruct the original data set from the reduced space. This represents going back from the 1-dimensional space to the original dimensions. The mean of the data set is added back to undo the data centering.
+
+\begin{python}
+Dataset_approx = 
+np.dot(pca.transform(Dataset)[:,:q], 
+pca.components_[:q,:]) + Dataset_mean
+\end{python}
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-data-approximation.eps}
@@ -437,7 +443,7 @@ The data set can be reconstructed. This represents going back from the 1-dimensi
 
 \subsection{Low-rank approximations}
 
-We perform Principal Component Analysis on three generated matrices of size $(10 \times 6)$: a random matrix which is populated by random floats in the range 0-1 and a semi-structured and structured matrices whose elements are also in the range 0-1 but were populated by the user and have an increasing level of structure that was judged visually. These matrices are presented in Fig. \ref{fig:matrices}.
+We will perform Principal Component Analysis on three generated matrices of size $(10 \times 6)$: a random matrix which is populated by random floats in the range 0-1 and a semi-structured and structured matrices whose elements are also in the range 0-1 but were populated by the user and have an increasing level of structure that was judged visually. These matrices are presented in Fig. \ref{fig:matrices}.
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -550,19 +556,6 @@ The original data matrices are not completely retrieved until all 6 Principal Co
 
 \newpage
 
-\section{Another look, or how it all links together}
-
-\begin{figure}[H]
-\centering\includegraphics[width=4cm]{variable-basis.png}
-\caption{Variable basis might not be optimal.}
-\label{fig:variable-basis}
-\end{figure}
-
-\begin{figure}[H]
-\centering\includegraphics[width=4cm]{PC-basis.png}
-\caption{PC-basis is orthogonal.}
-\label{fig:PC-basis}
-\end{figure}
 
 \section{Interesting questions}
 
