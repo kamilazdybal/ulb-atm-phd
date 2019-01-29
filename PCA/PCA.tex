@@ -299,7 +299,7 @@ In the matrix multiplication from eq.(\ref{eq:data-transform}), every variable v
 
 We now approach the dimensionality reduction but first let's obtain the original data set back, given the PC-scores and the transformation matrix:
 
-\begin{equation}
+\begin{equation} \label{eq:X-retrieval}
 \bm{X} = \bm{Z} \bm{A}^T
 \end{equation}
 
@@ -317,7 +317,7 @@ We shrink the transformation matrix $\bm{A}$ to be of size $(Q \times q)$ (we on
 
 Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approximation of the original data set:
 
-\begin{equation}
+\begin{equation} \label{eq:X-approximation}
 \bm{X_q} = \bm{Z_q} \bm{A_q}^T
 \end{equation}
 
@@ -342,7 +342,7 @@ To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What 
 
 \section{Python examples}
 
-\subsection{PCA workflow}
+\subsection{PCA workflow}\label{sec:pca-workflow}
 
 We will now go on to visualizing on an artificial 2D data set every step of PCA. We will use the \pythoninline{PCA} function from a Python library \pythoninline{sklearn.decompositions}. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code that are for performing PCA.
 
@@ -443,7 +443,7 @@ pca.components_[:q,:]) + Dataset_mean
 
 \subsection{Low-rank approximations}
 
-We will perform Principal Component Analysis on three generated matrices of size $(10 \times 6)$: a random matrix which is populated by random floats in the range 0-1 and a semi-structured and structured matrices whose elements are also in the range 0-1 but were populated by the user and have an increasing level of structure that was judged visually. These matrices are presented in Fig. \ref{fig:matrices}.
+We perform PCA on three artificially generated matrices of size $(10 \times 6)$: a \textbf{random} matrix which is populated by random floats in the range 0-1 and a \textbf{semi-structured} and \textbf{structured} matrices whose elements are also in the range 0-1 but were populated by the user and have an increasing level of structure that was judged visually. These matrices are presented in Fig. \ref{fig:matrices}.
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -461,29 +461,33 @@ We will perform Principal Component Analysis on three generated matrices of size
 \includegraphics[scale=.2]{DWGs/structured-matrix-original.eps}
 \caption{ }
 \end{subfigure}
-\caption{Original matrices: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
+\caption{Original data matrices: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
 \label{fig:matrices}
 \end{figure}
 
-The visual judgment of the level of imposed "structure" is quite objective but the aim was to group the elements of high numerical value (most yellow) in a single region of the matrix and elements of low numerical (most purple) value in other regions of the matrix.
+The visual judgment of the level of imposed "structure" is quite objective in this exercise but the aim was to group the elements of high numerical value (most yellow) in a single region of the matrix and elements of low numerical (most purple) value in other regions of the matrix.
 
-The level of the imposed "structure" can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig. \ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits a strong low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
+The level of the imposed structure can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig. \ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits the strongest low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{DWGs/matrix-reconstruction-eigenvalues-comparison.eps}
-\caption{Eigenvalues distribution after performing PCA on data matrices.}			
+\caption{Eigenvalue distribution after performing PCA on original data matrices.}			
 \label{fig:eigenvalues}
 \end{figure}
 
-We may reconstruct the original data matrices using a certain number $q$ of PC-scores and corresponding PCs. Using the Matlab notation we may write the approximation as:
+We reconstruct the original data matrices using a certain number $q$ of PC-scores and corresponding PCs. Using the Matlab notation we may write the approximation as:
 
-\begin{equation}
-\bm{D}_{\text{app}} = \text{PC-scores}(:,1:q) \cdot \text{PCs}(1:q,:)
+\begin{equation} \label{eq:data-set-approximation}
+\bm{D}_{\text{app}} = \text{PC-scores}(:,1:q) \cdot \text{PCs}^T(1:q,:) + \bm{D}_{\text{mean}}
 \end{equation}
 
-Below we can see a rank-1 approximation of the original matrices using the $1^{st}$ Principal Component found by PCA. The vectors $(10 \times 1)$ represent the PC-scores and the vectors $(1 \times 6)$ represent the PCs.
+which is equivalent to eq.(\ref{eq:X-approximation}) and to the Python approximation presented in Sec. \ref{sec:pca-workflow}.
 
-What can be seen visually is that for the semi-structured and structured matrix the low numerical value region is clearly separated. For the random matrix, only few regions of lowest and highest numerical values are visible in the rank-1 approximation.
+The above multiplication is presented in three cases in Fig. \ref{fig:matrices-reconstruction-1}. We can see a rank-1 approximation of the original matrices using the $1^{st}$ Principal Component found by PCA. The vectors $(10 \times 1)$ represent the PC-scores and the vectors $(1 \times 6)$ represent the PCs.
+
+What can be seen visually is that for the semi-structured and structured matrix the low numerical value region is clearly separated. For the random matrix, only few regions of lowest and highest numerical values are recovered in the rank-1 approximation.
+
+It is worth noticing here that indeed the obtained matrices are necessarily rank-1, since they are formed as a linear combination of a single vector. This can be seen in two ways: either you may take the vector of PC-scores $(10 \times 1)$ and assume that it forms every column of the $(10 \times 6)$ matrix through multiplying it by the corresponding element from the PC vector. Or, you may assume that the PC is a vector that forms every row of the $(10 \times 6)$ matrix when multiplied by the corresponding element from the PC-scores vector. In either case, the full matrix $(10 \times 6)$ becomes a linear combination of a single vector - hence, it is rank-1.
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -501,13 +505,16 @@ What can be seen visually is that for the semi-structured and structured matrix 
 \includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-1.eps}
 \caption{ }
 \end{subfigure}
-\caption{PCA reconstruction with $1^{st}$ Principal Component of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
-\label{fig:matrices-reconstruction}
+\caption{Reconstruction with $1^{st}$ Principal Component of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
+\label{fig:matrices-reconstruction-1}
 \end{figure}
 
-In Fig. \ref{fig:matrices-reconstruction} we present a rank-2 approximation, where we took two PCs. Again, the matrix $(10 \times 2)$ represent the PC-scores and the vectors $(2 \times 6)$ represent the PCs.
+In Fig. \ref{fig:matrices-reconstruction-2} we present a rank-2 approximation, where we maintained two first PCs. Again, the matrices $(10 \times 2)$ represent the PC-scores and the vectors $(2 \times 6)$ represent the PCs.
 
 In the semi-structured and structured matrix, the single matrix elements with highest numerical values (yellow) are already recovered in their actual positions. In the random matrix this is still not the case with rank 2-approximation.
+
+Following the analogous reasoning as for Fig. \ref{fig:matrices-reconstruction-1} we may notice that the matrix reconstructed with two PCs is a rank-2 matrix.
+
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -525,13 +532,13 @@ In the semi-structured and structured matrix, the single matrix elements with hi
 \includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-2.eps}
 \caption{ }
 \end{subfigure}
-\caption{PCA reconstruction with 2 Principal Components of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
-\label{fig:matrices-reconstruction}
+\caption{Reconstruction with 2 Principal Components of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
+\label{fig:matrices-reconstruction-2}
 \end{figure}
 
+The original data matrices are not completely retrieved until all 6 Principal Components and 6 PC-scores are taken into account. In Fig. \ref{fig:matrices-reconstruction-6} we obtain the final data matrices of rank-6.
 
-
-The original data matrices are not completely retrieved until all 6 Principal Components and 6 PC-scores are taken into account. We obtain the final data matrices of rank-6.
+The PC-scores are low-dimensional representations of the original data matrix and we return to the original dimensions by the transformation from eq.(\ref{eq:X-approximation}). In the case of taking all 6 PCs, the PC-scores $\bm{Z_q} = \bm{Z}$ and the eq.(\ref{eq:data-set-approximation}) becomes the eq.(\ref{eq:X-retrieval}), rather than the approximation from eq.(\ref{eq:X-approximation}).
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -549,9 +556,11 @@ The original data matrices are not completely retrieved until all 6 Principal Co
 \includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-6.eps}
 \caption{ }
 \end{subfigure}
-\caption{PCA reconstruction with 6 Principal Components of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
-\label{fig:matrices-reconstruction}
+\caption{Reconstruction with 6 Principal Components of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
+\label{fig:matrices-reconstruction-6}
 \end{figure}
+
+Indeed, the multiplications from Fig. \ref{fig:matrices-reconstruction-6} show full PC-scores matrices transformed to the original 6 dimensions using the inverse (transposition) of the basis matrix made from PCs. The resulting matrix has to be the original data matrix.
 
 
 \newpage
