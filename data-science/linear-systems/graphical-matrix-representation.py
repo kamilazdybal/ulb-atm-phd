@@ -217,7 +217,7 @@ for Nq in range(1,7):
     figureSubplot.spines["left"].set_visible(False)
 
     figureSubplot = plt.subplot(2,2,4)
-    plt.imshow(Dataset_approx)
+    art = plt.imshow(Dataset_approx)
     plt.yticks([]), plt.xticks([])
     figureSubplot.spines["top"].set_visible(False)
     figureSubplot.spines["bottom"].set_visible(False)
