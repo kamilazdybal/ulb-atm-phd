@@ -74,7 +74,7 @@ plt.axis('equal')
 plt.yticks([3, 4, 5, 6]), plt.xticks([3, 4, 5, 6])
 
 # Save plot:
-filename = 'DWGs/PCA-example-subplot.eps'
-plt.savefig(filename, dpi = 100, bbox_inches='tight')
+filename = 'DWGs/PCA-example-subplot.png'
+plt.savefig(filename, dpi = 500, bbox_inches='tight')
 plt.show()
 plt.close()
