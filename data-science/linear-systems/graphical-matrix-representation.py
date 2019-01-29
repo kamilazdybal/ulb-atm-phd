@@ -233,9 +233,9 @@ for Nq in range(1,7):
 # Save eigenvalues comparison: =================================================
 figure = plt.figure(figsize=(5, 4))
 figureSubplot = plt.subplot(1,1,1)
-p1, = plt.plot(range(1,7), eigvals_random, color=randomColour, linestyle='-', linewidth=ln)
-p2, = plt.plot(range(1,7), eigvals_semi_structured, color=semiColour, linestyle='-', linewidth=ln)
-p3, = plt.plot(range(1,7), eigvals_structured, color=structuredColour, linestyle='-', linewidth=ln)
+p1, = plt.plot(range(1,7), eigvals_random, 'o-', color=randomColour, linewidth=ln)
+p2, = plt.plot(range(1,7), eigvals_semi_structured, 'o-', color=semiColour, linewidth=ln)
+p3, = plt.plot(range(1,7), eigvals_structured, 'o-', color=structuredColour, linewidth=ln)
 figureSubplot.legend((p1, p2, p3), ('Random', 'Semi-structured', 'Structured'))
 filename = 'DWGs/matrix-reconstruction-eigenvalues-comparison.eps'
 plt.savefig(filename, dpi = 100, bbox_inches='tight')
