@@ -15,21 +15,21 @@ hfont = {'fontname':'cmr10'}
 
 # Generate randomized dataset with linearity
 Np = 100
-Nq = 2
+q = 1
 x = np.linspace(3, 6, Np)
 y = 0.8*x + 1*np.random.rand(Np)
 Dataset = np.column_stack((x, y))
 Dataset_proc = Dataset - np.mean(Dataset, axis=0)
 
 # Perform PCA
-pca = PCA(n_components=Nq)
+pca = PCA()
 pca.fit(Dataset)
 scores = pca.transform(Dataset)
 PCs = pca.components_
 eigvals = pca.explained_variance_ratio_
 
 Dataset_projected = np.dot(Dataset_proc, np.transpose(np.mat(PCs[0,:])))
-Dataset_approx = np.dot(np.transpose(np.mat(scores[:,0])), np.mat(PCs[0,:])) + np.mean(Dataset, axis=0)
+Dataset_approx = np.dot(pca.transform(Dataset)[:,:q], pca.components_[:q,:]) + np.mean(Dataset, axis=0)
 
 # Plot PCA steps
 figure = plt.figure(figsize=(11, 8))
