@@ -49,7 +49,7 @@ INPUT PARAMETERS ----------------------------------------------------------
 
     is a cell array of strings that labels consecutive sub-matrices.
 
-    Example: labels = {'Line-1', 'Line-2', 'Line-3'}
+    Example: labels = {'Line-1', 'Line-2', 'Line-3', 'Line-4'}
 
 - markers
 
@@ -86,7 +86,7 @@ end
 n_modes = size(qor_matrix, 1)/n_subs;
 range = 1:1:n_modes;
 fontsize_axes = 18;
-fontsize_label = 20;
+fontsize_label = 30;
 fontsize_legend = 26;
 marker_size = 8;
 cap_size = 6;
