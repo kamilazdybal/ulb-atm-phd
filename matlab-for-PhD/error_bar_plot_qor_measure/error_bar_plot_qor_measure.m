@@ -106,7 +106,7 @@ for line = 1:1:n_subs
     if log_scale ~= 0
         set(gca,'YScale','log');
     end
-    s = errorbar(range + (-n_subs/2+line)*0.18, mean_nrmse, mean_nrmse - min_nrmse, max_nrmse - mean_nrmse, char(markers(line))); hold on, grid on
+    s = errorbar(range + ((-n_subs-1)/2+line)*0.18, mean_nrmse, mean_nrmse - min_nrmse, max_nrmse - mean_nrmse, char(markers(line))); hold on, grid on
     s.Color = colors(line,:);
     s.CapSize = cap_size;
     s.MarkerSize = marker_size;
