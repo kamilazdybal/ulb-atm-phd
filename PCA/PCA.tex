@@ -260,7 +260,7 @@ The covariance matrix is a very special matrix and it is worth pointing out some
 
 First of all, a matrix constructed as: $\bm{S} = \bm{C}^T \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric (the reason for this is easy to see from Figure \ref{fig:covariance-matrix}). Apart from that, the eigenvalues of such matrix are real and all are at least non-negative - such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
 
-Another important property is that the eigenvectors of the covariance matrix are orthogonal, which is a very special thing indeed. You may already see some interesting uses for such eigenvectors. One of which could be: they can form a new coordinate system, in other words: a \textit{basis}. The question thus remains: can such basis be any interesting basis?
+Another important property is that the eigenvectors of the covariance matrix are orthogonal, which is a very special thing indeed. You may already see some interesting uses for such eigenvectors. One of which could be: they can form a new coordinate system - a \textit{basis}. The question thus remains: can such basis be any interesting basis?
 
 \section{PCA workflow}
 
@@ -288,7 +288,7 @@ The principal components form a new basis in which we can represent our data set
 \label{fig:data-transformation}
 \end{figure}
 
-The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the \textit{PC-scores} matrix, since one may think of every element in this matrix as the "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation.
+The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the \textit{PC-scores} matrix, since one may think of every element in this matrix as a "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation.
 
 
 
@@ -333,16 +333,14 @@ Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approxima
 
 \section{Why does it need to be eigenvectors?}
 
-In this section we come back to equation (\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? If you are new to PCA, this indeed might seem like a not-related-to-anything thing to do. So why is it eigenvectors? And why does it need to be eigenvectors of this special matrix called covariance matrix?
-
-To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What we want to achieve with PCA is to diagonalize the new covariance matrix. And we already have produced one diagonal matrix even before computing PC-scores - it was the matrix of eigenvalues $\bm{\Lambda}$.
+In this section we come back to the eq.(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What we want to achieve with PCA is to diagonalize the new covariance matrix. And we already have produced one diagonal matrix even before computing PC-scores - it was the matrix of eigenvalues $\bm{\Lambda}$.
 
 
 \newpage
 
 \section{Python examples}
 
-\subsection{PCA workflow}\label{sec:pca-workflow}
+\subsection{Plotting the workflow}\label{sec:pca-workflow}
 
 We will now go on to visualizing on an artificial 2D data set every step of PCA. We will use the \pythoninline{PCA} function from a Python library \pythoninline{sklearn.decompositions}. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code that are for performing PCA.
 
@@ -595,17 +593,6 @@ the variances (the elements on the diagonal) are maximized and the covariances (
 
 
 \appendix
-
-\section{Properties of interesting matrices}
-
-\subsection{Symmetric matrices} \label{app:A}
-
-The properties of symmetric matrices:
-
-\begin{enumerate}
-\item Their eigenvectors are orthogonal.
-\item Their eigenvalues are real.
-\end{enumerate}
 
 
 
