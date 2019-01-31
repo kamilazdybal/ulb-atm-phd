@@ -11,6 +11,7 @@ semiColour = '#94b7ef'
 structuredColour = '#3178ea'
 ln = 2
 fnts = 16
+plt.rc('grid', linestyle="--", color='black', linewidth=0.1)
 
 # Fonts:
 csfont = {'fontname':'cmr10'}
@@ -43,6 +44,18 @@ figureSubplot.spines["left"].set_visible(False)
 filename = 'DWGs/random-matrix-original.eps'
 plt.savefig(filename, dpi = 100, bbox_inches='tight')
 plt.close()
+
+# PCs bar plot:
+for pc in range(1,7):
+    figure = plt.figure(figsize=(4, 3))
+    figureSubplot = figure.add_subplot(1,1,1)
+    plt.grid()
+    plt.bar(range(1,7), pca.components_[pc-1,:], 0.5)
+
+    # Save plot:
+    filename = 'DWGs/random-matrix-bar-plot-PC' + str(pc) + '.eps'
+    plt.savefig(filename, dpi = 100, bbox_inches='tight')
+    plt.close()
 
 for Nq in range(1,7):
 
@@ -119,6 +132,18 @@ filename = 'DWGs/semi-structured-matrix-original.eps'
 plt.savefig(filename, dpi = 100, bbox_inches='tight')
 plt.close()
 
+# PCs bar plot:
+for pc in range(1,7):
+    figure = plt.figure(figsize=(4, 3))
+    figureSubplot = figure.add_subplot(1,1,1)
+    plt.grid()
+    plt.bar(range(1,7), pca.components_[pc-1,:], 0.5)
+
+    # Save plot:
+    filename = 'DWGs/semi-structured-matrix-bar-plot-PC' + str(pc) + '.eps'
+    plt.savefig(filename, dpi = 100, bbox_inches='tight')
+    plt.close()
+
 for Nq in range(1,7):
 
     Dataset_approx = np.dot(pca.transform(Dataset_semi_structured)[:,:Nq], pca.components_[:Nq,:])
@@ -192,6 +217,18 @@ figureSubplot.spines["left"].set_visible(False)
 filename = 'DWGs/structured-matrix-original.eps'
 plt.savefig(filename, dpi = 500, bbox_inches='tight')
 plt.close()
+
+# PCs bar plot:
+for pc in range(1,7):
+    figure = plt.figure(figsize=(4, 3))
+    figureSubplot = figure.add_subplot(1,1,1)
+    plt.grid()
+    plt.bar(range(1,7), pca.components_[pc-1,:], 0.5)
+
+    # Save plot:
+    filename = 'DWGs/structured-matrix-bar-plot-PC' + str(pc) + '.eps'
+    plt.savefig(filename, dpi = 100, bbox_inches='tight')
+    plt.close()
 
 for Nq in range(1,7):
 
