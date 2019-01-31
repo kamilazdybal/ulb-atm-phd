@@ -262,7 +262,7 @@ s_{i,j} = \frac{1}{n-1} \sum\limits_{k=1}^n V_i(k) V_j(k)
 
 The covariance matrix is a very special matrix and it is worth pointing out some of its interesting properties that the Principal Component Analysis makes use of.
 
-First of all, a matrix constructed as: $\bm{S} = \bm{C}^T \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric (the reason for this is easy to see from Figure \ref{fig:covariance-matrix}). Apart from that, the eigenvalues of such matrix are real and all are at least non-negative - such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
+First of all, a matrix constructed as: $\bm{S} = \bm{C}^T \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric (the reason for this is easy to see from Fig.\ref{fig:covariance-matrix}). Apart from that, the eigenvalues of such matrix are real and all are at least non-negative - such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
 
 Another important property is that the eigenvectors of the covariance matrix are orthogonal, which is a very special thing indeed. You may already see some interesting uses for such eigenvectors. One of which could be: they can form a new coordinate system - a \textit{basis}. The question thus remains: can such basis be any interesting basis?
 
@@ -388,7 +388,7 @@ Dataset = np.column_stack((x, y))
 
 Let's assume that the first column of this data set are realizations of the first variable $x$ and the second column are realizations of the second variable $y$.
 
-The two variables $x$ and $y$ span two dimensional space but the data set exhibits a low-dimensional structure which is easily visible to the eye just by looking at the Figure \ref{fig:python-raw-data}. We already see that the data seems to be spread along some linear function. Perhaps changing the basis to a basis associated with this linear function will be a more effective representation by our data set? Note here also, that for multidimensional data sets "seeing" such data structures is no longer possible (as it still is in 2-D or 3D). We need to rely on the dimensionality reduction technique that we chose to find this low-dimensional structure for us.
+The two variables $x$ and $y$ span two dimensional space but the data set exhibits a low-dimensional structure which is easily visible to the eye just by looking at the Fig.\ref{fig:python-raw-data}. We already see that the data seems to be spread along some linear function. Perhaps changing the basis to a basis associated with this linear function will be a more effective representation by our data set? Note here also, that for multidimensional data sets "seeing" such data structures is no longer possible (as it still is in 2-D or 3D). We need to rely on the dimensionality reduction technique that we chose to find this low-dimensional structure for us.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-raw-data.eps}
@@ -423,7 +423,7 @@ PCscores = pca.transform(Dataset)
 
 In the above code, we create an object \pythoninline{pca} of class \pythoninline{PCA}. We train the model with our \pythoninline{Dataset} using the \pythoninline{fit} function. 
 
-The eigenvectors are plotted on the data set in Figure \ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is perpendicular to the first one.
+The eigenvectors are plotted on the data set in Fig.\ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is perpendicular to the first one.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-PCs.eps}
@@ -439,7 +439,7 @@ We also compute the transformed data set \pythoninline{PCscores} represented in 
 \label{fig:python-PC-scores}
 \end{figure}
 
-Next, the PC-scores can be projected on the first PC, to reduce the dimensionality - from two dimensions to one. The data representation from Figure \ref{fig:python-data-projection} can be viewed as the "scores" each data point would attain it represented on 1-dimensional structure associated with the first Principal Component.
+Next, the PC-scores can be projected on the first PC, to reduce the dimensionality - from two dimensions to one. The data representation from Fig.\ref{fig:python-data-projection} can be viewed as the "scores" each data point would attain it represented on 1-dimensional structure associated with the first Principal Component.
 
 \begin{python}
 q = 1
@@ -471,7 +471,7 @@ pca.components_[:q,:]) + Dataset_mean
 
 \subsection{Low-rank approximations}
 
-We perform PCA on three artificially generated matrices of size $(10 \times 6)$: a \textbf{random} matrix which is populated by random floats in the range 0-1 and a \textbf{semi-structured} and \textbf{structured} matrices whose elements are also in the range 0-1 but were populated by the user and have an increasing level of structure that was judged visually. These matrices are presented in Fig. \ref{fig:matrices}.
+We perform PCA on three artificially generated matrices of size $(10 \times 6)$: a \textbf{random} matrix which is populated by random floats in the range 0-1 and a \textbf{semi-structured} and \textbf{structured} matrices whose elements are also in the range 0-1 but were populated by the user and have an increasing level of structure that was judged visually. These matrices are presented in Fig.\ref{fig:matrices}.
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -495,7 +495,7 @@ We perform PCA on three artificially generated matrices of size $(10 \times 6)$:
 
 The visual judgment of the level of imposed "structure" is quite objective in this exercise but the aim was to group the elements of high numerical value (most yellow) in a single region of the matrix and elements of low numerical (most purple) value in other regions of the matrix.
 
-The level of the imposed structure can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig. \ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits the strongest low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
+The level of the imposed structure can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig.\ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits the strongest low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{DWGs/matrix-reconstruction-eigenvalues-comparison.eps}
@@ -509,9 +509,9 @@ We reconstruct the original data matrices using a certain number $q$ of PC-score
 \bm{D}_{\text{app}} = \text{PC-scores}(:,1:q) \cdot \text{PCs}^T(1:q,:) + \bm{D}_{\text{mean}}
 \end{equation}
 
-which is equivalent to eq.(\ref{eq:X-approximation}) and to the Python approximation presented in Sec. \ref{sec:pca-workflow}.
+which is equivalent to eq.(\ref{eq:X-approximation}) and to the Python approximation presented in Sec.\ref{sec:pca-workflow}.
 
-The above multiplication is presented in three cases in Fig. \ref{fig:matrices-reconstruction-1}. We can see a rank-1 approximation of the original matrices using the $1^{st}$ Principal Component found by PCA. The vectors $(10 \times 1)$ represent the PC-scores and the vectors $(1 \times 6)$ represent the PCs.
+The above multiplication is presented in three cases in Fig.\ref{fig:matrices-reconstruction-1}. We can see a rank-1 approximation of the original matrices using the $1^{st}$ Principal Component found by PCA. The vectors $(10 \times 1)$ represent the PC-scores and the vectors $(1 \times 6)$ represent the PCs.
 
 What can be seen visually is that for the semi-structured and structured matrix the low numerical value region is clearly separated. For the random matrix, only few regions of lowest and highest numerical values are recovered in the rank-1 approximation.
 
@@ -537,11 +537,11 @@ It is worth noticing here that indeed the obtained matrices are necessarily rank
 \label{fig:matrices-reconstruction-1}
 \end{figure}
 
-In Fig. \ref{fig:matrices-reconstruction-2} we present a rank-2 approximation, where we maintained two first PCs. Again, the matrices $(10 \times 2)$ represent the PC-scores and the vectors $(2 \times 6)$ represent the PCs.
+In Fig.\ref{fig:matrices-reconstruction-2} we present a rank-2 approximation, where we maintained two first PCs. Again, the matrices $(10 \times 2)$ represent the PC-scores and the vectors $(2 \times 6)$ represent the PCs.
 
 In the semi-structured and structured matrix, the single matrix elements with highest numerical values (yellow) are already recovered in their actual positions. In the random matrix this is still not the case with rank 2-approximation.
 
-Following the analogous reasoning as for Fig. \ref{fig:matrices-reconstruction-1} we may notice that the matrix reconstructed with two PCs is a rank-2 matrix.
+Following the analogous reasoning as for Fig.\ref{fig:matrices-reconstruction-1} we may notice that the matrix reconstructed with two PCs is a rank-2 matrix.
 
 
 \begin{figure}[H]
@@ -564,7 +564,7 @@ Following the analogous reasoning as for Fig. \ref{fig:matrices-reconstruction-1
 \label{fig:matrices-reconstruction-2}
 \end{figure}
 
-The original data matrices are not completely retrieved until all 6 Principal Components and 6 PC-scores are taken into account. In Fig. \ref{fig:matrices-reconstruction-6} we obtain the final data matrices of rank-6.
+The original data matrices are not completely retrieved until all 6 Principal Components and 6 PC-scores are taken into account. In Fig.\ref{fig:matrices-reconstruction-6} we obtain the final data matrices of rank-6.
 
 The PC-scores are low-dimensional representations of the original data matrix and we return to the original dimensions by the transformation from eq.(\ref{eq:X-approximation}). In the case of taking all 6 PCs, the PC-scores $\bm{Z_q} = \bm{Z}$ and the eq.(\ref{eq:data-set-approximation}) becomes the eq.(\ref{eq:X-retrieval}), rather than the approximation from eq.(\ref{eq:X-approximation}).
 
@@ -588,7 +588,7 @@ The PC-scores are low-dimensional representations of the original data matrix an
 \label{fig:matrices-reconstruction-6}
 \end{figure}
 
-Indeed, the multiplications from Fig. \ref{fig:matrices-reconstruction-6} show full PC-scores matrices transformed to the original 6 dimensions using the inverse (transposition) of the basis matrix made from PCs. The resulting matrix has to be the original data matrix.
+Indeed, the multiplications from Fig.\ref{fig:matrices-reconstruction-6} show full PC-scores matrices transformed to the original 6 dimensions using the inverse (transposition) of the basis matrix made from PCs. The resulting matrix has to be the original data matrix.
 
 
 
