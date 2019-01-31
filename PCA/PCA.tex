@@ -93,7 +93,7 @@ showstringspaces=false            %
     \fontsize{20}{10}\selectfont {The linear algebra of Principal Component Analysis}
       \vspace{1ex}
       
-      \fontsize{16}{10}\selectfont {(with some Python)}
+      \fontsize{16}{10}\selectfont {(with Python examples)}
   \noindent%
     
 \vskip1ex
@@ -178,15 +178,17 @@ To motivate why studying techniques such as PCA and learning to apply them on re
 
 \section{Data sets for PCA}
 
-For the rest of this document, we assume that the data set for performing PCA is structured as follows: each column represents one variable (feature) $V_j$, where $j \in \braket{1, Q}$, and the rows correspond to variable observations (samples) $O_i$, where $i \in \braket{1, n}$, (e.g. at different positions in space, or in time). The raw data matrix $\bm{X}$ is size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} and for the Python function \texttt{sklearn.decomposition.PCA}.}
+For the rest of this document, we assume that the data set for performing PCA is structured as follows: each column represents one variable (feature) $V_j$ observations and the rows correspond to all variable's observations (samples) $O_i$, e.g. at different positions in space, or in time. Let $i \in \braket{1, n}$ and $j \in \braket{1, Q}$. The raw data matrix $\bm{X}$ is hence size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} and for the Python function \texttt{sklearn.decomposition.PCA}.} This structure can be seen in Fig.\ref{fig:data-matrix}.
 
-
+One of the strengths of PCA is that it can be performed on a non-time-resolved data set, namely the matrix $\bm{X}$ can be collected at a single time snapshot and be only spatially-resolved.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{data-set-PCA.png}
 \caption{Data matrix for PCA.}
 \label{fig:data-matrix}
 \end{figure}
+
+
 
 \section{Data pre-processing}
 
@@ -331,12 +333,38 @@ Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approxima
 
 
 
-\section{Why does it need to be eigenvectors?}
+\section{Why eigenvectors?}
 
-In this section we come back to the eq.(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? To begin the understanding, let's look back at Figure \ref{fig:PC-scores}. What we want to achieve with PCA is to diagonalize the new covariance matrix. And we already have produced one diagonal matrix even before computing PC-scores - it was the matrix of eigenvalues $\bm{\Lambda}$.
+In this section we come back to the eq.(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? 
+
+\,\,
+\,\,
 
 
-\newpage
+\textbf{The goal of PCA in terms of a covariance matrix}
+
+\,\,
+\,\,
+
+To begin the understanding, let's look at Fig.\ref{fig:PC-scores}. Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix in such a way:
+
+\begin{equation}
+\bm{S_Z} =  \bm{Z^T} \bm{Z}
+\end{equation}
+
+the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$. This removes the redundancy of information that could have been present in the original data set $\bm{X}$; each column of $\bm{Z}$ now contributes to a "unique" piece of information that cannot be found in any other column of $\bm{Z}$.
+
+In other words, what we want to achieve with PCA is to diagonalize this new covariance matrix $\bm{S_Z}$. It uses as a "template" a diagonal matrix that was already produced, and which is guaranteed to be diagonal - the matrix of eigenvalues $\bm{\Lambda}$.
+
+\begin{figure}[H]
+\centering\includegraphics[width=5cm]{PC-scores.png}
+\caption{New transformed data set $\bm{Z}$ and its diagonal covariance matrix $\bm{S_Z}$.}
+\label{fig:PC-scores}
+\end{figure}
+
+There is one more thing owed explaining. We mentioned before that the elements on the diagonal are maximized, so is this also achieved by taking the eigenvalues matrix as a template? It turns out that the answer is yes. PCA achieves both things at the same time: it diagonalizes the new covariance matrix and it makes the diagonal elements maximum possible. Pretty neat, no?
+
+
 
 \section{Python examples}
 
@@ -434,8 +462,6 @@ pca.components_[:q,:]) + Dataset_mean
 \caption{Data approximation with $q = 1$.}
 \label{fig:python-data-approximation}
 \end{figure}
-
-
 
 \newpage
 
@@ -559,36 +585,6 @@ The PC-scores are low-dimensional representations of the original data matrix an
 \end{figure}
 
 Indeed, the multiplications from Fig. \ref{fig:matrices-reconstruction-6} show full PC-scores matrices transformed to the original 6 dimensions using the inverse (transposition) of the basis matrix made from PCs. The resulting matrix has to be the original data matrix.
-
-
-\newpage
-
-
-\section{Interesting questions}
-
-\subsection{Is the covariance matrix of PC-scores a diagonal matrix?}
-
-\textbf{The goal of PCA in terms of a covariance matrix}
-
-\,\,
-\,\,
-
-Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix:
-
-\begin{equation}
-\bm{S}_Z =  \bm{Z^T} \bm{Z}
-\end{equation}
-
-the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$.
-
-\begin{figure}[H]
-\centering\includegraphics[width=5cm]{PC-scores.png}
-\caption{New transformed data set $\bm{Z}$ and its covariance matrix $\bm{S}_Z$.}
-\label{fig:PC-scores}
-\end{figure}
-
-
-
 
 
 
