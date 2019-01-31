@@ -176,6 +176,8 @@ To motivate why studying techniques such as PCA and learning to apply them on re
 \item Can we extract low-dimensional features that underlay the data?
 \end{enumerate}
 
+All of these questions are not necessarily answerd by PCA. Different applications might work well with different data reduction techniques. However, I believe that they form a strong motivation to why we are dealing with data science and how important it can be in various physical and computer sciences.
+
 \section{Data sets for PCA}
 
 For the rest of this document, we assume that the data set for performing PCA is structured as follows: each column represents one variable (feature) $V_j$ observations and the rows correspond to all variable's observations (samples) $O_i$, e.g. at different positions in space, or in time. Let $i \in \braket{1, n}$ and $j \in \braket{1, Q}$. The raw data matrix $\bm{X}$ is hence size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} and for the Python function \texttt{sklearn.decomposition.PCA}.} This structure can be seen in Fig.\ref{fig:data-matrix}.
@@ -354,7 +356,7 @@ To begin the understanding, let's look at Fig.\ref{fig:PC-scores}. Principal Com
 
 the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$. This removes the redundancy of information that could have been present in the original data set $\bm{X}$; each column of $\bm{Z}$ now contributes to a "unique" piece of information that cannot be found in any other column of $\bm{Z}$.
 
-In other words, what we want to achieve with PCA is to diagonalize this new covariance matrix $\bm{S_Z}$. It uses as a "template" a diagonal matrix that was already produced, and which is guaranteed to be diagonal - the matrix of eigenvalues $\bm{\Lambda}$.
+In other words, what we want to achieve with PCA is to diagonalize this new covariance matrix $\bm{S_Z}$. As a "template" PCA uses a diagonal matrix that is easily available (and which we have already produced), and which is guaranteed to be diagonal - the matrix of eigenvalues $\bm{\Lambda}$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{PC-scores.png}
@@ -364,7 +366,9 @@ In other words, what we want to achieve with PCA is to diagonalize this new cova
 
 There is one more thing owed explaining. We mentioned before that the elements on the diagonal are maximized, so is this also achieved by taking the eigenvalues matrix as a template? It turns out that the answer is yes. PCA achieves both things at the same time: it diagonalizes the new covariance matrix and it makes the diagonal elements maximum possible. Pretty neat, no?
 
+\section{How it all links together}
 
+Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  seems like a "series of fortunate events" that allows us to obtain a great data reduction technique with a very effective usage of a few popular concepts from linear algebra. 
 
 \section{Python examples}
 
