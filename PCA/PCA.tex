@@ -176,7 +176,7 @@ To motivate why studying techniques such as PCA and learning to apply them on re
 \item Can we extract low-dimensional features that underlay the data?
 \end{enumerate}
 
-All of these questions are not necessarily answerd by PCA. Different applications might work well with different data reduction techniques. However, I believe that they form a strong motivation to why we are dealing with data science and how important it can be in various physical and computer sciences.
+All of these questions are not necessarily answerd by PCA. Different applications might work well with different data reduction techniques.
 
 \section{Data sets for PCA}
 
@@ -233,7 +233,7 @@ We will start by exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the g
 Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $V_p$ (or $V_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7.5cm]{cov-matrix.png}
+\centering\includegraphics[width=7cm]{cov-matrix.png}
 \caption{Covariance matrix $\bm{S}$ graphical interpretation.}
 \label{fig:covariance-matrix}
 \end{figure}
@@ -359,7 +359,7 @@ the variances (the elements on the diagonal) are maximized and the covariances (
 In other words, what we want to achieve with PCA is to diagonalize this new covariance matrix $\bm{S_Z}$. As a "template" PCA uses a diagonal matrix that is easily available (and which we have already produced), and which is guaranteed to be diagonal - the matrix of eigenvalues $\bm{\Lambda}$.
 
 \begin{figure}[H]
-\centering\includegraphics[width=5cm]{PC-scores.png}
+\centering\includegraphics[width=6cm]{PC-scores.png}
 \caption{New transformed data set $\bm{Z}$ and its diagonal covariance matrix $\bm{S_Z}$.}
 \label{fig:PC-scores}
 \end{figure}
