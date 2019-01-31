@@ -222,7 +222,7 @@ For simplicity, for the rest of this document we assume that $\bm{X}$ represents
 
 The starting point for performing PCA is to compute a \textit{covariance matrix} from the data set. The covariance matrix is given by:
 
-\begin{equation}
+\begin{equation}\label{eq:cov-matrix}
 \bm{S} = \frac{1}{n-1} \bm{X}^T \bm{X}
 \end{equation}
 
@@ -278,7 +278,11 @@ The matrix $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. E
 
 The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of the corresponding eigenvalues.
 
-Given the eigendecomposition of matrix $\bm{S}$, we may state that: $\bm{S} = \bm{A} \bm{\Lambda} \bm{A}^T$.
+Given the eigendecomposition of matrix $\bm{S}$, we may state that: 
+
+\begin{equation} \label{eq:eig-dec-cov-matrix}
+\bm{S} = \bm{A} \bm{\Lambda} \bm{A}^T
+\end{equation}
 
 The principal components form a new basis in which we can represent our data set. We perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the PCs. This transformation is achieved by the following multiplication:
 
@@ -351,12 +355,36 @@ In this section we come back to the eq.(\ref{eq:eig-dec}) and answer the questio
 To begin the understanding, let's look at Fig.\ref{fig:PC-scores}. Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix in such a way:
 
 \begin{equation}
-\bm{S_Z} =  \bm{Z^T} \bm{Z}
+\bm{S_Z} =  \frac{1}{n-1} \bm{Z}^T \bm{Z}
 \end{equation}
 
 the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$. This removes the redundancy of information that could have been present in the original data set $\bm{X}$; each column of $\bm{Z}$ now contributes to a "unique" piece of information that cannot be found in any other column of $\bm{Z}$.
 
-In other words, what we want to achieve with PCA is to diagonalize this new covariance matrix $\bm{S_Z}$. As a "template" PCA uses a diagonal matrix that is easily available (and which we have already produced), and which is guaranteed to be diagonal - the matrix of eigenvalues $\bm{\Lambda}$.
+In other words, what we want to achieve with PCA is to diagonalize this new covariance matrix $\bm{S_Z}$. As a "template" PCA uses a diagonal matrix that is easily available (and which we have already produced), and which is guaranteed to be diagonal - the matrix of eigenvalues $\bm{\Lambda}$. We will now ask ourselves: how do we need to construct $\bm{Z}$, so that the matrix $\bm{S_Z} = \bm{\Lambda}$?
+
+We find $\bm{Z}$ through a series of transformations in which we combine eq.(\ref{eq:eig-dec-cov-matrix}) with eq.(\ref{eq:cov-matrix}):
+
+\begin{equation}
+\bm{A} \bm{\Lambda} \bm{A}^T =  \frac{1}{n-1} \bm{X}^T \bm{X} \,\, \Big/ \bm{A}^T \times
+\end{equation}
+
+\begin{equation}
+\bm{A}^T \bm{A} \bm{\Lambda} \bm{A}^T =  \frac{1}{n-1} \bm{A}^T  \bm{X}^T \bm{X} \,\, \Big/ \times \bm{A}
+\end{equation}
+
+\begin{equation}
+\bm{A}^T \bm{A} \bm{\Lambda} \bm{A}^T \bm{A} =  \frac{1}{n-1} \bm{A}^T  \bm{X}^T \bm{X} \bm{A}
+\end{equation}
+
+\begin{equation}
+\bm{I} \bm{\Lambda} \bm{I} =  \frac{1}{n-1} \bm{A}^T  \bm{X}^T \bm{X} \bm{A}
+\end{equation}
+
+\begin{equation}
+\bm{S_Z}  = \bm{\Lambda} = \frac{1}{n-1} \bm{A}^T  \bm{X}^T \bm{X} \bm{A}
+\end{equation}
+
+It is thus visible, that if we chose $\bm{Z} = \bm{X} \bm{A}$, the product $\bm{Z}^T \bm{Z}$ give a diagonal matrix\footnote{Note here that if $\bm{Z} = \bm{X} \bm{A}$, then $\bm{Z}^T = (\bm{X} \bm{A})^T = \bm{A}^T \bm{X}^T$}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{PC-scores.png}
@@ -366,9 +394,11 @@ In other words, what we want to achieve with PCA is to diagonalize this new cova
 
 There is one more thing owed explaining. We mentioned before that the elements on the diagonal are maximized, so is this also achieved by taking the eigenvalues matrix as a template? It turns out that the answer is yes. PCA achieves both things at the same time: it diagonalizes the new covariance matrix and it makes the diagonal elements maximum possible. Pretty neat, no?
 
+We can now answer the previously posed question: the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\bm{Z}^T \bm{Z}$ and it orders the PC-scores from the most to the least "informative" ones.
+
 \section{How it all links together}
 
-Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  seems like a "series of fortunate events" that allows us to obtain a great data reduction technique with a very effective usage of a few popular concepts from linear algebra. 
+Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  technique seems like a "series of fortunate events" that makes a very effective usage of a few popular concepts from linear algebra. 
 
 \section{Python examples}
 
