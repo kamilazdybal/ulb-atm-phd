@@ -218,15 +218,23 @@ For simplicity, for the rest of this document we assume that $\bm{X}$ represents
 
 \section{Covariance matrix}
 
+The covariance between two random vectors $X$ and $Y$ is defined as:
+
+\begin{equation}\label{eq:covariance-definition}
+\text{cov}(X,Y) = \frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X}) (Y_i - \bar{Y})
+\end{equation}
+
+where $N$ is the number of samples. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric, due to symmetry $\text{cov}(X,Y) = \text{cov}(Y,X)$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal are a variance, since $\text{cov}(X,X) = \text{var}(X)$.
+
 \subsection{Construction}
 
-The starting point for performing PCA is to compute a \textit{covariance matrix} from the data set. The covariance matrix is given by:
+The starting point for performing PCA is to compute a covariance matrix from the data set. The covariance matrix is given by:
 
 \begin{equation}\label{eq:cov-matrix}
 \bm{S} = \frac{1}{n-1} \bm{X}^T \bm{X}
 \end{equation}
 
-and is therefore size $(Q \times Q)$.
+and is therefore size $(Q \times Q)$. Notice the similarity with the eq.(\ref{eq:covariance-definition}).
 
 We will start by exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Figure \ref{fig:covariance-matrix}.
 
