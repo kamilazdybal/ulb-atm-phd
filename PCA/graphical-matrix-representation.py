@@ -268,7 +268,7 @@ for Nq in range(1,7):
     plt.close()
 
 # Save eigenvalues comparison: =================================================
-figure = plt.figure(figsize=(5, 4))
+figure = plt.figure(figsize=(5, 3))
 figureSubplot = plt.subplot(1,1,1)
 p1, = plt.plot(range(1,7), eigvals_random, 'o-', color=randomColour, linewidth=ln)
 p2, = plt.plot(range(1,7), eigvals_semi_structured, 'o-', color=semiColour, linewidth=ln)
