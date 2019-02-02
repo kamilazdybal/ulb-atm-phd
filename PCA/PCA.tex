@@ -224,7 +224,7 @@ The covariance between two random vectors $X$ and $Y$ is defined as:
 \text{cov}(X,Y) = \frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X}) (Y_i - \bar{Y})
 \end{equation}
 
-where $N$ is the number of samples. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric, due to symmetry $\text{cov}(X,Y) = \text{cov}(Y,X)$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal are a variance, since $\text{cov}(X,X) = \text{var}(X)$.
+where $N$ is the number of samples. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric, due to the symmetry $\text{cov}(X,Y) = \text{cov}(Y,X)$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(X,X) = \text{var}(X)$.
 
 \subsection{Construction}
 
@@ -272,7 +272,7 @@ The covariance matrix is a very special matrix and it is worth pointing out some
 
 First of all, a matrix constructed as: $\bm{S} = \bm{C}^T \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric (the reason for this is easy to see from Fig.\ref{fig:covariance-matrix}). Apart from that, the eigenvalues of such matrix are real and all are at least non-negative - such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
 
-Another important property is that the eigenvectors of the covariance matrix are orthogonal, which is a very special thing indeed. You may already see some interesting uses for such eigenvectors. One of which could be: they can form a new coordinate system - a \textit{basis}. The question thus remains: can such basis be any interesting basis?
+Another important property is that the eigenvectors of the covariance matrix are orthogonal, which is a very special thing indeed. You may already see some interesting uses for such eigenvectors. One of which could be: they can form a new, $Q$-dimensional coordinate system - a \textit{basis}. The question thus remains: can such basis be any interesting basis?
 
 \section{PCA workflow}
 
