@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.decomposition import PCA
+from matplotlib import rc
 
 # Styles:
 lineColour = '#f44242'
@@ -12,6 +13,8 @@ ln = 1
 # Fonts:
 csfont = {'fontname':'cmr10'}
 hfont = {'fontname':'cmr10'}
+plt.rc('text', usetex=True)
+plt.rc('font', family='serif')
 font_title = 18
 font_text = 14
 
