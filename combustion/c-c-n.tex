@@ -46,7 +46,7 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, January 2019}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, February 2019}}
 
     \vskip2ex
     
@@ -61,11 +61,14 @@
 {\rule{\textwidth}{0.5pt}}
 
   \end{center}
-  
-\vspace{8mm}
+
+    \fontsize{7}{10}\selectfont {This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.}
+
+\vspace{6mm}
 
 \end{@twocolumnfalse}
 }]
+
 
 %%% HEADER END -----------------------------------------------------------
 % ------------------------------------------------------------------------
@@ -347,6 +350,11 @@ We now extend our previous relations to the 3-D case.
 
 \subsubsection{Reaction rate considerations}
 
+\section{Two views to rule them all}
+
+There are essentially two approaches of describing a reacting system. One is to look at the thermal equilibrium and neglect the description of the stages which led to it. Here, we are only bounded by the laws of thermodynamics. This view does not allow to find its state at any time before the equilibrium has been reached.
+
+Another one, is to involve a chemical mechanism and describe how series of intermediate steps lead to finally reaching a thermal equilibrium. The description will involve much more variables but will also allow, in general, to find a precise state at any given time of the system's evolution towards equilibrium. We will be able to recover the exact path that the chemical species have taken. This is the topic of the next sections.
 
 \section{Chemical kinetics}
 
@@ -364,7 +372,9 @@ We now extend our previous relations to the 3-D case.
 
 \section{Chemical reactors}
 
-The quantities that we are interested in finding for a chemical reactor system are temperature function $T(t)$, as well as the species concentrations $[X_i] = [X_i](t)$.
+A \textit{chemical reactor} is a model for a reacting system. It describes both the geometry, the fluid mechanics/dynamics properties (e.g. when we deal with a reactive flow) and finally it includes a series of physical assumptions about the system.
+
+The quantities that we are interested in finding for a given chemical reactor are temperature function $T(t)$ and the species concentrations $[X_i] = [X_i](t)$. Knowing these two quantities will allow us to make predictions about a given system. It is important to note that the predictions nevertheless cannot exceed the assumptions and limitations of a given reactor. It is in the end an approximation of the reality.
 
 \subsection{Constant pressure, fixed mass reactor}
 
