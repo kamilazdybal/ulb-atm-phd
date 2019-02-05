@@ -48,7 +48,7 @@ for label in (figureSubplot.get_yticklabels()):
     label.set_fontname('Charter')
     label.set_fontweight('regular')
     label.set_fontsize(font_axis)
-plt.savefig('DWGs/python-raw-data.png', dpi = 300, bbox_inches='tight')
+plt.savefig('DWGs/python-raw-data.png', dpi = 500, bbox_inches='tight')
 
 figure2 = plt.figure(figsize=(4, 4))
 figureSubplot = plt.subplot(1,1,1)
@@ -65,7 +65,7 @@ for label in (figureSubplot.get_yticklabels()):
     label.set_fontname('Charter')
     label.set_fontweight('regular')
     label.set_fontsize(font_axis)
-plt.savefig('DWGs/python-data-centered.png', dpi = 100, bbox_inches='tight')
+plt.savefig('DWGs/python-data-centered.png', dpi = 500, bbox_inches='tight')
 
 figure3 = plt.figure(figsize=(4, 4))
 figureSubplot = plt.subplot(1,1,1)
@@ -86,7 +86,7 @@ for label in (figureSubplot.get_yticklabels()):
     label.set_fontname('Charter')
     label.set_fontweight('regular')
     label.set_fontsize(font_axis)
-plt.savefig('DWGs/python-PCs.png', dpi = 100, bbox_inches='tight')
+plt.savefig('DWGs/python-PCs.png', dpi = 500, bbox_inches='tight')
 
 figure4 = plt.figure(figsize=(4, 4))
 figureSubplot = plt.subplot(1,1,1)
@@ -103,7 +103,7 @@ for label in (figureSubplot.get_yticklabels()):
     label.set_fontname('Charter')
     label.set_fontweight('regular')
     label.set_fontsize(font_axis)
-plt.savefig('DWGs/python-PC-scores.png', dpi = 100, bbox_inches='tight')
+plt.savefig('DWGs/python-PC-scores.png', dpi = 500, bbox_inches='tight')
 
 figure5 = plt.figure(figsize=(4, 4))
 figureSubplot = plt.subplot(1,1,1)
@@ -120,7 +120,7 @@ for label in (figureSubplot.get_yticklabels()):
     label.set_fontname('Charter')
     label.set_fontweight('regular')
     label.set_fontsize(font_axis)
-plt.savefig('DWGs/python-data-projection.png', dpi = 100, bbox_inches='tight')
+plt.savefig('DWGs/python-data-projection.png', dpi = 500, bbox_inches='tight')
 
 figure6 = plt.figure(figsize=(4, 4))
 figureSubplot = plt.subplot(1,1,1)
@@ -137,4 +137,4 @@ for label in (figureSubplot.get_yticklabels()):
     label.set_fontname('Charter')
     label.set_fontweight('regular')
     label.set_fontsize(font_axis)
-plt.savefig('DWGs/python-data-approximation.png', dpi = 100, bbox_inches='tight')
+plt.savefig('DWGs/python-data-approximation.png', dpi = 500, bbox_inches='tight')
