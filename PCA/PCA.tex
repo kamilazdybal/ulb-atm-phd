@@ -429,7 +429,7 @@ Let's assume that the first column of this data set are realizations of the firs
 The two variables $x$ and $y$ span two dimensional space but the data set exhibits a low-dimensional structure which is easily visible to the eye just by looking at the Fig.\ref{fig:python-raw-data}. We already see that the data seems to be spread along some linear function. Perhaps changing the basis to a basis associated with this linear function will be a more effective representation by our data set? Note here also, that for multidimensional data sets "seeing" such data structures is no longer possible (as it still is in 2-D or 3D). We need to rely on the dimensionality reduction technique that we chose to find this low-dimensional structure for us.
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-raw-data.eps}
+\centering\includegraphics[width=6cm]{python-raw-data.png}
 \caption{Raw data set.}
 \label{fig:python-raw-data}
 \end{figure}
@@ -442,7 +442,7 @@ Dataset_proc = Dataset - Dataset_mean
 \end{python}
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-data-centered.eps}
+\centering\includegraphics[width=6cm]{python-data-centered.png}
 \caption{Data set centered.}
 \label{fig:python-raw-data-centered}
 \end{figure}
@@ -464,7 +464,7 @@ In the above code, we create an object \pythoninline{pca} of class \pythoninline
 The eigenvectors are plotted on the data set in Fig.\ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is perpendicular to the first one.
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-PCs.eps}
+\centering\includegraphics[width=6cm]{python-PCs.png}
 \caption{Data set with principal components.}
 \label{fig:python-PCs}
 \end{figure}
@@ -472,7 +472,7 @@ The eigenvectors are plotted on the data set in Fig.\ref{fig:python-PCs}. Their 
 We also compute the transformed data set \pythoninline{PCscores} represented in the basis associated with the obtained \pythoninline{PCs}.
  
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-PC-scores.eps}
+\centering\includegraphics[width=6cm]{python-PC-scores.png}
 \caption{PC-scores.}
 \label{fig:python-PC-scores}
 \end{figure}
@@ -486,7 +486,7 @@ np.transpose(pca.components_[:q,:]))
 \end{python}
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-data-projection.eps}
+\centering\includegraphics[width=6cm]{python-data-projection.png}
 \caption{Data projection on low dimension.}
 \label{fig:python-data-projection}
 \end{figure}
@@ -500,7 +500,7 @@ pca.components_[:q,:]) + Dataset_mean
 \end{python}
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-data-approximation.eps}
+\centering\includegraphics[width=6cm]{python-data-approximation.png}
 \caption{Data approximation with $q = 1$.}
 \label{fig:python-data-approximation}
 \end{figure}
@@ -534,7 +534,7 @@ The visual judgment of the level of imposed "structure" is quite objective in th
 The level of the imposed structure can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig.\ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits the strongest low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{DWGs/matrix-reconstruction-eigenvalues-comparison.eps}
+\centering\includegraphics[width=7cm]{DWGs/matrix-reconstruction-eigenvalues-comparison.png}
 \caption{Eigenvalue distribution after performing PCA on original data matrices.}			
 \label{fig:eigenvalues}
 \end{figure}

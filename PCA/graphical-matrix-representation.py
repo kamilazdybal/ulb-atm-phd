@@ -3,6 +3,8 @@ import numpy as np
 from sklearn.decomposition import PCA
 
 # Styles:
+csfont = {'fontname':'Charter', 'fontweight':'regular'}
+hfont = {'fontname':'Charter', 'fontweight':'bold'}
 lineColour = '#f44242'
 PCColour = '#002f72'
 scoresColour = '#ff7d14'
@@ -14,8 +16,9 @@ fnts = 16
 plt.rc('grid', linestyle="--", color='black', linewidth=0.1)
 
 # Fonts:
-csfont = {'fontname':'cmr10'}
-hfont = {'fontname':'cmr10'}
+csfont = {'fontname':'Charter', 'fontweight':'regular'}
+hfont = {'fontname':'Charter', 'fontweight':'bold'}
+font_axis = 10
 
 # Generate random data set: ====================================================
 Dataset_random = np.random.rand(10,6)
@@ -273,7 +276,18 @@ figureSubplot = plt.subplot(1,1,1)
 p1, = plt.plot(range(1,7), eigvals_random, 'o-', color=randomColour, linewidth=ln)
 p2, = plt.plot(range(1,7), eigvals_semi_structured, 'o-', color=semiColour, linewidth=ln)
 p3, = plt.plot(range(1,7), eigvals_structured, 'o-', color=structuredColour, linewidth=ln)
-figureSubplot.legend((p1, p2, p3), ('Random', 'Semi-structured', 'Structured'))
-filename = 'DWGs/matrix-reconstruction-eigenvalues-comparison.eps'
-plt.savefig(filename, dpi = 100, bbox_inches='tight')
+L = figureSubplot.legend((p1, p2, p3), ('Random', 'Semi-structured', 'Structured'))
+plt.setp(L.texts, family='Charter')
+# Set the tick labels font
+for label in (figureSubplot.get_xticklabels()):
+    label.set_fontname('Charter')
+    label.set_fontweight('regular')
+    label.set_fontsize(font_axis)
+
+for label in (figureSubplot.get_yticklabels()):
+    label.set_fontname('Charter')
+    label.set_fontweight('regular')
+    label.set_fontsize(font_axis)
+filename = 'DWGs/matrix-reconstruction-eigenvalues-comparison.png'
+plt.savefig(filename, dpi = 500, bbox_inches='tight')
 plt.close()
