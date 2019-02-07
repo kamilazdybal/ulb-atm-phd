@@ -34,7 +34,7 @@ Happy LaTeXing!
 
 ## Issue: figure background color not preserved when saving the figure
 
-Solution, add:
+Solution:
 
 ```python
 background_col = "#E6FFCC"
