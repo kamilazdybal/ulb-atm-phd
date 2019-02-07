@@ -126,11 +126,11 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large data set is reduced to maintain only the directions of the largest variance.
+These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large (high-dimensional) data set can be reduced to maintain only the directions of the largest variance. The technique is used broadly in many branches of science such as astrophysics, psychology or fluid dynamics, to name a few. As many other data science techniques, PCA allows not only to make a low-rank approximation of the data set, but also to extract and observe additional information hidden in the data, which would otherwise be difficult or impossible task for a human.
 
 \,\,
 
-These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects that govern this method, compared to other PCA tutorials that I have so far found on the web. I have an aim that the reader will both gain a deep and intuitive understanding as well as an appreciation for PCA after going through these notes. This requires a deep and intuitive understanding of several linear algebra concepts such as the eigendecomposition or matrix operations. 
+These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects governing this method. I have the aim that the reader will both gain a deep and intuitive understanding as well as an appreciation for PCA. This requires both a deep and intuitive understanding of several linear algebra concepts such as the eigendecomposition or matrix operations. 
 
 \,\,
 
@@ -224,7 +224,11 @@ The covariance between two random vectors $X$ and $Y$ is defined as:
 \text{cov}(X,Y) = \frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X}) (Y_i - \bar{Y})
 \end{equation}
 
-where $N$ is the number of samples. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric, due to the symmetry $\text{cov}(X,Y) = \text{cov}(Y,X)$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(X,X) = \text{var}(X)$.
+where $N$ is the number of samples. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric, due to the symmetry $\text{cov}(X,Y) = \text{cov}(Y,X)$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(X,X) = \text{var}(X)$ where:
+
+\begin{equation}\label{eq:variance-definition}
+\text{var}(X) = \frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X})^2
+\end{equation}
 
 \subsection{Construction}
 
