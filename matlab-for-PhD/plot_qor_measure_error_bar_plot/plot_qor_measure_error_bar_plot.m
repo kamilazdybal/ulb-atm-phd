@@ -1,4 +1,4 @@
-function [] = error_bar_plot_qor_measure(qor_name, qor_matrix, n_subs, log_scale, labels, markers, colors, destination)
+function [] = plot_qor_measure_error_bar_plot(qor_name, qor_matrix, n_subs, log_scale, labels, markers, colors, destination)
 %{
 This function plots error bar graphs for the quality of reconstruction
 (QoR) measure that could for instance be:
@@ -6,7 +6,7 @@ This function plots error bar graphs for the quality of reconstruction
 R2 - coefficient of determination
 RMSE - root mean squared error
 
-It plots the variable-mean measure with minimum and maximum 
+It plots the variable-mean measure with minimum and maximum
 marked as error bars.
 
 INPUT PARAMETERS ----------------------------------------------------------
@@ -19,16 +19,16 @@ INPUT PARAMETERS ----------------------------------------------------------
 
 - qor_matrix
 
-    is the combined QoR measure (that could be R2, RMSE, etc). 
+    is the combined QoR measure (that could be R2, RMSE, etc).
     This matrix needs to be composed of vertically stacked sub-matrices:
 
       Var-1       Var-M
     [                   ] 1-mode reconstruction
-    [                   ] 
-    [                   ] 
-    [      Line-1       ] 
     [                   ]
-    [                   ] 
+    [                   ]
+    [      Line-1       ]
+    [                   ]
+    [                   ]
     [                   ] N-modes reconstruction
      -------------------
     [                   ] 1-mode reconstruction
@@ -52,14 +52,14 @@ INPUT PARAMETERS ----------------------------------------------------------
 
 - markers
 
-    is a cell array of strings that specifies markers for the consecutive 
+    is a cell array of strings that specifies markers for the consecutive
     sub-matrices.
 
     Example: markers = {'o', '^', 'p', 'd'}
 
 - colors
 
-    is a matrix of RGB vectors that specify colors for the consecutive 
+    is a matrix of RGB vectors that specify colors for the consecutive
     sub-matrices.
 
     Example: colors = [
@@ -99,7 +99,7 @@ for line = 1:1:n_subs
     mean_nrmse = mean(sub_matrix, 2);
     max_nrmse = max(sub_matrix, [], 2);
     min_nrmse = min(sub_matrix, [], 2);
-    
+
     figure(1)
     set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0, 0.8, 1]);
     if log_scale ~= 0
