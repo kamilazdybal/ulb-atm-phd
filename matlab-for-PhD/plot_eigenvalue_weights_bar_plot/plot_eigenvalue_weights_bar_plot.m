@@ -1,73 +1,70 @@
 function [] = plot_eigenvalue_weights_bar_plot(A, n_mode_sets, n_request_eigvals, mode_name, annotations, labels, colors, destination)
-%{
-This function plots annotated bar plots from normalized eigenvalue weights.
-
-INPUT PARAMETERS ----------------------------------------------------------
-
-- A
-
-    a matrix with eigenvalues.
-    This matrix needs to be composed of vertically stacked sub-matrices:
-
-      Eigval-1     Eigval-M
-    [                       ] weight 1
-    [                       ] weight 2
-    [                       ]   .
-    [       Mode set 1      ]   .
-    [                       ]   .
-    [                       ]   .
-    [                       ] weight M
-     -----------------------
-    [                       ] weight 1
-               ...
-
-    Each such sub-matrix is associated with one label, marker and color.
-
-    It is assumed that all mode sets have the same dimensions.
-
-- n_mode_sets
-
-    is an integer specifying the number of mode sets stacked into matrix A.
-
-- n_request_eigvals
-
-    is an integer specifying the number of first eigenvalues requested for plotting.
-
-- mode_name
-
-    is a string specifying the mode name.
-
-    Example: mode_name = 'PC'
-
-- annotations
-
-    is a cell array of strings that annotates bars.
-
-    Example: annotations = {'Bar-1', 'Bar-2', 'Bar-3', 'Bar-4'}
-
-- labels
-
-    is a cell array of strings that labels consecutive mode sets.
-
-    Example: labels = {'Set-1', 'Set-2'}
-
-- colors
-
-    is a matrix of RGB vectors that specify colors for the consecutive
-    mode sets bars.
-
-    Example: colors = [
-                      [ 0           0           0  ]
-                      [	0.4660      0.6740      0.1880]
-                      [	0           0.4470      0.7410]
-                      [	0.8500      0.3250      0.0980]]
-- destination
-
-    is a string specifying the plot saving destination.
-
-    Example: destination = 'PLOTS/'
-
-%}
+% This function plots annotated bar plots from normalized eigenvalue weights.
+%
+% INPUT PARAMETERS ----------------------------------------------------------
+%
+% - A
+%
+%     a matrix with eigenvalues.
+%     This matrix needs to be composed of vertically stacked sub-matrices:
+%
+%       Eigval-1     Eigval-M
+%     [                       ] weight 1
+%     [                       ] weight 2
+%     [                       ]   .
+%     [       Mode set 1      ]   .
+%     [                       ]   .
+%     [                       ]   .
+%     [                       ] weight M
+%      -----------------------
+%     [                       ] weight 1
+%                ...
+%
+%     Each such sub-matrix is associated with one label, marker and color.
+%
+%     It is assumed that all mode sets have the same dimensions.
+%
+% - n_mode_sets
+%
+%     is an integer specifying the number of mode sets stacked into matrix A.
+%
+% - n_request_eigvals
+%
+%     is an integer specifying the number of first eigenvalues requested for plotting.
+%
+% - mode_name
+%
+%     is a string specifying the mode name.
+%
+%     Example: mode_name = 'PC'
+%
+% - annotations
+%
+%     is a cell array of strings that annotates bars.
+%
+%     Example: annotations = {'Bar-1', 'Bar-2', 'Bar-3', 'Bar-4'}
+%
+% - labels
+%
+%     is a cell array of strings that labels consecutive mode sets.
+%
+%     Example: labels = {'Set-1', 'Set-2'}
+%
+% - colors
+%
+%     is a matrix of RGB vectors that specify colors for the consecutive
+%     mode sets bars.
+%
+%     Example: colors = [
+%                       [0 0 0]
+%                       [0.4660 0.6740 0.1880]
+%                       [0 0.4470 0.7410]
+%                       [0.8500 0.3250 0.0980]]
+% - destination
+%
+%     is a string specifying the plot saving destination.
+%
+%     Example: destination = 'PLOTS/'
 
 %% Checks:
 [n_weights, n_eigvals] = size(A);
