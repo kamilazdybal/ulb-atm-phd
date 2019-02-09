@@ -15,5 +15,5 @@ colors = [
 A = [1; 0.7; 0.1; -0.1; 0.4;
     0.9; 0.8; 0.09; -0.09; 0.45];
 
-eigenvalue_weights_to_bar_plots(A, 2, 1, 'mode', variables, data_aliases, colors, 'example');
+plot_eigenvalue_weights_bar_plot(A, 2, 1, 'mode', variables, data_aliases, colors, 'example');
 ```
