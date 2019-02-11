@@ -1,4 +1,4 @@
-# `bar` plot of eigenvalue weights
+# **Bar** plot of eigenvalue weights
 
 ## Example plotting with function `plot_eigenvalue_weights_bar_plot()`
 

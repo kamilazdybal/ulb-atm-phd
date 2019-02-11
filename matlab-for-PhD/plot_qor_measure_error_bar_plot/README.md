@@ -1,4 +1,4 @@
-# `error bar` plot of quality of reconstruction measures
+# **Error bar** plot of quality of reconstruction measures
 
 ## Example plotting with function `plot_qor_measure_error_bar_plot()`
 
