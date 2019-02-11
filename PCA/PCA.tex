@@ -190,8 +190,6 @@ One of the strengths of PCA is that it can be performed on a non-time-resolved d
 \label{fig:data-matrix}
 \end{figure}
 
-
-
 \section{Data pre-processing}
 
 In data science we are typically given a raw data set which is not centered and not scaled. 
@@ -411,6 +409,8 @@ We can now answer the previously posed question: the basis associated with the e
 \section{How it all links together}
 
 Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  technique seems like a "series of fortunate events" that makes a very effective usage of a few popular concepts from linear algebra. 
+
+
 
 \section{Python examples}
 
@@ -638,16 +638,24 @@ Indeed, the multiplications from Fig.\ref{fig:matrices-reconstruction-6} show fu
 
 \section{Highlights of statistics} \label{app:B}
 
-The intuition behind $\frac{1}{1-n}$.
+\subsection{The intuition behind $\frac{1}{1-n}$.}
+
+
+\subsection{Statistical independence}
+
+
+The Principal Components are linearly independent (since they are orthogonal) but it does not mean that they are statistically independent. This is one of the limitations of PCA.
 
 \thebibliography{}
 
-\bibitem{Matlab-pca} \texttt{https://nl.mathworks.com/help/stats/pca.html}
+\bibitem{Matlab-pca} https://nl.mathworks.com/help/stats/pca.html
 \bibitem{Jolliffe} Ian T. Jolliffe, \textit{Principal Component Analysis}, Second Edition, 1986
 \bibitem{Strang} Gilbert Strang, \textit{Introduction to Linear Algebra}, Fifth Edition, 2016
-\bibitem{Shlens} Jonathon Shlens, \textit{A Tutorial on Principal Component Analysis}, 2016, \texttt{https://arxiv.org/abs/1404.1100}
-\bibitem{cov-dot} \texttt{http://people.sju.edu/~pklingsb/dot.cov.pdf}
+\bibitem{Shlens} Jonathon Shlens, \textit{A Tutorial on Principal Component Analysis}, 2016, https://arxiv.org/abs/1404.1100
+\bibitem{cov-dot} http://people.sju.edu/~pklingsb/dot.cov.pdf
 \bibitem{Jackson} J. Edward Jackson, \textit{A User's Guide To Principal Components}, 1991
 \bibitem{Smith} Lindsay I. Smith, \textit{A tutorial on Principal Component Analysis}, 2002
+
+\bibitem{Shalizi} Cosma Shalizi, Course on statistics: \textit{The Truth about Principal Components and Factor Analysis}, 2009 https://www.stat.cmu.edu/~cshalizi/350/
 
 \end{document}
