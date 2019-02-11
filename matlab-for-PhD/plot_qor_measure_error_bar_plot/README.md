@@ -1,10 +1,6 @@
 # `error bar` plot of quality of reconstruction measures
 
-## Use function `plot_qor_measure_error_bar_plot()`
-
-![Screenshot](example.png)
-
-## Example plotting
+## Example plotting with function `plot_qor_measure_error_bar_plot()`
 
 ```matlab
 clc, clear all, close all
@@ -23,3 +19,5 @@ A_qor = [0.1 0.5 0.8 ;
 
 plot_qor_measure_error_bar_plot('R2', A_qor, 2, 0, {'Set 1', 'Set 2'}, markers, colors, 'example_qor_')
 ```
+
+![Screenshot](example.png)

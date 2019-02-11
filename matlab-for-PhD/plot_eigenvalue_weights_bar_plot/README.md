@@ -1,10 +1,6 @@
 # `bar` plot of eigenvalue weights
 
-## Use function `plot_eigenvalue_weights_bar_plot()`
-
-![Screenshot](example.png)
-
-## Example plotting
+## Example plotting with function `plot_eigenvalue_weights_bar_plot()`
 
 ```matlab
 clc, clear all, close all
@@ -19,3 +15,5 @@ A = [1; 0.7; 0.1; -0.1; 0.4;
 
 plot_eigenvalue_weights_bar_plot(A, 2, 1, 'mode', variables, data_aliases, colors, 'example');
 ```
+
+![Screenshot](example.png)
