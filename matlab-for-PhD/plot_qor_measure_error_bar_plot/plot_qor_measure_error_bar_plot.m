@@ -119,4 +119,5 @@ figure(1)
 legend(labels, 'Location', 'Best', 'FontSize', fontsize_legend)
 filename = [destination, qor_name, '.eps'];
 saveas(gcf, filename, 'epsc');
+hold off
 close all
