@@ -1,4 +1,4 @@
-\documentclass[10pt,twocolumn]{article}
+\documentclass[10pt]{article}
 \usepackage{geometry}
 \geometry{verbose,headsep=3cm,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.0cm,rmargin=2.0cm}
 \usepackage{graphicx}
@@ -78,9 +78,6 @@ showstringspaces=false            %
 %%% HEADER --------------------------------------------------------------
 % ------------------------------------------------------------------------
 
-\twocolumn[{
-\begin{@twocolumnfalse}
-
   \begin{center}
 %\textcolor{lgray}
     \vskip-5em
@@ -101,8 +98,7 @@ showstringspaces=false            %
   
 \vspace{8mm}
 
-\end{@twocolumnfalse}
-}]
+
 
 %%% HEADER END -----------------------------------------------------------
 % ------------------------------------------------------------------------
@@ -129,21 +125,31 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \tableofcontents
 
-\section{Numpy cheatsheet}
+\section{Numpy}
 
+\subsection{Auto-populating arrays}
 
 \begin{python}
 import numpy as np
+
+# Range with a given step:
+np.arange(start, stop, step)
+
+# Range with a given number of elements:
+np.linspace(start, stop, num_points)
+
+# Distribution from [0,1] of size rows x cols:
+np.random.rand(rows, cols) 
 \end{python}
 
 
-\pythoninline{np.arange(start, stop, step)}
+\subsection{Distributions}
 
-\pythoninline{np.linspace(start, stop, num_points)} - distribution 
 
-Numpy arrays of random numbers:
 
-\pythoninline{np.random.rand(rows, cols)} – distribution from $[0,1]$ of size $(\text{row} \times \text{col})$
+
+
+
 
 \section{Inputing external code}
 
