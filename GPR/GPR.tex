@@ -4,7 +4,6 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage[font=small]{caption}
-\usepackage{cleveref}
 \usepackage{amsmath,amssymb,latexsym}
 \usepackage{marvosym}
 \usepackage{url}
@@ -36,18 +35,13 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, November 2018}}
-
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, January 2019}}
     \vskip2ex
-    
 	\vspace{5ex}
-	
-    \fontsize{24}{10}\selectfont {Notes on Gaussian Process Regression}
-   
-    
+    \fontsize{20}{10}\selectfont {Notes on Gaussian Process Regression}
       \vspace{1ex}
-   \fontsize{10}{10}\selectfont {camillejr.github.io/science-docs}
-          
+      
+      \fontsize{16}{10}\selectfont {(with Python examples)}
   \noindent%
     
 \vskip1ex
@@ -56,21 +50,37 @@
 
   \end{center}
   
-\vspace{8mm}
+    \fontsize{7}{10}\selectfont {This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license.}
+
+\vspace{6mm}
 
 \end{@twocolumnfalse}
 }]
 
+%%% HEADER END -----------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\vspace{10mm}
+
 \setlength{\parindent}{0cm}
 
+\fontsize{14}{10}\selectfont {Kamila Zdybał}
+
+\vspace{2mm}
+
+\fontsize{8}{10}\selectfont {\textit{Université libre de Bruxelles, kamila.zdybal@ulb.ac.be}}
+
+\fontsize{8}{10}\selectfont {\textit{camillejr.github.io/science-docs, kamila.zdybal@gmail.com}}
 
 \section*{Preface}
 
-\textit{Gaussian Process Regression} (GPR)
-
 \,\,
 
-This document is still in preparation.
+This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
+
+\section*{Keywords}
+
+\textit{Gausssian Process Regression (GPR), regression, covariance}
 
 \tableofcontents
 
@@ -86,11 +96,39 @@ This document is still in preparation.
 
 \section{Covariance matrix}
 
+Let's think about a dot product between two vectors:
 
+\begin{equation}
+\text{dot}(x_i, x_j) = |x_i| |x_j| \text{cos}(\phi)
+\end{equation}
 
+It describes the amount of projection of vector $x_i$ onto $x_j$ (or vice versa) and can be useful when we need to know how much one vector points in the direction of the other. 
+
+Now imagine that you have a data set $\mathbf{X}$ with $n$ vectors (features), and you would like to know what is the dot product of every possible pair drawn from these vectors. In other words, you would like to know how correlated are all vectors with each other. You can achieve this "global" dot product by multiplying:
+
+\begin{equation}
+\mathbf{S} = \mathbf{X}^T \mathbf{X} 
+\end{equation}
+
+the result $\mathbf{S}$ is called the \textit{covariance matrix}. Notice that every entry $(i,j)$ in this matrix is a dot product $\text{dot}(x_i, x_j)$ and it is:
+
+\begin{equation}
+\text{dot}(x_i, x_j) = \text{cov}(x_i, x_j) \,\,\, \text{for} \,\,\, i \neq j
+\end{equation}
+
+\begin{equation}
+\text{dot}(x_i, x_j) = \text{var}(x_i, x_j) \,\,\, \text{for} \,\,\, i = j
+\end{equation}
+
+The covariance matrix is symmetric due to symmetry: $\text{dot}(x_i, x_j) = \text{dot}(x_j, x_i)$.
 
 \section{Covariance kernels}
 
+The \textit{covariance kernel} is essentialy a function that populates the covariance matrix. This makes our life easier, since first, this matrix might be huge and second, we can easily implement the underlying structure to the covariance.
+
+The covariance kernel has to be designed such that there is symmetry: $K(x_i, x_j) = K(x_j, x_i)$.\footnote{In \cite{Scaife}, it has been said that the covariance can vary in different directions which made me wonder...}
+
+\subsection{Examples}
 
 Squared exponential kernel:
 
