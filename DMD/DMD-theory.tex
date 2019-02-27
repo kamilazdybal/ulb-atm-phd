@@ -36,7 +36,7 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, January 2019}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, February 2019}}
 
     \vskip2ex
     
@@ -85,7 +85,7 @@
 
 \textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for approximating a generally nonlinear dynamical system with a linear one. It can be used for finding low-rank structures in multi-dimensional data sets, as well as predicting the future state of the system with inference made solely from the collected data.
 
-Most of the content of this document are notes taken from two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington. 
+This document is a combination of various content on DMD found on the internet. The first are two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington. Other references are mentioned along the way.
 
 \,\,
 
@@ -325,12 +325,21 @@ Now that we have computed the similar matrix $\underline{\bm{A}}$, we move on to
 [\bm{W}, \bm{\Lambda}] = \text{eig}(\underline{\bm{A}})
 \end{equation}
 
-The matrix $\bm{W}$ is a matrix whose columns are the eigenvectors of $\underline{\bm{A}}$. The matrix $\bm{\Lambda}$ is a diagonal matrix of eigenvalues which, in the most general case, are complex numbers. We have therefore obtained "coupled" quantities - each eigenvector has got its corresponding eigenvalue - and that link is exploited by the Dynamic Mode Decomposition to give a physical meaning to eigenvectors and eigenvalues.
+The matrix $\bm{W}$ is a matrix whose columns are the eigenvectors of $\underline{\bm{A}}$. The matrix $\bm{\Lambda}$ is a diagonal matrix of eigenvalues $\lambda_i$ which, in the most general case, are complex numbers. We have therefore obtained "coupled" quantities - each eigenvector has got its corresponding eigenvalue - and that link is exploited by the Dynamic Mode Decomposition to give a physical meaning to eigenvectors and eigenvalues.
 
-The eigenvectors will form the spacial modes of DMD. The real part of the eigenvalue corresponds to the growth rate of that particular mode and the imaginary part of the eigenvalue represents the oscillatory frequency of a mode.
+The eigenvectors will form the spacial modes of DMD. 
+
+We can write the complex eigenvalue as:
+
+\begin{equation} \label{eq:A_underline}
+\lambda_i = e^{(\sigma_i + i \omega_i) \Delta t} 
+\end{equation}
+
+The real part of the eigenvalue corresponds to the growth rate of that particular mode and the imaginary part represents the oscillatory frequency of a mode.
 
 \subsection{Going back to the original dimensions}
 
+In the previous section we have retrieved $r$ eigenvalues and eigenvectors but our original dimension for the propagator matrix was $n_t$. We have reduced the dimensionality of the problem but our final solution will only make sense to us if it is expressed in $n_t$ dimensions.
 Once the model has been built in the low-dimensional subspace, we want to move to the original dimensions. 
 
 The DMD modes are obtained from:
