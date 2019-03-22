@@ -20,7 +20,7 @@ mean = 10
 x = np.arange(0, 20, 0.05)
 
 # Display covariance matrix:
-figure = plt.figure(figsize=(10, 5))
+figure = plt.figure(figsize=(8, 5))
 
 for idx, i in enumerate(lam):
 
@@ -34,7 +34,6 @@ for idx, i in enumerate(lam):
     nRel = 19
     for rel in range(1,1+nRel):
         y = np.append(y, np.random.multivariate_normal(10*np.ones(len(x)), Cov))
-        print(len(y))
 
     figureSubplot = figure.add_subplot(1,3,idx+1)
 
@@ -55,5 +54,5 @@ for idx, i in enumerate(lam):
 
 plt.subplots_adjust(wspace=0.3, hspace=0.2)
 filename = 'realisation-Histogram.png'
-plt.savefig(filename, dpi = 300, bbox_inches='tight')
+plt.savefig(filename, dpi = 150, bbox_inches='tight')
 plt.show()
