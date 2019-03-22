@@ -3,7 +3,7 @@
 
 ## GPR with George
 
-![Screenshot](GPR_george.png)
+![Screenshot](GPR-george/GPR-george.png)
 
 ### Resources:
 

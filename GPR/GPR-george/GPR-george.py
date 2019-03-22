@@ -7,8 +7,10 @@ import math
 
 ## Styles
 ## -------
-csfont = {'fontname':'Lato', "weight": "medium"}
-fnt = 22
+csfont = {'fontname':'Charter', 'fontweight':'regular'}
+hfont = {'fontname':'Charter', 'fontweight':'bold'}
+font_label = 22
+font_axis = 12
 
 ## Code
 ## -------
@@ -17,6 +19,8 @@ yerr = np.zeros_like(x)
 y = np.sin(2*x) + 1/(2*math.pi*0.5)**0.5 * math.e**((-(x + 1)**2)/(2*0.5**2))*5
 
 # Plot data points:
+figure = plt.figure(figsize=(11, 7))
+figureSubplot = plt.subplot(1,1,1)
 plt.scatter(x, y)
 
 # GP Kernel:
@@ -32,12 +36,23 @@ plt.errorbar(x, y, yerr=yerr, fmt=".k", capsize=0)
 
 # Real data model:
 plt.plot(x_pred, np.sin(2*x_pred) + 1/(2*math.pi*0.5)**0.5 * math.e**((-(x_pred + 1)**2)/(2*0.5**2))*5, "--r", lineWidth=3)
-
 plt.xlim(-2, 2)
 plt.ylim(-1.2, 2.2)
-plt.xlabel(r'x', fontsize=fnt, **csfont)
-plt.ylabel(r'y', fontsize=fnt, **csfont)
-filename = 'GPR_george.png'
+plt.xlabel(r'x', fontsize=font_label, **csfont)
+plt.ylabel(r'y', fontsize=font_label, **csfont)
+
+# Set the tick labels font
+for label in (figureSubplot.get_xticklabels()):
+    label.set_fontname('Charter')
+    label.set_fontweight('regular')
+    label.set_fontsize(font_axis)
+
+for label in (figureSubplot.get_yticklabels()):
+    label.set_fontname('Charter')
+    label.set_fontweight('regular')
+    label.set_fontsize(font_axis)
+
+filename = 'GPR-george.png'
 plt.savefig(filename, dpi = 150)
 
 plt.show()
