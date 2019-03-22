@@ -8,8 +8,6 @@ We explore graphically how changing hyperparameters for the squared exponential 
 
 ![Screenshot](cov-Kernel-SE-changing-lambda.png)
 
-#### Histogram of multivariate realisations
-
 ![Screenshot](realisation-Histogram.png)
 
 ### Effect of changing `h` - scaling factor

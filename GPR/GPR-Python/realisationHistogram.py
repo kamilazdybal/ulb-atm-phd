@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import covMatrix
-import matplotlib.gridspec as gridspec
 
 ## Styles
 csfont = {'fontname':'Charter', 'fontweight':'regular'}
@@ -33,13 +32,15 @@ for idx, i in enumerate(lam):
 
     # Append nRel number of realisations:
     nRel = 19
+
     for rel in range(1,1+nRel):
         y = np.append(y, np.random.multivariate_normal(10*np.ones(len(x)), Cov))
 
     figureSubplot = figure.add_subplot(1,3,idx+1)
 
     plt.hist(y, color=lineColour)
-    plt.title('$\lambda = ' + str(i) + '$', **csfont, fontsize=font_title)
+    plt.title(('$\lambda = ' + str(i) + '$'), **csfont, fontsize=font_title)
+    plt.yticks([])
 
     # Set the tick labels font
     for label in (figureSubplot.get_xticklabels()):
