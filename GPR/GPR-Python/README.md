@@ -10,7 +10,7 @@ We explore graphically how changing hyperparameters for the squared exponential 
 
 #### Histogram of multivariate realisations
 
-[Screenshot](realisation-Histogram.png)
+![Screenshot](realisation-Histogram.png)
 
 ### Effect of changing `h` - scaling factor
 
