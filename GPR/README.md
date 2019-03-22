@@ -1,9 +1,11 @@
 # Gaussian Process Regression
 
 
-## GPR with George
+## GPR with George (Python code)
 
 ![Screenshot](GPR-george/GPR-george.png)
+
+## GPR with GPML (Matlab code)
 
 ### Resources:
 
