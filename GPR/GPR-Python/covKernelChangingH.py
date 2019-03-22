@@ -15,6 +15,7 @@ lineColour = '#f44242'
 # Set hyperparameters:
 lam = 1
 h = [0.1, 1, 5]
+mean = 0
 
 x = np.arange(0, 20, 0.05)
 
@@ -27,7 +28,7 @@ for idx, i in enumerate(h):
     Cov = covMatrix.covMatrixSE(x, i, lam)
 
     # Draw realization from the current covariance:
-    y = np.random.multivariate_normal(np.zeros(len(x)), Cov)
+    y = np.random.multivariate_normal(mean*np.ones(len(x)), Cov)
 
     figureSubplot = figure.add_subplot(2,3,idx+1)
     im = plt.imshow(Cov)
