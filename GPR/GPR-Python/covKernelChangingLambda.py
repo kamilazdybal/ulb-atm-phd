@@ -13,28 +13,29 @@ font_title = 22
 lineColour = '#f44242'
 
 # Set hyperparameters:
-lam = 1
-h = [0.1, 1, 5]
+lam = [0.1, 1, 5]
+h = 0.1
 
 x = np.arange(0, 20, 0.05)
 
 # Display covariance matrix:
 figure = plt.figure(figsize=(10, 6))
-
-for idx, i in enumerate(h):
+for idx, i in enumerate(lam):
 
     # Generate covariance matrix:
-    Cov = covMatrix.covMatrixSE(x, i, lam)
+    Cov = covMatrix.covMatrixSE(x, h, i)
 
     # Draw realization from the current covariance:
     y = np.random.multivariate_normal(np.zeros(len(x)), Cov)
 
-    figureSubplot = figure.add_subplot(1,3,idx+1)
+    print(idx)
+    figureSubplot = figure.add_subplot(2,3,idx+1)
+    Cov = covMatrix.covMatrixSE(x, h, i)
     im = plt.imshow(Cov)
     plt.yticks([]), plt.xticks([])
-    plt.title('$h = $' + str(i), **csfont, fontsize=font_title)
+    plt.title('$\lambda = $' + str(i), **csfont, fontsize=font_title)
     cb = plt.colorbar(im, fraction=0.046, pad=0.04)
-    plt.clim(0,i**2)
+    plt.clim(0,h**2)
     figureSubplot.spines["top"].set_visible(False)
     figureSubplot.spines["bottom"].set_visible(False)
     figureSubplot.spines["right"].set_visible(False)
@@ -66,6 +67,6 @@ for idx, i in enumerate(h):
         label.set_fontsize(font_axis)
 
 plt.subplots_adjust(wspace=0.3, hspace=0.2)
-filename = 'cov-Kernel-SE-changing-h.png'
+filename = 'cov-Kernel-SE-changing-lambda.png'
 plt.savefig(filename, dpi = 300, bbox_inches='tight')
 plt.show()
