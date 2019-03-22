@@ -6,10 +6,8 @@ We explore graphically how changing hyperparameters for the squared exponential 
 
 ### Effect of changing `lambda` - kernel width
 
-![Screenshot](cov-Kernel-changing-lambda.png)
-
-![Screenshot](realizations-changing-lambda.png)
+![Screenshot](cov-Kernel-SE-changing-lambda.png)
 
 ### Effect of changing `h` - scaling factor
 
-![Screenshot](cov-Kernel-changing-h.png)
+![Screenshot](cov-Kernel-SE-changing-h.png)

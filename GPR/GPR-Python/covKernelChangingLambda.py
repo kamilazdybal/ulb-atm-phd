@@ -20,6 +20,7 @@ x = np.arange(0, 20, 0.05)
 
 # Display covariance matrix:
 figure = plt.figure(figsize=(10, 6))
+
 for idx, i in enumerate(lam):
 
     # Generate covariance matrix:
@@ -28,9 +29,7 @@ for idx, i in enumerate(lam):
     # Draw realization from the current covariance:
     y = np.random.multivariate_normal(np.zeros(len(x)), Cov)
 
-    print(idx)
     figureSubplot = figure.add_subplot(2,3,idx+1)
-    Cov = covMatrix.covMatrixSE(x, h, i)
     im = plt.imshow(Cov)
     plt.yticks([]), plt.xticks([])
     plt.title('$\lambda = $' + str(i), **csfont, fontsize=font_title)

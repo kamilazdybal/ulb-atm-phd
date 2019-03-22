@@ -16,14 +16,20 @@ lineColour = '#f44242'
 lam = 1
 h = [0.1, 1, 5]
 
-x = np.arange(0, 20, 0.01)
+x = np.arange(0, 20, 0.05)
 
 # Display covariance matrix:
-figure = plt.figure(figsize=(10, 5))
+figure = plt.figure(figsize=(10, 6))
+
 for idx, i in enumerate(h):
-    print(idx)
-    figureSubplot = figure.add_subplot(1,3,idx+1)
+
+    # Generate covariance matrix:
     Cov = covMatrix.covMatrixSE(x, i, lam)
+
+    # Draw realization from the current covariance:
+    y = np.random.multivariate_normal(np.zeros(len(x)), Cov)
+
+    figureSubplot = figure.add_subplot(2,3,idx+1)
     im = plt.imshow(Cov)
     plt.yticks([]), plt.xticks([])
     plt.title('$h = $' + str(i), **csfont, fontsize=font_title)
@@ -45,8 +51,21 @@ for idx, i in enumerate(h):
         label.set_fontweight('regular')
         label.set_fontsize(font_axis)
 
-plt.subplots_adjust(wspace=0.3, hspace=0.3)
+    figureSubplot = figure.add_subplot(2,3,idx+4)
+    plt.plot(x, y, color=lineColour, linewidth=1)
+
+    # Set the tick labels font
+    for label in (figureSubplot.get_xticklabels()):
+        label.set_fontname('Charter')
+        label.set_fontweight('regular')
+        label.set_fontsize(font_axis)
+
+    for label in (figureSubplot.get_yticklabels()):
+        label.set_fontname('Charter')
+        label.set_fontweight('regular')
+        label.set_fontsize(font_axis)
+
+plt.subplots_adjust(wspace=0.3, hspace=0.2)
 filename = 'cov-Kernel-SE-changing-h.png'
 plt.savefig(filename, dpi = 300, bbox_inches='tight')
-
 plt.show()
