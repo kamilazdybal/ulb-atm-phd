@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import covMatrix
+import matplotlib.gridspec as gridspec
 
 ## Styles
 csfont = {'fontname':'Charter', 'fontweight':'regular'}
@@ -20,7 +21,7 @@ mean = 10
 x = np.arange(0, 20, 0.05)
 
 # Display covariance matrix:
-figure = plt.figure(figsize=(8, 5))
+figure = plt.figure(figsize=(8, 3))
 
 for idx, i in enumerate(lam):
 
@@ -38,7 +39,6 @@ for idx, i in enumerate(lam):
     figureSubplot = figure.add_subplot(1,3,idx+1)
 
     plt.hist(y, color=lineColour)
-    figure.suptitle('Histograms from ' + str(nRel + 1) + ' realisations with mean = ' + str(mean), **csfont, fontsize=14)
     plt.title('$\lambda = ' + str(i) + '$', **csfont, fontsize=font_title)
 
     # Set the tick labels font
@@ -53,6 +53,8 @@ for idx, i in enumerate(lam):
         label.set_fontsize(font_axis)
 
 plt.subplots_adjust(wspace=0.3, hspace=0.2)
+figure.suptitle('Histograms from ' + str(nRel + 1) + ' realisations with mean = ' + str(mean), **csfont, fontsize=14)
+figure.tight_layout(rect=[0, 0.03, 1, 0.95])
 filename = 'realisation-Histogram.png'
-plt.savefig(filename, dpi = 150, bbox_inches='tight')
+plt.savefig(filename, dpi = 200)
 plt.show()
