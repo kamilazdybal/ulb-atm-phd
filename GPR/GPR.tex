@@ -97,7 +97,11 @@ This document is still in preparation. Please feel free to contact me with any s
 
 Two words that will be often used in GP are prior and posterior. The prior and posterior probabilities in GP are often linked to functions and it is important to understand their notion. 
 
-The \textbf{\textit{prior probability}} is the probability we assign to a specific object (event) before we collect further evidence or make observations that can change it. It can be viewed as an "initial guess" or "initial belief" about the given system. The \textbf{\textit{posterior probability}} is the updated prior probability that takes into account the new observations or evidence.
+The \textbf{\textit{prior probability}} is the probability we assign to a specific object (event) before we collect further evidence or make observations that can change it. It can be viewed as an "initial guess" or "initial belief" about the given system. The \textbf{\textit{posterior probability}} is the updated prior probability that takes into account the new observations or evidence. Conceptually, we may write the following:
+
+\begin{equation}
+\text{prior distribution} + \text{data} = \text{posterior distribution}
+\end{equation}
 
 As explained in section \ref{sec:dist_over_fun}, in GP we encounter probabilities associated to functions. The prior will be the functions that we believe will fit our data well before we actually attempt fitting these functions to new observation points. After the observations have been made, the functions get the "update" to better fit the newly arrived points and these functions that are left will become our posterior.
 
