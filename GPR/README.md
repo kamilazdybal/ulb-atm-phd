@@ -22,3 +22,7 @@
 [6] [Covariance functions](http://evelinag.com/Ariadne/covarianceFunctions.html)
 
 [7] [Gaussian Process hyperparameter estimation](https://matthewdharris.com/2016/05/16/gaussian-process-hyperparameter-estimation/)
+
+[8] [A Visual Exploration of Gaussian Processes](https://www.jgoertler.com/visual-exploration-gaussian-processes/)
+
+[9] [The Kernel Cookbook: Advice on covariance functions](https://www.cs.toronto.edu/~duvenaud/cookbook/)
