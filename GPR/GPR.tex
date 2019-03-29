@@ -35,7 +35,7 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, January 2019}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, March 2019}}
     \vskip2ex
 	\vspace{5ex}
     \fontsize{20}{10}\selectfont {Notes on Gaussian Process Regression}
@@ -89,9 +89,17 @@ This document is still in preparation. Please feel free to contact me with any s
 
 
 
+\section{Distribution over functions} \label{sec:dist_over_fun}
 
 
 
+\section{Probability}
+
+Two words that will be often used in GP are prior and posterior. The prior and posterior probabilities in GP are often linked to functions and it is important to understand their notion. 
+
+The \textbf{\textit{prior probability}} is the probability we assign to a specific object (event) before we collect further evidence or make observations that can change it. It can be viewed as an "initial guess" or "initial belief" about the given system. The \textbf{\textit{posterior probability}} is the updated prior probability that takes into account the new observations or evidence.
+
+As explained in section \ref{sec:dist_over_fun}, in GP we encounter probabilities associated to functions. The prior will be the functions that we believe will fit our data well before we actually attempt fitting these functions to new observation points. After the observations have been made, the functions get the "update" to better fit the newly arrived points and these functions that are left will become our posterior.
 
 
 \section{Covariance matrix}
@@ -136,6 +144,8 @@ Squared exponential kernel:
 K(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
 \end{equation}
 
+
+\section{The meaning of hyperparameters}
 
 
 
