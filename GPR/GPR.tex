@@ -24,6 +24,54 @@
 \usepackage[utf8]{inputenc}
 % Document font:
 \usepackage{charter}
+\graphicspath{{GPR-Python/}}
+
+
+\newcommand{\highlight}[1]{%
+  \colorbox{orange!50}{$\displaystyle#1$}}
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
 
 \begin{document}
 
@@ -86,10 +134,13 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{Introduction}
 
+\textit{Gaussian Process Regression} (GPR) is a regression technique which does not restrict what functions are used to model the data - unlike linear regression for instance. Instead, we allow many possible functions from a certain pre-specified "pool". To each of these function we attribute a certain  probability of how likely we believe it will fit well our data and update this functions pool as new data points are observed.
 
 
+\subsection{Distribution over functions} \label{sec:dist_over_fun}
 
-\section{Distribution over functions} \label{sec:dist_over_fun}
+
+\subsection{What is Gaussian in Gaussian Process?}
 
 
 
@@ -149,8 +200,38 @@ K(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
 \end{equation}
 
 
-\section{The meaning of hyperparameters}
+\subsection{The meaning of hyperparameters}
 
+We will now take a look at the Squared Exponential kernel which was introduced before and explore how the hyperparameters affect the structure of the covariance matrix and the type of priors drawn from the distribution.
+
+\pythoninline{y = np.random.multivariate_normal(mean, cov)}
+
+Even the variables which are further away are correlated, which is also reflected in the type of prior that is drawn from this distrbution. For $\lambda = 5$ it looks much less random than for $\lambda = 0.1$ - the variable's value at any point is strongly affected by the values of the nearby variables. In other words, the derivatives at any point change much less drastically at $\lambda = 5$ than at $\lambda = 0.1$.
+
+
+
+\begin{figure}[H]
+\centering\includegraphics[width=8.5cm]{cov-Kernel-SE-changing-lambda-tex.png}
+\caption{Adjusting the kernel width.}
+\label{fig:SE-kernel-width}
+\end{figure}
+
+Varying the scaling factor $h$, the priors are stationary and the covariance has the same width. What is changing however is the numerical value of the covariance matrix. For every $h$ the covariance matrix gets scaled and the largest elements in the matrix are always $h^2$.
+
+\begin{figure}[H]
+\centering\includegraphics[width=8.5cm]{cov-Kernel-SE-changing-h-tex.png}
+\caption{Adjusting the kernel scaling factor.}
+\label{fig:SE-kernel-scaling-factor}
+\end{figure}
+
+The mean value of the distribution is reflected in the $y$-axis values in Fig. \ref{fig:SE-kernel-width} and \ref{fig:SE-kernel-scaling-factor}. It is yet more evident to look at the histograms from more than one prior realisation. In Fig. \ref{fig:realisation-histogram} 20 realisations have been drawn and it already becomes visible that the $y$-value distribution starts to have the bell shape with the prescribed mean.
+
+
+\begin{figure}[H]
+\centering\includegraphics[width=8.5cm]{realisation-Histogram-tex.png}
+\caption{Histogram of 20 realisations with mean = 10.}
+\label{fig:realisation-histogram}
+\end{figure}
 
 
 \section{Building your GPR in Python}

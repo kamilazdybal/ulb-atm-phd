@@ -15,7 +15,7 @@ lineColour = '#f44242'
 # Set hyperparameters:
 lam = [0.1, 1, 5]
 h = 0.1
-mean = 0
+mean = 1
 
 x = np.arange(0, 20, 0.05)
 
