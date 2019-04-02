@@ -24,7 +24,7 @@
 \usepackage[utf8]{inputenc}
 % Document font:
 \usepackage{charter}
-\graphicspath{{GPR-Python/}}
+\graphicspath{{GPR-Python/}{DWGs/}}
 
 
 \newcommand{\highlight}[1]{%
@@ -139,9 +139,13 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \subsection{Distribution over functions} \label{sec:dist_over_fun}
 
+In GPR we do not assume a specific class of function for regression. Instead, we allow many types of functions but to each of them we attribute a certain likelihood that it can well regress our data. The space of these functions is mapped on a space of likelihoods and such mapping is called a \textit{distribution over functions}. Visually, one may treat this as a probability distribution drawn "above" the space of all possible functions - some functions are more likely, some less.
 
-\subsection{What is Gaussian in Gaussian Process?}
-
+\begin{figure}[H]
+\centering\includegraphics[width=8.5cm]{distr_over_fun.png}
+\caption{Conceptual visualisation of distribution over functions.}
+\label{fig:distr_over_fun}
+\end{figure}
 
 
 \section{Probability}
@@ -229,6 +233,8 @@ Varying the scaling factor $h$, the priors are stationary and the covariance has
 \label{fig:SE-kernel-scaling-factor}
 \end{figure}
 
+\subsection{What is Gaussian in Gaussian Process?}
+
 The mean value of the distribution is reflected in the $y$-axis values in Fig. \ref{fig:SE-kernel-width} and \ref{fig:SE-kernel-scaling-factor}. It is yet more evident to look at the histograms from more than one prior realisation. In Fig. \ref{fig:realisation-histogram} 20 realisations have been drawn and it already becomes visible that the $y$-value distribution starts to have the bell shape with the prescribed mean.
 
 
@@ -237,6 +243,12 @@ The mean value of the distribution is reflected in the $y$-axis values in Fig. \
 \caption{Histogram of 20 realisations with mean = 10.}
 \label{fig:realisation-histogram}
 \end{figure}
+
+
+In fact, one restriction is placed on the possible regression functions inside the ""
+pool": all functions have a Gaussian marginal distribution. (Though it does not need to be a case either - GPML uses other likelihoods - but we still call the technique \textbf{Gaussian} Process Regression). In other words, the histogram of realisations' values begin to look like a normal distribution as the number of realisations increase.
+
+
 
 
 \section{Building your GPR in Python}
