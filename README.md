@@ -2,9 +2,9 @@
 
 ![Screenshot](/DWGs/logoulb.gif)
 
-The focus of my PhD project is on developing reduced-order, predictive models for turbulent reactive flows with the application in combustion.
+In my PhD project I combine the knowledge from fluid dynamics and data science to drive the fundamental research in non-polluting combustion processes.
 
-Find out more information about our group here: http://burn-research.be/ or about our department here: http://atm.ulb.ac.be/
+Find out more information about our group here: http://burn-research.be/ or about our department here: http://atm.ulb.ac.be/.
 
 # Study notes
 
