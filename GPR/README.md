@@ -7,7 +7,7 @@
 
 ## GPR with GPML (Matlab code)
 
-![Screenshot](GPR-Matlab/GPR-GPML.png)
+![Screenshot](GPML-Matlab/GPR-GPML.png)
 
 ## Resources:
 
