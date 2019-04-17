@@ -7,3 +7,5 @@ For a pre-processed `DATA` (centered and scaled):
 ```Matlab
 [PCs, PC_scores, eigenvalues, tsquared, variance_explained, mu] = pca(DATA, 'Centered', false);
 ```
+
+[Matlab documentation](https://nl.mathworks.com/help/stats/pca.html)
