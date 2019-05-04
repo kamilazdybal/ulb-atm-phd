@@ -31,12 +31,8 @@ x = x.reshape((-1, 1))
 # Perform Least-Squares regression:
 model = LinearRegression().fit(x, y)
 r_sq = model.score(x, y)
-print('coefficient of determination:', r_sq)
-print('intercept:', model.intercept_)
-print('slope:', model.coef_)
 
-Y = x.reshape((-1, 1)) * model.coef_ + model.intercept_
-print(Y.shape)
+Y = x * model.coef_ + model.intercept_
 
 # Plot the original inputs-targets:
 figure1 = plt.figure(figsize=(8, 6))
