@@ -36,7 +36,7 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, February 2019}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, May 2019}}
 
     \vskip2ex
     
@@ -238,6 +238,8 @@ Note here, that for nonlinear systems, a matrix that transforms $\vec{x}_1$ to $
 \begin{equation} \label{eq:linear_dynamics}
 \bm{X_2} = \bm{A} \bm{X_1}
 \end{equation}
+
+At this point, we should pause and appreciate what the above equation is representing. It describes a linear system of equations which (in the most practical case) will be underdetermined. The unknown in this equation is the matrix $\bm{A}$, hence the number of unknowns is equal to the number of elements of this matrix: $n_s \cdot n_s$. The number of linear equations however is $n_s \cdot n_t$ and in many dynamical systems of interest $n_s >> n_t$. Such system might have infinitely many solutions and therefore some additional constraint on $\bm{A}$ is needed in order to select one solution out of infinitely many. This boils down to the problem of regression - what regression condition we chose is up to us. In particular, we might restrict ourselves to such $\bm{A}$ that will minimize the L2 norm .... . It is worth noting that there might be different "best" $\bm{A}$ that gets us from snapshot $5$ to $6$ then the one that gets us from snapshot $100$ to $101$. What our regression will aim at optimizing is to find one matrix $\bm{A}$ that "sort of" does all the past-future links in the best way it can.
 
 To solve such system we multiply both sides by the \textit{pseudo-inverse} of matrix $\bm{X_1}$ which we denote by $\bm{X_1}^{+}$:
 
