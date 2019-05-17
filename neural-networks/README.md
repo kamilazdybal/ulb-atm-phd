@@ -55,10 +55,11 @@ Target_original = (Target_original - mean_Target)/std_Target
 
 These two approaches of computing the Root Mean Squared Error (RMSE) or Normalized Root Mean Squared Error (NRMSE) give the same result. Below, `X` is the original data and `X_fit` is the model fit.
 
-### RMSE/NRMSE using ``
+### RMSE/NRMSE using `mean_squared_error`
 
 ```Python
 import numpy as np
+from math import sqrt
 from sklearn.metrics import mean_squared_error
 
 rmse = sqrt(mean_squared_error(X, X_fit))
@@ -70,6 +71,7 @@ print(nrmse)
 ### RMSE/NRMSE manually
 ```Python
 import numpy as np
+from math import sqrt
 
 rmse = sqrt(np.mean((X - X_fit)**2))
 print(rmse)
