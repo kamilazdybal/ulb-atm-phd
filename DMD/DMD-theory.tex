@@ -128,7 +128,7 @@ The analogy presented in this section is based on \cite{Grosek}.
 
 \section{Dynamical systems}
 
-Dynamic Mode Decomposition connects strongly with the arguments made for \textit{dynamical systems} - systems that change in time. There is an interesting intuition carried from one-dimensional linear dynamical systems to multi-dimensional linear dynamical systems which we will briefly present here. For a more thorough explanation the reader is encouraged to look into \cite{Prof_Edward_Scheinerman}. 
+Dynamic Mode Decomposition connects strongly with the arguments made for \textit{dynamical systems} - systems that change in time. There is an interesting intuition carried from one-dimensional linear dynamical systems to multi-dimensional linear dynamical systems which we will briefly present here. For a more thorough explanation the reader is encouraged to look into \cite{Prof_Edward_Scheinerman}, which is an excellent position for an introductory encounter with dynamical systems. 
 
 Introducing the dynamical systems will be a good tool to understand the underlying concepts of DMD, especially the role of eigendecomposition which will appear as we present the theory in section \ref{sec:theory}.
 
@@ -239,9 +239,9 @@ Note here, that for nonlinear systems, a matrix that transforms $\vec{x}_1$ to $
 \bm{X_2} = \bm{A} \bm{X_1}
 \end{equation}
 
-At this point, we should pause and appreciate what the above equation is representing. It describes a linear system of equations which (in the most practical case) will be underdetermined. The unknown in this equation is the matrix $\bm{A}$, hence the number of unknowns is equal to the number of elements of this matrix: $n_s \cdot n_s$. The number of linear equations however is $n_s \cdot n_t$ and in many dynamical systems of interest $n_s >> n_t$. Such system might have infinitely many solutions and therefore some additional constraint on $\bm{A}$ is needed in order to select one solution out of infinitely many. This boils down to the problem of regression - what regression condition we chose is up to us. In particular, we might restrict ourselves to such $\bm{A}$ that will minimize the L2 norm .... . It is worth noting that there might be different "best" $\bm{A}$ that gets us from snapshot $5$ to $6$ then the one that gets us from snapshot $100$ to $101$. What our regression will aim at optimizing is to find one matrix $\bm{A}$ that "sort of" does all the past-future links in the best way it can.
+At this point, we should pause and appreciate what the above equation is representing. It describes a linear system of equations which (in the most practical case) will be underdetermined. The unknown in this equation is the matrix $\bm{A}$, hence the number of unknowns is equal to the number of elements of this matrix: $n_s \cdot n_s$. The number of linear equations however is $n_s \cdot n_t$ and in many dynamical systems of interest $n_s >> n_t$. Such system might have infinitely many solutions and therefore some additional constraint on $\bm{A}$ is needed in order to select one solution out of infinitely many. This boils down to the problem of regression - what regression condition we chose is up to us. In particular, we might restrict ourselves to such $\bm{A}$ that will minimize the L2 norm. It is worth noting that there might be different \textit{best} $\bm{A}$ that gets us from snapshot $5$ to $6$ then the one that gets us from snapshot $100$ to $101$. What our regression will aim at optimizing is to find one matrix $\bm{A}$ that \textit{sort of} does all the past-future links in the \textit{best} way it can.
 
-To solve such system we multiply both sides by the \textit{pseudo-inverse} of matrix $\bm{X_1}$ which we denote by $\bm{X_1}^{+}$:
+If we chose to proceed with the regression that minimizes the L2 norm (as is typically done in DMD algorithm) the solution to the system of eq.(\ref{eq:linear_dynamics}) is obtained by multiplying both sides by the \textit{pseudo-inverse} of matrix $\bm{X_1}$ which we denote by $\bm{X_1}^{+}$:
 
 \begin{equation} \label{eq:linear_dynamics_A}
 \bm{A} = \bm{X_2} \bm{X_1}^{+}
