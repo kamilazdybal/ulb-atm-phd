@@ -24,6 +24,6 @@ eigenvalues = pca.explained_variance_ratio_
 
 ## PCA in pictures
 
-![Screenshot](DWGs/PCA-dimension-reduction.png)
+![Screenshot](DWGs/PCA-dimensionality-reduction-matrices.png)
 
 ![Screenshot](DWGs/PCA-example-subplot.png)
