@@ -15,6 +15,8 @@ This repository is licensed under the [Creative Commons Attribution-NonCommercia
 ## PCA in Python
 
 ```Python
+from sklearn.decomposition import PCA
+
 # PCA of a data set X:
 
 pca = PCA()
