@@ -1,5 +1,9 @@
 # ULB - Aero-Thermo-Mechanics
 
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+This repository is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/) (CC BY-NC-SA 4.0) [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+
 ![Screenshot](/DWGs/logoulb.gif)
 
 In my PhD project I combine the knowledge from fluid dynamics and data science to drive the fundamental research in non-polluting combustion processes.
