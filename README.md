@@ -4,11 +4,23 @@
 
 This repository is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/) (CC BY-NC-SA 4.0) [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
-![Screenshot](/DWGs/logoulb.gif)
+__tl;dr__
 
-In my PhD project I combine the knowledge from fluid dynamics and data science to drive the fundamental research in non-polluting combustion processes.
+If you wish to use any of the materials from this repository, you can do so non-commercially, provided that you include a proper attribution and that your new material is shared with the same CC BY-NC-SA 4.0 licence.
+
+Example attribution:
+
+```
+Picture by K. Zdybał, 2019. Taken from: https://github.com/camillejr
+```
+
+## My PhD work
+
+In my PhD project I combine the knowledge from fluid dynamics and data science to drive the development of reduced-order models in non-polluting combustion applications.
 
 Find out more information about our group here: http://burn-research.be/ or about our department here: http://atm.ulb.ac.be/.
+
+![Screenshot](/DWGs/logoulb.gif)
 
 # Study notes
 
