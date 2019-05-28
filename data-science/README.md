@@ -4,7 +4,9 @@
 
 | Technique | Shortcut |
 |-----------|----------|
-| Artificial Neural Networks | GPR |
+| Artificial Neural Networks | ANN |
+| Autoencoders | - |
+| Deep Neural Networks | DNN |
 | Dynamic Mode Decomposition | DMD |
 | Gaussian Process Regression | GPR |
 | Independent Component Analysis | ICA |
