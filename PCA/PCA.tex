@@ -87,7 +87,7 @@ showstringspaces=false            %
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, January 2019}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, June 2019}}
     \vskip2ex
 	\vspace{5ex}
     \fontsize{20}{10}\selectfont {The linear algebra of Principal Component Analysis}
@@ -126,15 +126,15 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large (high-dimensional) data set can be reduced to maintain only the directions of the largest variance. The technique is used broadly in many branches of science such as astrophysics, psychology or fluid dynamics, to name a few. As many other data science techniques, PCA allows not only to make a low-rank approximation of the data set, but also to extract and observe additional information hidden in the data, which would otherwise be difficult or impossible task for a human.
+These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large (high-dimensional) data set can be reduced to maintain only the directions of the largest variance. The technique is used broadly in many branches of science such as astrophysics, psychology or fluid dynamics, to name a few. As many other data science techniques, PCA allows not only to make a low-rank approximation of the data set, but also to extract and observe additional information hidden in the data.
 
 \,\,
 
-These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects governing this method. I have the aim that the reader will both gain a deep and intuitive understanding as well as an appreciation for PCA. This requires both a deep and intuitive understanding of several linear algebra concepts such as the eigendecomposition or matrix operations. 
+These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects governing this method. The aim is to present both a deep and intuitive approach of several linear algebra concepts such as the eigendecomposition or matrix operations and the beauty and simplicity of the PCA technique. 
 
 \,\,
 
-Some initial level of linear algebra knowledge and intuition is hence required.
+Some initial level of linear algebra knowledge and intuition is required.
 I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel, which, to my belief, will be everything you need to master about linear algebra to gain a great intuition behind PCA.
 
 \,\,
@@ -533,7 +533,7 @@ We perform PCA on three artificially generated matrices of size $(10 \times 6)$:
 \label{fig:matrices}
 \end{figure}
 
-The visual judgment of the level of imposed "structure" is quite objective in this exercise but the aim was to group the elements of high numerical value (most yellow) in a single region of the matrix and elements of low numerical (most purple) value in other regions of the matrix.
+The visual judgment of the level of imposed "structure" is quite objective in this exercise but the aim was to group the elements of high numerical value (most yellow) in a single region of the matrix and elements of low numerical value (most purple) in other regions of the matrix.
 
 The level of the imposed structure can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig.\ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits the strongest low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
 
