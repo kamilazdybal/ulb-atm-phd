@@ -516,17 +516,17 @@ We perform PCA on three artificially generated matrices of size $(10 \times 6)$:
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/random-matrix-original.eps}
+\includegraphics[scale=.2]{DWGs/random-matrix-original.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/semi-structured-matrix-original.eps}
+\includegraphics[scale=.2]{DWGs/semi-structured-matrix-original.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/structured-matrix-original.eps}
+\includegraphics[scale=.2]{DWGs/structured-matrix-original.png}
 \caption{ }
 \end{subfigure}
 \caption{Original data matrices: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
@@ -555,22 +555,28 @@ The above multiplication is presented in three cases in Fig.\ref{fig:matrices-re
 
 What can be seen visually is that for the semi-structured and structured matrix the low numerical value region is clearly separated. For the random matrix, only few regions of lowest and highest numerical values are recovered in the rank-1 approximation.
 
+\begin{figure}[H]
+\centering\includegraphics[width=7cm]{DWGs/matrix-multiplication-explanation.png}
+\caption{Matrix multiplication from eq.(\ref{eq:data-set-approximation}) shown graphically.}			
+\label{fig:matrix-multiplication-graphically}
+\end{figure}
+
 It is worth noticing here that indeed the obtained matrices are necessarily rank-1, since they are formed as a linear combination of a single vector. This can be seen in two ways: either you may take the vector of PC-scores $(10 \times 1)$ and assume that it forms every column of the $(10 \times 6)$ matrix through multiplying it by the corresponding element from the PC vector. Or, you may assume that the PC is a vector that forms every row of the $(10 \times 6)$ matrix when multiplied by the corresponding element from the PC-scores vector. In either case, the full matrix $(10 \times 6)$ becomes a linear combination of a single vector - hence, it is rank-1.
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-1.eps}
+\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-1.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-1.eps}
+\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-1.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-1.eps}
+\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-1.png}
 \caption{ }
 \end{subfigure}
 \caption{Reconstruction with $1^{st}$ Principal Component of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
@@ -587,17 +593,17 @@ Following the analogous reasoning as for Fig.\ref{fig:matrices-reconstruction-1}
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-2.eps}
+\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-2.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-2.eps}
+\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-2.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-2.eps}
+\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-2.png}
 \caption{ }
 \end{subfigure}
 \caption{Reconstruction with 2 Principal Components of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
@@ -611,17 +617,17 @@ The PC-scores are low-dimensional representations of the original data matrix an
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-6.eps}
+\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-6.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-6.eps}
+\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-6.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-6.eps}
+\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-6.png}
 \caption{ }
 \end{subfigure}
 \caption{Reconstruction with 6 Principal Components of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}

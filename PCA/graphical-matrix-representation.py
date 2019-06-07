@@ -35,16 +35,15 @@ eigvals_random = pca.explained_variance_ratio_
 # Display original matrix:
 figure = plt.figure(figsize=(4, 5))
 figureSubplot = figure.add_subplot(1,1,1)
-plt.imshow(Dataset_random)
+plt.imshow(Dataset_random, vmin=0, vmax=1)
 plt.yticks([]), plt.xticks([])
-#plt.colorbar()
 figureSubplot.spines["top"].set_visible(False)
 figureSubplot.spines["bottom"].set_visible(False)
 figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
 
 # Save plot:
-filename = 'DWGs/random-matrix-original.eps'
+filename = 'DWGs/random-matrix-original.png'
 plt.savefig(filename, dpi = 100, bbox_inches='tight')
 plt.close()
 
@@ -56,7 +55,7 @@ for pc in range(1,7):
     plt.bar(range(1,7), pca.components_[pc-1,:], 0.5)
 
     # Save plot:
-    filename = 'DWGs/random-matrix-bar-plot-PC' + str(pc) + '.eps'
+    filename = 'DWGs/random-matrix-bar-plot-PC' + str(pc) + '.png'
     plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
@@ -68,7 +67,7 @@ for Nq in range(1,7):
     figure = plt.figure(figsize=(6.3, 10))
 
     figureSubplot = plt.subplot(2,2,2)
-    plt.imshow(pca.components_[:Nq,:])
+    plt.imshow(pca.components_[:Nq,:], vmin=-1, vmax=1)
     plt.yticks([]), plt.xticks([])
     figureSubplot.spines["top"].set_visible(False)
     figureSubplot.spines["bottom"].set_visible(False)
@@ -93,7 +92,7 @@ for Nq in range(1,7):
     plt.subplots_adjust(wspace=0.1, hspace=0)
 
     # Save plot:
-    filename = 'DWGs/random-matrix-reconstruction-PCs-' + str(Nq) + '.eps'
+    filename = 'DWGs/random-matrix-reconstruction-PCs-' + str(Nq) + '.png'
     plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
@@ -104,9 +103,9 @@ Dataset_semi_structured = np.array([[2, 3, 1, 0, 4, 5],
                     [5, 7, 12, 11, 8, 9],
                     [1, 9, 4, 5, 12, 7],
                     [1, 6, 3, 8, 3, 9],
-                    [3, 7, 5, 8, 0, 11],
+                    [3, 7, 5, 8, 0, 4],
                     [0, 1, 7, 7, 1, 8],
-                    [0, 1, 1, 3, 6, 9],
+                    [0, 1, 1, 3, 6, 11],
                     [2, 2, 1, 7, 7, 10]])
 
 Dataset_semi_structured = Dataset_semi_structured/np.max(Dataset_semi_structured)
@@ -122,7 +121,7 @@ eigvals_semi_structured = pca.explained_variance_ratio_
 # Display matrix:
 figure = plt.figure(figsize=(4, 5))
 figureSubplot = plt.subplot(1,1,1)
-plt.imshow(Dataset_semi_structured)
+plt.imshow(Dataset_semi_structured, vmin=0, vmax=1)
 plt.yticks([]), plt.xticks([])
 #plt.colorbar()
 figureSubplot.spines["top"].set_visible(False)
@@ -131,7 +130,7 @@ figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
 
 # Save plot:
-filename = 'DWGs/semi-structured-matrix-original.eps'
+filename = 'DWGs/semi-structured-matrix-original.png'
 plt.savefig(filename, dpi = 100, bbox_inches='tight')
 plt.close()
 
@@ -143,7 +142,7 @@ for pc in range(1,7):
     plt.bar(range(1,7), pca.components_[pc-1,:], 0.5)
 
     # Save plot:
-    filename = 'DWGs/semi-structured-matrix-bar-plot-PC' + str(pc) + '.eps'
+    filename = 'DWGs/semi-structured-matrix-bar-plot-PC' + str(pc) + '.png'
     plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
@@ -155,7 +154,7 @@ for Nq in range(1,7):
     figure = plt.figure(figsize=(6.3, 10))
 
     figureSubplot = plt.subplot(2,2,2)
-    plt.imshow(pca.components_[:Nq,:])
+    plt.imshow(pca.components_[:Nq,:], vmin=-1, vmax=1)
     plt.yticks([]), plt.xticks([])
     figureSubplot.spines["top"].set_visible(False)
     figureSubplot.spines["bottom"].set_visible(False)
@@ -180,11 +179,11 @@ for Nq in range(1,7):
     plt.subplots_adjust(wspace=0.1, hspace=0)
 
     # Save plot:
-    filename = 'DWGs/semi-structured-matrix-reconstruction-PCs-' + str(Nq) + '.eps'
+    filename = 'DWGs/semi-structured-matrix-reconstruction-PCs-' + str(Nq) + '.png'
     plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
-# Generate structured data set =================================================
+# Generate structured data set: ================================================
 Dataset_structured = np.array([[2, 2, 5, 4, 4, 5],
                     [3, 4, 3, 10, 12, 10],
                     [2, 6, 7, 10, 10, 9],
@@ -208,7 +207,7 @@ eigvals_structured = pca.explained_variance_ratio_
 # Display matrix:
 figure = plt.figure(figsize=(4, 5))
 figureSubplot = plt.subplot(1,1,1)
-plt.imshow(Dataset_structured)
+plt.imshow(Dataset_structured, vmin=0, vmax=1)
 plt.yticks([]), plt.xticks([])
 #plt.colorbar()
 figureSubplot.spines["top"].set_visible(False)
@@ -217,7 +216,7 @@ figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
 
 # Save plot:
-filename = 'DWGs/structured-matrix-original.eps'
+filename = 'DWGs/structured-matrix-original.png'
 plt.savefig(filename, dpi = 500, bbox_inches='tight')
 plt.close()
 
@@ -229,7 +228,7 @@ for pc in range(1,7):
     plt.bar(range(1,7), pca.components_[pc-1,:], 0.5)
 
     # Save plot:
-    filename = 'DWGs/structured-matrix-bar-plot-PC' + str(pc) + '.eps'
+    filename = 'DWGs/structured-matrix-bar-plot-PC' + str(pc) + '.png'
     plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
@@ -241,7 +240,7 @@ for Nq in range(1,7):
     figure = plt.figure(figsize=(6.3, 10))
 
     figureSubplot = plt.subplot(2,2,2)
-    plt.imshow(pca.components_[:Nq,:])
+    plt.imshow(pca.components_[:Nq,:], vmin=-1, vmax=1)
     plt.yticks([]), plt.xticks([])
     figureSubplot.spines["top"].set_visible(False)
     figureSubplot.spines["bottom"].set_visible(False)
@@ -266,7 +265,7 @@ for Nq in range(1,7):
     plt.subplots_adjust(wspace=0.1, hspace=0)
 
     # Save plot:
-    filename = 'DWGs/structured-matrix-reconstruction-PCs-' + str(Nq) + '.eps'
+    filename = 'DWGs/structured-matrix-reconstruction-PCs-' + str(Nq) + '.png'
     plt.savefig(filename, dpi = 100, bbox_inches='tight')
     plt.close()
 
@@ -278,6 +277,7 @@ p2, = plt.plot(range(1,7), eigvals_semi_structured, 'o-', color=semiColour, line
 p3, = plt.plot(range(1,7), eigvals_structured, 'o-', color=structuredColour, linewidth=ln)
 L = figureSubplot.legend((p1, p2, p3), ('Random', 'Semi-structured', 'Structured'))
 plt.setp(L.texts, family='Charter')
+
 # Set the tick labels font
 for label in (figureSubplot.get_xticklabels()):
     label.set_fontname('Charter')
@@ -288,6 +288,7 @@ for label in (figureSubplot.get_yticklabels()):
     label.set_fontname('Charter')
     label.set_fontweight('regular')
     label.set_fontsize(font_axis)
+
 filename = 'DWGs/matrix-reconstruction-eigenvalues-comparison.png'
 plt.savefig(filename, dpi = 500, bbox_inches='tight')
 plt.close()
