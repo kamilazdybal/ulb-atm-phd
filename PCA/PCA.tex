@@ -126,16 +126,15 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large (high-dimensional) data set can be reduced to maintain only the directions of the largest variance. The technique is used broadly in many branches of science such as astrophysics, psychology or fluid dynamics, to name a few. As many other data science techniques, PCA allows not only to make a low-rank approximation of the data set, but also to extract and observe additional information hidden in the data.
+These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large, high-dimensional data set is reduced to maintain only the directions (dimensions) of the largest variance. It bases on the fact that the original basis to represent the data set might not be an \textit{optimal} one. In PCA, a new basis is found and the data is transformed to that new basis giving certain advantages. Similarly as in some other data science techniques, PCA allows not only to make a low-rank approximation of the data set, but also to extract and observe additional information hidden in the data.
 
 \,\,
 
-These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects governing this method. The aim is to present both a deep and intuitive approach of several linear algebra concepts such as the eigendecomposition or matrix operations and the beauty and simplicity of the PCA technique. 
+These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects governing this method. The aim is to present both a deep and intuitive approach of several linear algebra concepts such as the eigendecomposition or matrix operations that underlay the beauty and simplicity of the PCA technique. 
 
 \,\,
 
-Some initial level of linear algebra knowledge and intuition is required.
-I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel, which, to my belief, will be everything you need to master about linear algebra to gain a great intuition behind PCA.
+Some initial level of linear algebra knowledge is required. I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel \cite{3Blue1Brown}, which, to my belief, will be everything you need to master about linear algebra to build a great intuition behind PCA.
 
 \,\,
 
@@ -194,25 +193,23 @@ One of the strengths of PCA is that it can be performed on a non-time-resolved d
 
 In data science we are typically given a raw data set which is not centered and not scaled. 
 
-Data centering allows to look at it as variations from some center. Typically we might center each variable by subtracting the mean of this variable's observations (realizations) - we would then look at the data as variations from the mean. This would substitute the original data set with:
+Centering allows to look at data as variations from some center. Typically we might center each variable by subtracting the mean of this variable's observations (realizations) - we would then look at the data as variations from the mean. This would substitute the original data set with:
 
 \begin{equation}
 \bm{X'} = \bm{X} - \text{mean}(\bm{X})
 \end{equation}
 
-Such centering will shift the "cloud" of data points (which in general is multi-dimensional) to the origin. However, other values for centering are possible.
+Graphically, such centering will shift the center of the \textit{cloud} of data points (which in general is multi-dimensional) to the origin\footnote{See Fig.\ref{fig:python-raw-data}-\ref{fig:python-raw-data-centered}.}. However, other values for centering can be used depending on the purpose, for instance $\text{min}(\bm{X})$.
 
-Scaling, on the other hand, allow us to cancel the effect of unit that a variable might have and treat all variables with equal importance. 
+Scaling, on the other hand, allow us to cancel the effect of units that variables in our data set might have, and treat all variables with equal importance. 
 
 \begin{equation}
 \bm{X''} = \bm{X'}\bm{D}^{-1}
 \end{equation}
 
-In the above equation, the matrix $\bm{D}$ is a diagonal matrix whose entries are the corresponding scalings. Hence, every column of the matrix $\bm{X'}$ gets divided by a corresponding scale from the diagonal of the matrix $\bm{D}$.
+In the above equation, the matrix $\bm{D}$ is a diagonal matrix whose entries are the corresponding scalings. Hence, every column of the matrix $\bm{X'}$ gets divided by a corresponding scale from the diagonal of the matrix $\bm{D}$. One of the popular scaling methods used in literature is the \textit{auto scaling} (also known as \textit{standard scaling}) in which each column is divided by the standard deviation of that column. After auto scaling all columns have a standard deviation equal to 1. To motivate data scaling with an illustrative example, you might think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300-1500 $K$ and associated pressures in the units of $[atm]$ which range from 1-1.1 $atm$. If we did not scale the data, the largest \textit{spread} or the \textit{variance} would be found in temperature, since on purely numerical grounds, the range 300-1500 is more significant than the range 1-1.1.
 
-You might for instance think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300-1500 $K$ and associated pressures in the units of $[atm]$ which range from 1-1.1 $atm$. If we did not scale the data, the largest "spread" or the variance would be found in temperature, since on purely numerical  grounds, the range 300-1500 is more significant than the range 1-1.1.
-
-For simplicity, for the rest of this document we assume that $\bm{X}$ represents pre-processed data (in place of $\bm{X'}$ or $\bm{X''}$).
+For simplicity, for the rest of this document we assume that $\bm{X}$ represents already pre-processed data (in place of $\bm{X'}$ or $\bm{X''}$).
 
 \section{Covariance matrix}
 
@@ -222,7 +219,7 @@ The covariance between two random vectors $X$ and $Y$ is defined as:
 \text{cov}(X,Y) = \frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X}) (Y_i - \bar{Y})
 \end{equation}
 
-where $N$ is the number of samples. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric, due to the symmetry $\text{cov}(X,Y) = \text{cov}(Y,X)$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(X,X) = \text{var}(X)$ where:
+where $N$ is the number of samples (weights of a vector). If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric, due to the symmetry $\text{cov}(X,Y) = \text{cov}(Y,X)$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(X,X) = \text{var}(X)$ where:
 
 \begin{equation}\label{eq:variance-definition}
 \text{var}(X) = \frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X})^2
@@ -409,6 +406,24 @@ We can now answer the previously posed question: the basis associated with the e
 \section{How it all links together}
 
 Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  technique seems like a "series of fortunate events" that makes a very effective usage of a few popular concepts from linear algebra. 
+
+
+
+\section{Special topics}
+
+\subsection{PCA on a rank-deficient matrix}
+
+It is interesting to think about what PCA accomplishes on a rank-deficient matrix - one where rank $r$ is smaller than $Q$. Since PCA would produce $Q$ orthogonal eigenvectors one might ask: is PCA creating additional dimensions beyond the original $r$ ones then?
+
+It is reasonable to expect that the eigenvalues associated to such non-existent dimensions will be zero since there is zero variance on those dimensions in the original data set $\bm{X}$. So one way to account for the original $r$ dimensions in the data set is for PCA to compute only $r$ non-zero eigenvalues.
+
+But what about the approximation of the data $\bm{X_q} = \bm{Z_q} \bm{A_q}^T$ when $q=Q$? What is the rank of the reconstructed $\bm{X_Q}$?
+
+
+\subsection{Rotation of PCs}
+
+
+
 
 
 
@@ -642,18 +657,19 @@ Indeed, the multiplications from Fig.\ref{fig:matrices-reconstruction-6} show fu
 
 
 
-\section{Highlights of statistics} \label{app:B}
+%\section{Highlights of statistics} \label{app:B}
 
-\subsection{The intuition behind $\frac{1}{1-n}$.}
+%\subsection{The intuition behind $\frac{1}{1-n}$.}
 
 
-\subsection{Statistical independence}
+%\subsection{Statistical independence}
 
 
 The Principal Components are linearly independent (since they are orthogonal) but it does not mean that they are statistically independent. This is one of the limitations of PCA.
 
 \thebibliography{}
 
+\bibitem{3Blue1Brown} 3Blue1Brown, \textit{Essence of linear algebra}
 \bibitem{Matlab-pca} https://nl.mathworks.com/help/stats/pca.html
 \bibitem{Jolliffe} Ian T. Jolliffe, \textit{Principal Component Analysis}, Second Edition, 1986
 \bibitem{Strang} Gilbert Strang, \textit{Introduction to Linear Algebra}, Fifth Edition, 2016
