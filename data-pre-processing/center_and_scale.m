@@ -50,7 +50,7 @@ Outputs: ---
 
 %}
 
-% Tolerance to avoid dividing by zero:
+%% Tolerance to avoid dividing by zero:
 a_tol = 1e-16;
 
 cent_crit = lower(cent_crit);
