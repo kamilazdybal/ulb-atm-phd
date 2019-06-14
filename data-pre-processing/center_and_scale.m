@@ -14,9 +14,9 @@ Inputs: ---
 
         Available centerings:
 
-            - 'none'
-            - 'mean'    (mean)
-            - 'min'     (min)
+        - 'none'
+        - 'mean'    (mean)
+        - 'min'     (min)
 
     - scal_crit
 
@@ -24,13 +24,15 @@ Inputs: ---
 
         Available scalings:
 
-            - 'none'
-            - 'auto'    (standard deviation)
-            - 'range'   (max - min)
-            - 'pareto'  (square root of standard deviation)
-            - 'vast'    (standard deviation times standard deviation divided by mean)
-            - 'level'   (mean)
-            - 'max'     (max)
+        - 'none'
+        - 'auto'        (standard deviation)
+        - 'range'       (max - min)
+        - 'pareto'      (square root of standard deviation)
+        - 'vast'        (standard deviation times standard deviation divided by mean)
+        - 'level'       (mean)
+        - 'max'         (max)
+        - 'stdrange'    (standard deviation divided by (max - min))
+        - 'stdmax'      (standard deviation divided by max)
 
 Outputs: ---
 
@@ -84,6 +86,10 @@ switch scal_crit
         scales = mean(X);
     case 'max'
         scales = max(X);
+    case 'stdrange'
+        scales = std(X) ./ (max(X) - min(X) + a_tol);
+    case 'stdmax'
+        scales = std(X) ./ (max(X) + a_tol);
     otherwise
         error('Unknown scaling criterion.');
 end
