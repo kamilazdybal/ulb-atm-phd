@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{epsf}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{hmargin=3.5cm, vmargin=2.5cm}
+\usepackage[squaren]{SIunits}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{mygreen}{RGB}{70, 180, 90}
+\definecolor{mylilas}{RGB}{255, 117, 45}
+\definecolor{cadr}{rgb}{0.89, 0.0, 0.13}
+\graphicspath{{DWGs/}}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{enumitem}
+
+\begin{document}
+
+\lstset{language=Python,
+    breaklines=true,
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},
+    stringstyle=\color{mylilas},
+    commentstyle=\color{mygreen},
+    showstringspaces=false,
+    numbers=left,
+    numberstyle={\tiny \color{black}},
+    numbersep=9pt,
+    emph=[1]{for,end,break},emphstyle=[1]\color{red},
+}
+
+
+\section*{Reptiles classification example - introduction to labeling and measures} \label{chap:intro}
+
+\begin{equation}
+\mathbf{D} = \mathbf{A} \mathbf{B} \mathbf{C}
+\label{eq:decomposition}
+\end{equation}
+
+
+%\begin{figure}[H]
+%\centering\includegraphics[width=7cm]{Correlation}
+%\caption{Symmetry in the correlation coefficient.}				
+%\label{fig:correlation}
+%\end{figure}
+
+\lstinputlisting[label=similarity_mat, caption=Code for reptile data. \emph{reptiles.py}]{reptiles.py}
+
+
+
+\setlength{\parindent}{0.5cm}
+
+\begin{thebibliography}{50}
+
+\bibitem{MIT} https://www.youtube.com/watch?v=h0e2HAPTGF4
+
+\end{thebibliography}
+
+\end{document}
