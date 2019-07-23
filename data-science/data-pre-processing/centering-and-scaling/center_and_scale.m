@@ -12,23 +12,23 @@ Inputs: ---
 
         centering criteria selected.
 
-        Available centerings:
+        Centerings:     Subtracted from each variable:
 
-        - 'none'
-        - 'mean'    (mean)
-        - 'min'     (min)
+        - 'none'        (0)
+        - 'mean'        (mean)
+        - 'min'         (min)
 
     - scal_crit
 
         scaling criteria selected.
 
-        Available scalings:
+        Scalings:       Each variable is divided by:
 
-        - 'none'
+        - 'none'        (1)
         - 'auto'        (standard deviation)
         - 'range'       (max - min)
         - 'pareto'      (square root of standard deviation)
-        - 'vast'        (standard deviation times standard deviation divided by mean)
+        - 'vast'        (standard deviation squared divided by mean)
         - 'level'       (mean)
         - 'max'         (max)
         - 'stdrange'    (standard deviation divided by (max - min))

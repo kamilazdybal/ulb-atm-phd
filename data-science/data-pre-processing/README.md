@@ -1,6 +1,6 @@
 # Data pre-processing
 
-This repository contains codes that pre-process the raw data set.
+This repository contains codes for pre-processing raw data sets.
 
 ## Centering and scaling: example usage
 
@@ -16,5 +16,4 @@ X_app = PC_scores * PCs';
 
 % Uncentering and unscaling:
 [X] = uncenter_and_unscale(X_app, centers, scales);
-
 ```
