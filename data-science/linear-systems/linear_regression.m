@@ -22,7 +22,7 @@ Y_tilde = X*inv(X'*X)*X'*Y;
 figure;
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0, 0.4, 0.5]);
 scatter(R(:,1), Y, 40, point_colour, '.'); axis equal; hold on
-scatter(R(:,1), Y_tilde, 60, regression_colour, '.');
+plot(R(:,1), Y_tilde, 'k-', 'color', regression_colour, 'LineWidth', 2);
 set(gca, 'FontSize', fontsize_axes)
 box on
 saveas(gcf, 'LS-linear-basis-functions.eps', 'epsc');

@@ -114,15 +114,32 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{Partial Least Squares (PLS) regression}
 
+The most general linear equation is of the form:
+
+\begin{equation} \label{eq:linear-equation}
+\bm{X} \bm{w} = \bm{y}
+\end{equation}
+
+At this point, I ought to give a small justification. In many literature references such as \cite{Strang}, the above equation can be encountered written as $A \vec{x} = \vec{b}$ (with unknown $\vec{x}$) or $\bm{A} \bm{x} = \bm{y}$ (with unknown $\bm{x}$). I decided to write it in a different notation, with the unknown vector $\bm{w}$, since I wanted to highlight the link of algebra with geometry.
+
+To avoid naming confusion, in eq.(\ref{eq:linear-equation}), $\bm{X}$ and $\bm{y}$ contain the actual $x$ and $y$ coordinates of the data points on the $x$ and $y$ axis respectively. Thus, $\bm{X}$ and $\bm{y}$ are known; the vector of unknown coefficients is $\bm{w}$.
+
+This actually follows the notation presented in \cite{Bishop} in Chapter 3 on \textit{Linear Models for Regression}.
+
 2D data example
-
-
 
 Have a data set in pairs: (X, Y). X is a vector of N points and Y is a vector of corresponding N points. Together they make a cloud of points on a 2D-plane.
 
 We now say that: X A = Y.
 
 We are interested in finding the coefficients: y = C x + D.
+
+
+
+
+
+
+
 
 
 
@@ -140,14 +157,28 @@ We are interested in finding the coefficients: y = C x + D.
 \label{fig:LS-linear-basis}
 \end{figure}
 
+
+
+
+
+
+
+
+
+
+
 \newpage
 
 
 \thebibliography{}
 
-\bibitem{Kutz} Nathan Kutz, \textit{Data Driven Discovery of Dynamical Systems and PDEs}, an online lecture 
+
 
 \bibitem{Strang} Gilbert Strang, \textit{Introduction to Linear Algebra}, Fifth Edition, 2016
+
+\bibitem{Bishop} Christopher M. Bishop, \textit{Pattern Recognition and Machine Learning}, 2006
+
+\bibitem{Kutz} Nathan Kutz, \textit{Data Driven Discovery of Dynamical Systems and PDEs}, an online lecture 
 
  \label{bib:pope}
 
