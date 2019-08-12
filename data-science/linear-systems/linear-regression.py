@@ -42,7 +42,7 @@ plt.axis('equal')
 plt.scatter(x, y, color=dataSetColour, marker='.', s=dataPointSize)
 plt.plot(x, Y, color=PLSRegressionColour, linewidth=2)
 plt.text(np.min(x)+0.5, 0.8*np.max(y), 'Original data set', **csfont, fontsize=font_text, color=dataSetColour)
-plt.text(0.2*np.max(x), np.min(y) + 0.5, 'PLS regression', **csfont, fontsize=font_text, color=PLSRegressionColour)
+plt.text(0.2*np.max(x), np.min(y) + 0.5, 'Linear regression', **csfont, fontsize=font_text, color=PLSRegressionColour)
 
 # Set the tick labels font:
 for label in (figureSubplot.get_xticklabels()):
