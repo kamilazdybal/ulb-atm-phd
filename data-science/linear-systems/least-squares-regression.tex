@@ -53,7 +53,7 @@
 	
     \fontsize{24}{10}\selectfont {Least squares regression}
     
-    \fontsize{18}{10}\selectfont {on overdetermined linear systems}
+    \fontsize{18}{10}\selectfont {a story on overdetermined linear systems}
     
     \fontsize{18}{10}\selectfont {and Moore-Penrose pseudo-inverse}
 
@@ -92,7 +92,7 @@
 
 \section*{Preface}
 
-The goal of this paper is to explain why Moore-Penrose pseudo-inverse give a least squares regression. And as we travel the journey to get there, I would like to give a handful of insight along the way.
+The goal of this paper is to explain why Moore-Penrose pseudo-inverse give a least squares regression. And as we travel the journey to get there, I would like to give a handful of insights along the way.
 \,\,
 
 This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
@@ -143,7 +143,7 @@ or in short:
 \end{equation}
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{overdetermined-systems-figure-1.png}
+\centering\includegraphics[width=5cm]{overdetermined-systems-figure-1.png}
 \caption{Solution to a 2-dimensional linear system.}
 \label{fig:linear-system-solution}
 \end{figure}
@@ -190,17 +190,30 @@ Drawing the line that follows the directionality of that cloud of points seems l
 
 \section{Least squares}
 
-One way to perform linear regression is to use least squares (LS). (And really I would like to stress that it is just one way to do it, there can be many more.)
+One way to perform linear regression is to use least squares (LS). (And really I would like to stress that it is just one way to do it, there can be many more.) In other words, least squares regression is a certain way to estimate $a$ and $b$ or to refer to the general case, it is a certain way to estimate the matrix $\bm{A}$.
+
+
+\subsection{Derivation}
+
+\begin{equation}
+\bm{X}^T (\bm{Y} - \bm{X} \bm{A}) = 0
+\end{equation}
 
 
 
+\begin{equation}
+\bm{A} = (\bm{X}^T \bm{X})^{-1} \bm{X}^T \bm{Y}
+\end{equation}
+
+Predictions for the existing values of $\bm{X}$ are then:
+
+\begin{equation}
+\bm{\hat{Y}} = \bm{X} \bm{A} = \bm{X} (\bm{X}^T \bm{X})^{-1} \bm{X}^T \bm{Y}
+\end{equation}
 
 
 
-
-
-
-
+Why $A$ contains the coefficient for the \textit{best-fit} linear function?
 
 
 
@@ -211,6 +224,11 @@ One way to perform linear regression is to use least squares (LS). (And really I
 \label{fig:LS-linear-basis}
 \end{figure}
 
+
+\subsection{Predictions}
+
+\subsection{Basis function methods}
+
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{LS-nonlinear-basis-functions.eps}
 \caption{Non-linear (quadratic) basis function LS regression.}
@@ -219,10 +237,17 @@ One way to perform linear regression is to use least squares (LS). (And really I
 
 
 
-\section{Connection to Singular Value Decomposition}
 
 
 
+
+
+
+\section{Connections}
+
+\subsection{Singular Value Decomposition}
+
+\subsection{Principal Component Analysis}
 
 \section{Moore-Penrose pseudo-inverse}
 

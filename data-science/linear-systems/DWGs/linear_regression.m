@@ -1,4 +1,4 @@
-%% Partial Least Squares regression (PLS)
+%% Least Squares (LS) regression
 clc, clear, close all
 
 fontsize_axes = 18;
@@ -10,25 +10,22 @@ mu = [2 2];
 sigma = [1 1.5; 1.5 3];
 rng('default');
 R = mvnrnd(mu,sigma,200);
-Y = R(:,2);
 np = 1000;
+X = [ones(size(R(:,1))), R(:,1)];
+Y = R(:,2);
 
 %% LS with linear basis functions:
-X = [ones(size(R(:,1))), R(:,1)];
-
 % Find the PLS regression:
 Y_tilde = X*inv(X'*X)*X'*Y;
 
 % Predict in the linspace of X:
 Beta_hat = inv(X'*X)*X'*Y;
-X_new = linspace(min(X(:,2), max(X(:,2)), np));
-Y_new = X_new * Beta_hat;
 
 % Plot:
 figure;
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0, 0.4, 0.5]);
 scatter(X(:,2), Y, 40, point_colour, '.'); axis equal; hold on
-plot(X_lnspc, Y_lnspc, 'ko', 'color', regression_colour, 'LineWidth', 2);
+plot(X(:,2), Y_tilde, 'k-', 'color', regression_colour, 'LineWidth', 2);
 set(gca, 'FontSize', fontsize_axes)
 box on
 saveas(gcf, 'LS-linear-basis-functions.eps', 'epsc');
