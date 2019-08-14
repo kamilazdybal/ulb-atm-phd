@@ -45,7 +45,7 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, June 2019}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, August 2019}}
 
     \vskip2ex
     
@@ -53,7 +53,9 @@
 	
     \fontsize{24}{10}\selectfont {Least squares regression}
     
-    \fontsize{18}{10}\selectfont {a short story on overdetermined linear systems and Moore-Penrose pseudoinverse}
+    \fontsize{18}{10}\selectfont {on overdetermined linear systems}
+    
+    \fontsize{18}{10}\selectfont {and Moore-Penrose pseudo-inverse}
 
   \noindent%
     
@@ -90,65 +92,107 @@
 
 \section*{Preface}
 
-Imagine a linear system of equations with more number equations than the number of unknowns.
-
-\,\,
-
-Goal of this paper: explain why Moore-Penrose inverse give a least squares regression.
+The goal of this paper is to explain why Moore-Penrose pseudo-inverse give a least squares regression. And as we travel the journey to get there, I would like to give a handful of insight along the way.
 \,\,
 
 This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
 
 \section*{Keywords}
 
-\textit{overdetermined linear systems, partial least squares regression, Moore-Penrose inverse}
+\textit{overdetermined linear systems, least squares regression, Moore-Penrose pseudo-inverse, linear algebra}
 
 \tableofcontents
 
 
-\section{References on Least Squares}
+\section{Overdetermined linear systems}
 
+When we want to fit an $n$-dimensional straight line through the data, $n$ number of points is sufficient to construct that line.
 
+For instance, for a two dimensional case we have a system of equations:
 
+\begin{equation}
+\begin{cases}
+y_1 = a x_1 + b \\
+y_2 = a x_2 + b
+\end{cases}
+\end{equation}
 
+that we can also write in a matrix form:
 
+\begin{equation}
+\begin{bmatrix}
+y_1 \\
+y_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & x_1 \\
+1 & x_2
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+b \\
+a
+\end{bmatrix}
+\end{equation}
 
-\section{Least Squares - the story}
+or in short:
 
-
-
-
+\begin{equation} \label{eq:general_linear_equation}
+\bm{Y} = \bm{X}\bm{A}
+\end{equation}
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{linear-regression.png}
+\centering\includegraphics[width=6cm]{overdetermined-systems-figure-1.png}
+\caption{Solution to a 2-dimensional linear system.}
+\label{fig:linear-system-solution}
+\end{figure}
+
+Whenever $N > n$ points are provided, we are dealing with an overdetermined linear system. We have redundant data that does not bring any new information to the system.
+Once we have solved this system, its parameters $a$ and $b$ do not get updated with any new data point. Such system can still be described by the general eq.(\ref{eq:general_linear_equation}), except now we include all $N$ points of our data:
+
+\begin{equation}
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_N
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & x_1 \\
+1 & x_2 \\
+\vdots \\
+1 & x_N
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+b \\
+a
+\end{bmatrix}
+\end{equation}
+
+Notice here that the matrix $\bm{X}$ has $n$ columns and the first column is padded with ones to account for the constant term $b$. We could also write $\bm{Y} = \bm{x} \bm{A} + \bm{b}$ if we wanted to separate the constant term. That is something to keep in mind when you write your regression code.
+
+Can we go further? What about the data that is in excess ($N > n$) and additionally, it is not co-linear - a straight line cannot be fitted to pass through all of these data points? In that case, the overdetermined linear system does not have a unique solution. A solution $\bm{A}$ to a problem $\bm{Y} = \bm{X}\bm{A}$ does not exist. In particular, different $a$ and $b$ might be needed to transform point $x_1$ to $y_1$ and $x_2$ to $y_2$ then to transform point $x_8$ to $y_8$ and $x_9$ to $y_9$.
+
+But even for such system we are naturally dragged to taking a pen and drawing a straight line that passes \textit{more or less} through that cloud of points. That fitting is a \textbf{linear regression}. How we deal with the \textit{more or less} is a matter of what regression technique we choose.
+
+Drawing the line that follows the directionality of that cloud of points seems like an easy task to do by hand. But how do we automate this process? How do we find that line mathematically, if we cannot solve $\bm{Y} = \bm{X}\bm{A}$ directly? That's where the fun starts.
+
+\begin{figure}[H]
+\centering\includegraphics[width=6cm]{linear-regression.png}
 \caption{Example of a linear regression.}
 \label{fig:linear-regression-demo}
 \end{figure}
 
 
 
+\section{Least squares}
 
-\section{Partial Least Squares (PLS) regression}
+One way to perform linear regression is to use least squares (LS). (And really I would like to stress that it is just one way to do it, there can be many more.)
 
-The most general linear equation is of the form:
 
-\begin{equation} \label{eq:linear-equation}
-\bm{X} \bm{w} = \bm{y}
-\end{equation}
-
-At this point, I ought to give a small justification. In many literature references such as \cite{Strang}, the above equation can be encountered written as $A \vec{x} = \vec{b}$ (with unknown $\vec{x}$) or $\bm{A} \bm{x} = \bm{y}$ (with unknown $\bm{x}$). I decided to write it in a different notation, with the unknown vector $\bm{w}$, since I wanted to highlight the link of algebra with geometry.
-
-To avoid naming confusion, in eq.(\ref{eq:linear-equation}), $\bm{X}$ and $\bm{y}$ contain the actual $x$ and $y$ coordinates of the data points on the $x$ and $y$ axis respectively. Thus, $\bm{X}$ and $\bm{y}$ are known; the vector of unknown coefficients is $\bm{w}$.
-
-This actually follows the notation presented in \cite{Bishop} in Chapter 3 on \textit{Linear Models for Regression}.
-
-2D data example
-
-Have a data set in pairs: (X, Y). X is a vector of N points and Y is a vector of corresponding N points. Together they make a cloud of points on a 2D-plane.
-
-We now say that: X A = Y.
-
-We are interested in finding the coefficients: y = C x + D.
 
 
 
@@ -162,25 +206,25 @@ We are interested in finding the coefficients: y = C x + D.
 
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{LS-linear-basis-functions.eps}
+\centering\includegraphics[width=6cm]{LS-linear-basis-functions.eps}
 \caption{Linear basis function LS regression.}
 \label{fig:LS-linear-basis}
 \end{figure}
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{LS-nonlinear-basis-functions.eps}
+\centering\includegraphics[width=6cm]{LS-nonlinear-basis-functions.eps}
 \caption{Non-linear (quadratic) basis function LS regression.}
 \label{fig:LS-linear-basis}
 \end{figure}
 
 
 
+\section{Connection to Singular Value Decomposition}
 
 
 
 
-
-
+\section{Moore-Penrose pseudo-inverse}
 
 
 \newpage
@@ -190,11 +234,11 @@ We are interested in finding the coefficients: y = C x + D.
 
 
 
-\bibitem{Strang} Gilbert Strang, \textit{Introduction to Linear Algebra}, Fifth Edition, 2016
+\bibitem{Strang} G. Strang, \textit{Introduction to Linear Algebra}, Fifth Edition, 2016
 
-\bibitem{Bishop} Christopher M. Bishop, \textit{Pattern Recognition and Machine Learning}, 2006
+\bibitem{Bishop} C. M. Bishop, \textit{Pattern Recognition and Machine Learning}, 2006
 
-\bibitem{Kutz} Nathan Kutz, \textit{Data Driven Discovery of Dynamical Systems and PDEs}, an online lecture 
+\bibitem{Kutz} N. Kutz, \textit{Data Driven Discovery of Dynamical Systems and PDEs}, an online lecture 
 
 \bibitem{Tibishrani} T. Hastie, R. Tibshirani, J. Friedman, \textit{Elements of Statistical Learning, Data Mining, Inference, and Prediction}, Second Edition, 2008
 

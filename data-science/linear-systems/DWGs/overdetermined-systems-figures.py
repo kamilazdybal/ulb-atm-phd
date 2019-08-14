@@ -7,13 +7,13 @@ import math
 from sklearn.linear_model import LinearRegression
 
 # Styles:
-dataSetColour = '#3b8183'
+dataSetColour = '#012d4f'
 PLSRegressionColour = '#ed303c'
 borderColour = '#999999'
-dataPointSize = 5
+dataPointSize = 35
 data_point = 1
 new_point = 1
-font_axis = 12
+font_axis = 16
 font_text = 20
 font_title = 15
 
@@ -22,27 +22,22 @@ csfont = {'fontname':'Charter', 'fontweight':'regular'}
 hfont = {'fontname':'Charter', 'fontweight':'bold'}
 
 # Data generation:
-nPoints = 500
-mean = [0,1] # data already centered
-covariance = [[1, 0.5], [0.5, 0.5]]
-x, y = np.random.multivariate_normal(mean, covariance, nPoints).T
+x = np.array([1, 2])
+y = x*0.9 + 1
 x = x.reshape((-1, 1))
-
-# Perform Least-Squares regression:
-model = LinearRegression().fit(x, y)
-r_sq = model.score(x, y)
-
-Y = x * model.coef_ + model.intercept_
+y = y.reshape((-1, 1))
 
 # Plot the original inputs-targets:
 figure1 = plt.figure(figsize=(8, 6))
 figureSubplot = plt.subplot(1,1,1)
 #plt.title('Original data set', **csfont, fontsize=font_title)
 plt.axis('equal')
-plt.scatter(x, y, color=dataSetColour, marker='.', s=dataPointSize)
-plt.plot(x, Y, color=PLSRegressionColour, linewidth=2)
-plt.text(np.min(x)+0.5, 0.8*np.max(y), 'Original data set', **csfont, fontsize=font_text, color=dataSetColour)
-plt.text(0.2*np.max(x), np.min(y) + 0.5, 'Linear regression', **csfont, fontsize=font_text, color=PLSRegressionColour)
+x_new = np.linspace(np.min(x) - 1, np.max(x) + 1, 100)
+y_new = x_new * 0.9 + 1
+plt.scatter(x, y, color=dataSetColour, marker='o', s=dataPointSize, zorder=2)
+plt.plot(x_new, y_new, color=PLSRegressionColour, linewidth=2, zorder=1)
+plt.text(0.3, 2, r'$(x_1, y_1)$', **csfont, fontsize=font_text, color=dataSetColour)
+plt.text(2.1, 2.6, r'$(x_2, y_2)$', **csfont, fontsize=font_text, color=dataSetColour)
 
 # Set the tick labels font:
 for label in (figureSubplot.get_xticklabels()):
@@ -59,9 +54,9 @@ figureSubplot.spines['bottom'].set_color(borderColour)
 figureSubplot.spines['top'].set_color(borderColour)
 figureSubplot.spines['left'].set_color(borderColour)
 figureSubplot.spines['right'].set_color(borderColour)
-figureSubplot.tick_params(axis='x', colors=borderColour)
-figureSubplot.tick_params(axis='y', colors=borderColour)
+figureSubplot.tick_params(axis='x')
+figureSubplot.tick_params(axis='y')
 
 plt.subplots_adjust(wspace=0, hspace=0.4)
-plt.savefig('linear-regression.png', dpi = 200, bbox_inches='tight')
+plt.savefig('overdetermined-systems-figure-1.png', dpi = 200, bbox_inches='tight')
 plt.show()
