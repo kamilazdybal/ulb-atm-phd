@@ -2,4 +2,4 @@
 
 ## Linear regression
 
-![Screenshot](linear-regression.png)
+![Screenshot](DWGs/linear-regression.png)
