@@ -126,7 +126,7 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large, high-dimensional data set is reduced to maintain only the directions (dimensions) of the largest variance. It bases on the fact that the original basis to represent the data set might not be an \textit{optimal} one. In PCA, a new basis is found and the data is transformed to that new basis giving certain advantages. Similarly as in some other data science techniques, PCA allows not only to make a low-rank approximation of the data set, but also to extract and observe additional information hidden in the data.
+These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large, high-dimensional data set is reduced to maintain only the directions (dimensions) of the largest variance. It exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be redundancy of dimensions. Thus, in PCA a new basis is found and the data is transformed to that new basis giving certain advantages. Similarly as in some other data science techniques, PCA allows not only to make a low-rank approximation of the data set, but also to extract and visualize information hidden in the data.
 
 \,\,
 
@@ -134,7 +134,7 @@ These notes are in a way a tutorial on PCA with a deeper focus on linear algebra
 
 \,\,
 
-Some initial level of linear algebra knowledge is required. I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel \cite{3Blue1Brown}, which, to my belief, will be everything you need to master about linear algebra to build a great intuition behind PCA.
+Some initial level of linear algebra knowledge is required to understand these notes. I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel \cite{3Blue1Brown}, which, to my belief, will be everything you need to master about linear algebra to build a great intuition behind PCA.
 
 \,\,
 
@@ -401,11 +401,11 @@ It is thus visible, that if we chose $\bm{Z} = \bm{X} \bm{A}$, the product $\bm{
 
 There is one more thing owed explaining. We mentioned before that the elements on the diagonal are maximized, so is this also achieved by taking the eigenvalues matrix as a template? It turns out that the answer is yes. PCA achieves both things at the same time: it diagonalizes the new covariance matrix and it makes the diagonal elements maximum possible. Pretty neat, no?
 
-We can now answer the previously posed question: the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\bm{Z}^T \bm{Z}$ and it orders the PC-scores from the most to the least "informative" ones.
+We can now answer the previously posed question: the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\bm{Z}^T \bm{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
 
 \section{How it all links together}
 
-Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  technique seems like a "series of fortunate events" that makes a very effective usage of a few popular concepts from linear algebra. 
+Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  technique seems like a "series of fortunate events" that makes a very effective use of a few popular concepts from linear algebra. 
 
 
 
@@ -427,7 +427,7 @@ But what about the approximation of the data $\bm{X_q} = \bm{Z_q} \bm{A_q}^T$ wh
 
 
 
-\section{Python examples}
+\section{Python visual examples}
 
 \subsection{Plotting the workflow}\label{sec:pca-workflow}
 
