@@ -85,7 +85,7 @@
 
 \textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for approximating a generally nonlinear dynamical system with a linear one. It can be used for finding low-rank structures in multi-dimensional data sets, as well as predicting the future state of the system with inference made solely from the collected data.
 
-This document is a combination of various content on DMD found on the internet. The first are two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington. Other references are mentioned along the way.
+This document is a combination of various content that shaped my journey through understanding DMD. The first inspiration came from two lectures on Dynamic Mode Decomposition: [\ref{bib:kutz_1}] and [\ref{bib:kutz_2}] by Prof. Nathan Kutz from the University of Washington. Other references are mentioned along the way.
 
 \,\,
 
@@ -102,9 +102,9 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{Setting the stage}
 
-This small opening section is there to give you a bit of intuition for DMD, which will be complimentary in understanding the incoming mathematical formulation. It is assumed that you have some general idea about what it means to perform data decomposition.
+This small opening section is here to give you a bit of intuition for DMD which will be complimentary with understanding the mathematical formulation in the next chapters. It is assumed that you have some general idea on what it means to perform data decomposition\footnote{For this you can check out my other document \cite{Zdybal_data_dec}.}.
 
-The main purpose of DMD is to find \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each spatial structure behaves in time. The original data set can then be reconstructed by summing up the dynamic modes, or approximated by summing up a portion of the dynamic modes. 
+The main purpose of DMD is to find \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each spatial structure behaves in time. The original data set can then be reconstructed by summing up the dynamic modes, or approximated by summing up a \textit{significant} portion of the dynamic modes. 
 
 \begin{figure}[H]
 \centering\includegraphics[width=5.5cm]{DMD-modal-decomposition.png}
@@ -112,11 +112,13 @@ The main purpose of DMD is to find \textit{dynamic modes} underlying the data se
 \label{fig:modal-decomposition}
 \end{figure}
 
-In addition to the original data being reconstructed from its modes, different data decomposition methods will give a different meaning to the modes themselves. In general, we would like the modes to have a meaningful physical interpretation, as that will allow to extract additional information about the physics of the original data set.
+In addition to the original data being reconstructed from its modes, different data decomposition techniques can give a different meaning to the modes themselves. In general, we would like the modes to have a physical interpretation as that would allow to extract additional information about the physics of the original data set.
+
+%Explain more. Give a more pictorial example of a meaningful mode. One more figure would be nice.
 
 \subsection{DMD of a flipbook}
 
-To take a pictorial example, we may think of DMD as designing a flipbook [\ref{bib:andymation}]. However, every page of a flipbook is not a DMD mode. Rather, each mode is such element of all the flipbook pages which has got the same behaviour in time.
+To see a pictorial example, we may think of DMD as designing a flipbook [\ref{bib:andymation}]. However, every page of a flipbook is not a DMD mode. Rather, each mode is such element of all the flipbook pages which has got the same behaviour in time.
 
 Let's say that each slide is composed of a background which is the same in every slide (it is constant in time). There might also be an animation of moving objects happening in the foreground where some parts are animated as moving faster and some as moving slowly.
 
@@ -126,16 +128,21 @@ And hence the background might be thought of as one spatial mode that has got a 
 
 The analogy presented in this section is based on \cite{Grosek}.
 
+In order to attach a physical meaning to the spatial modes extracted, the DMD technique can distinguish a particular physical object as a separate dynamic mode (for instance: a jumping ball in the foreground, or a moving cloud in the background).
+
+
 \section{Dynamical systems}
 
-Dynamic Mode Decomposition connects strongly with the arguments made for \textit{dynamical systems} - systems that change in time. There is an interesting intuition carried from one-dimensional linear dynamical systems to multi-dimensional linear dynamical systems which we will briefly present here. For a more thorough explanation the reader is encouraged to look into \cite{Prof_Edward_Scheinerman}, which is an excellent position for an introductory encounter with dynamical systems. 
+Dynamic Mode Decomposition connects strongly with the arguments made for \textit{dynamical systems} - systems that change in time. There is an interesting intuition carried from one-dimensional linear dynamical systems to multi-dimensional linear dynamical systems and we will briefly present it here. For a more thorough explanation the reader is encouraged to look into \cite{Prof_Edward_Scheinerman}, which is an excellent introductory position for the first encounter with dynamical systems.
 
-Introducing the dynamical systems will be a good tool to understand the underlying concepts of DMD, especially the role of eigendecomposition which will appear as we present the theory in section \ref{sec:theory}.
+%Introducing the dynamical systems will be a good tool to understand the underlying concepts of DMD, especially the role of eigendecomposition which will appear as we present the theory in section \ref{sec:theory}.
 
 \subsection{One-dimensional linear dynamical system}
 
 
 \subsection{Multi-dimensional linear dynamical system}
+
+
 
 
 \section{Description of a dynamical system}
@@ -496,6 +503,7 @@ which is the statement of eigenvalue problem.
 
 \bibitem{Zdybal} K. Zdybal, \textit{POD and DMD decomposition of numerical and experimental data}, von Karman Institute for Fluid Dynamics, stagiaire report 
 
+\bibitem{Zdybal_data_dec} K. Zdybal, \textit{Exactly what is data decomposition?}
 
 
 \end{document}
