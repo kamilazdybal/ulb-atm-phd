@@ -36,7 +36,7 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, May 2019}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, August 2019}}
 
     \vskip2ex
     
@@ -108,7 +108,7 @@ The main purpose of DMD is to find \textit{dynamic modes} underlying the data se
 
 \begin{figure}[H]
 \centering\includegraphics[width=5.5cm]{DMD-modal-decomposition.png}
-\caption{Modal decomposition of a data matrix $\bm{D}$.}
+\caption{Modal decomposition of a data matrix $\mathbf{D}$.}
 \label{fig:modal-decomposition}
 \end{figure}
 
@@ -139,26 +139,58 @@ Dynamic Mode Decomposition connects strongly with the arguments made for \textit
 
 \subsection{One-dimensional linear dynamical system}
 
+A discrete one-dimensional linear dynamical system is characterized by the following evolution:
+
+\begin{equation}
+x(i+1) = a x(i) + b
+\end{equation}
+
+where $x(i)$ and $x(i+1)$ are two consecutive measurements of the system and $a$ and $b$ are the system parameters.
+
+If we know the initial condition of this system $x(0) = x_0$, we may also write that in the general case for $i$ equal to some $k$:
+
+\begin{equation} \label{eq:1D-lin-dyn-sys-not-constant}
+x(k) = a^k x_0 + \frac{a^k - 1}{a - 1} b
+\end{equation}
+
+for $a \neq 1$, or:
+
+\begin{equation} \label{eq:1D-lin-dyn-sys-constant}
+x(k) = x_0 + k b
+\end{equation}
+
+when $a = 1$.
+
+Let's think now what could a linear dynamical system behaviour be? What are the possible ways in which the measured variable propagates? Surely it can stay constant in time, or if not, it can either grow or decay as we keep on measuring the system. The constant behaviour is captured by the solution described by eq.(\ref{eq:1D-lin-dyn-sys-constant}). The other two behaviours are somehow hidden in eq.(\ref{eq:1D-lin-dyn-sys-not-constant}). At this point, I would like to draw your attention to an important observation: the character of the system's evolution in time is dependent on the parameter $a$.
+
+For a deeper explanation of various cases I encourage you to take a look at Chapter 2 in \cite{Prof_Edward_Scheinerman}.
 
 \subsection{Multi-dimensional linear dynamical system}
 
+A discrete multi-dimensional linear dynamical system is, on the other hand, characterized by the following evolution:
 
+\begin{equation}
+\mathbf{x}(i+1) = \mathbf{A} \mathbf{x}(i) + \mathbf{b}
+\end{equation}
 
+The measurement $\mathbf{x}$ is no longer a single variable (a scalar) but an entire vector. It could come from measurements taken at different points on the mesh at a particular moment in time. Let's assume the vector size is $n$. We may call again $\mathbf{A}$ and $\mathbf{b}$ the parameters of the system but this time $\mathbf{A}$ is a matrix of size $(n \times n)$ and $\mathbf{b}$ is a vector of size $n$.
 
-\section{Description of a dynamical system}
+The most important thing to remember from this section is the following: \textbf{the behaviour of a multi-dimensional linear dynamical system is dependent on the eigenvalues of the system}. This is the piece of knowledge that will soon show prove important in the explanation of the steps of Dynamic Mode Decomposition.
+
+\subsection{Solution to a dynamical system}
 
 We have a system described by a differential equation:
 
 \begin{equation} \label{eq:system_DE}
-\frac{d \vec{\bm{x}}(t)}{dt} = f(\vec{\bm{x}}, t, \text{varargin})
+\frac{d \mathbf{x}(t)}{dt} = f(\mathbf{x}(t), t, \dots)
 \end{equation}
 
-where the function $f(\vec{\bm{x}}, t, \text{varargin})$ is a way of \textit{modeling} that system.
+where the function $f(\mathbf{x}(t), t, \dots)$ is a way of \textit{modeling} that system.
 
-We also have collected \textit{measurements} of the system at different points in space at time $k$, in the form of a vector(s) $\vec{\bm{y}}_k$:
+We also have collected \textit{measurements} of the system at different points in space at time $k$, in the form of a vector(s) $\mathbf{\mathbf{y}}_k$:
 
 \begin{equation}
-\vec{\bm{y}}_k = g(\vec{x}_k)
+\mathbf{\mathbf{y}}_k = g(\mathbf{x}_k)
 \end{equation}
 
 \begin{wrapfigure}{R}{0.2\textwidth}
@@ -167,18 +199,16 @@ We also have collected \textit{measurements} of the system at different points i
 \label{fig:data-matrix}
 \end{wrapfigure}
 
-where $\vec{x}_k$ is the quantity of interest that we are aiming at measuring. The fact that we might not be able to measure it directly is accounted for by some function $g()$ (although it might happen that $\vec{y}_k = \vec{x}_k$, meaning that we are able to measure $\vec{x}_k$ directly).
+where $\mathbf{x}_k$ is the quantity of interest that we are aiming at measuring. The fact that we might not be able to measure it directly is accounted for by some function $g()$ (although it might happen that $\mathbf{y}_k = \mathbf{x}_k$, meaning that we are able to measure $\mathbf{x}_k$ directly).
 
-Notice, that for measurements at many moments in time, we may stack all the collected vectors $\vec{y}_i$ for different times $i$ to create a matrix whose columns represent time snapshots and whose rows represent position in space - see Figure \ref{fig:data-matrix}. This is a matrix that we are going to work with.
-
-\subsection{Linearizing the nonlinear dynamical systems}
+Notice, that for measurements at many moments in time, we may stack all the collected vectors $\mathbf{y}_i$ for different times $i$ to create a matrix whose columns represent time snapshots and whose rows represent position in space - see Figure \ref{fig:data-matrix}. This is a matrix that we are going to work with.
 
 We are from now interested in systems where the governing equation from eq.(\ref{eq:system_DE}) is not known (in other words, the function $f$ is unknown) and we solely rely on measurements of the system which, in general, form a high-dimensional data set.
 
 In the Dynamic Mode Decomposition we approximate that data set by a linear dynamical system of the form:
 
 \begin{equation} \label{eq:system_linear}
-\frac{d \vec{x}(t)}{dt} = \bm{A} \vec{x}(t)
+\frac{d \mathbf{x}(t)}{dt} = \mathbf{A} \mathbf{x}(t)
 \end{equation}
 
 This is in fact a very handy approximation since we are able to write down exact solutions to linear systems.
@@ -186,13 +216,13 @@ This is in fact a very handy approximation since we are able to write down exact
 Once we assume that the general solution is of the form:
 
 \begin{equation} \label{eq:general_solution}
-\vec{x}(t) = \vec{v} e^{\bm{\lambda} t}
+\mathbf{x}(t) = \mathbf{v} e^{\lambda t}
 \end{equation}
 
 to obtain the parameters we effectively solve the eigenvalue problem:
 
 \begin{equation} \label{eq:eigenvalue_solution}
-\bm{A} \vec{v} = \bm{\lambda} \vec{v}
+\mathbf{A} \mathbf{v} = \mathbf{\lambda} \mathbf{v}
 \end{equation}
 
 The exact solution to the linear system from eq.(\ref{eq:system_linear}) is:
@@ -207,134 +237,134 @@ For a reader interested in how this solution was derived, more can be found in a
 
 \subsection{Exact DMD}
 
-For the moment, we assume that we can measure the system directly, that is we measure $\vec{y}_i = \vec{x}_i$. Moreover, we assume that our data is collected in equal\footnote{Which is indeed a special case for real life measurements. Check section \ref{sec:view} for more information.} time steps $\Delta t$. The measurements are combined inside a large matrix $\bm{X}$ where each of its columns represents one time snapshot:
+For the moment, we assume that we can measure the system directly, that is we measure $\mathbf{y}_i = \mathbf{x}_i$. Moreover, we assume that our data is collected in equal\footnote{Which is indeed a special case for real life measurements. Check section \ref{sec:view} for more information.} time steps $\Delta t$. The measurements are combined inside a large matrix $\mathbf{X}$ where each of its columns represents one time snapshot:
 
 \begin{equation} \label{eq:X}
-\bm{X} = 
+\mathbf{X} = 
 \begin{bmatrix}
-    \vec{x}_1 & \vec{x}_2 & \vec{x}_3 & \dots & \vec{x}_{m}
+    \mathbf{x}_1 & \mathbf{x}_2 & \mathbf{x}_3 & \dots & \mathbf{x}_{m}
 \end{bmatrix}
 \end{equation}
 
-We split the large matrix $\bm{X}$ into two matrices $\bm{X_1}$ and $\bm{X_2}$ such that:
+We split the large matrix $\mathbf{X}$ into two matrices $\mathbf{X_1}$ and $\mathbf{X_2}$ such that:
 
 \begin{equation} \label{eq:X1}
-\bm{X_1} = 
+\mathbf{X_1} = 
 \begin{bmatrix}
-    \vec{x}_1 & \vec{x}_2 & \vec{x}_3 & \dots & \vec{x}_{m-1}
+    \mathbf{x}_1 & \mathbf{x}_2 & \mathbf{x}_3 & \dots & \mathbf{x}_{m-1}
 \end{bmatrix}
 \end{equation}
 
 \begin{equation} \label{eq:X2}
-\bm{X_2} = 
+\mathbf{X_2} = 
 \begin{bmatrix}
-    \vec{x}_2 & \vec{x}_3 & \vec{x}_4 & \dots & \vec{x}_{m}
+    \mathbf{x}_2 & \mathbf{x}_3 & \mathbf{x}_4 & \dots & \mathbf{x}_{m}
 \end{bmatrix}
 \end{equation}
 
-If we now assume that a linear operator will map the first element of $\bm{X_1}$ with the first element of $\bm{X_2}$, second with the second, third with the third, and so on, matrix $\bm{X_2}$ can be thought of as a matrix representing the \textit{future state} of the matrix $\bm{X_1}$. That linear operator is assumed to be a matrix $\bm{A}$. 
+If we now assume that a linear operator will map the first element of $\mathbf{X_1}$ with the first element of $\mathbf{X_2}$, second with the second, third with the third, and so on, matrix $\mathbf{X_2}$ can be thought of as a matrix representing the \textit{future state} of the matrix $\mathbf{X_1}$. That linear operator is assumed to be a matrix $\mathbf{A}$. 
 
 \begin{figure}[H]
 \centering\includegraphics[width=5.5cm]{data-split.png}
-\caption{Splitting the data matrix into \textit{past} and \textit{future} matrices $\bm{X_1}$ and $\bm{X_2}$, linked by the linear operator $\bm{A}$.}
+\caption{Splitting the data matrix into \textit{past} and \textit{future} matrices $\mathbf{X_1}$ and $\mathbf{X_2}$, linked by the linear operator $\mathbf{A}$.}
 \label{fig:linear_system}
 \end{figure}
 
-Note here, that for nonlinear systems, a matrix that transforms $\vec{x}_1$ to $\vec{x}_2$ is different from a matrix that transforms $\vec{x}_2$ to $\vec{x}_3$ and so on. DMD assumes, however, that there is one matrix $\bm{A}$ that does all these transformations at once, with the least amount of error. It finds the \textit{best-fit} linear dynamical system for the non-linear data set. In mathematical terms, we are looking for such $\bm{A}$ that:
+Note here, that for nonlinear systems, a matrix that transforms $\mathbf{x}_1$ to $\mathbf{x}_2$ is different from a matrix that transforms $\mathbf{x}_2$ to $\mathbf{x}_3$ and so on. DMD assumes, however, that there is one matrix $\mathbf{A}$ that does all these transformations at once, with the least amount of error. It finds the \textit{best-fit} linear dynamical system for the non-linear data set. In mathematical terms, we are looking for such $\mathbf{A}$ that:
 
 \begin{equation} \label{eq:linear_dynamics}
-\bm{X_2} = \bm{A} \bm{X_1}
+\mathbf{X_2} = \mathbf{A} \mathbf{X_1}
 \end{equation}
 
-At this point, we should pause and appreciate what the above equation is representing. It describes a linear system of equations which (in the most practical case) will be underdetermined. The unknown in this equation is the matrix $\bm{A}$, hence the number of unknowns is equal to the number of elements of this matrix: $n_s \cdot n_s$. The number of linear equations however is $n_s \cdot n_t$ and in many dynamical systems of interest $n_s >> n_t$. Such system might have infinitely many solutions and therefore some additional constraint on $\bm{A}$ is needed in order to select one solution out of infinitely many. This boils down to the problem of regression - what regression condition we chose is up to us. In particular, we might restrict ourselves to such $\bm{A}$ that will minimize the L2 norm. It is worth noting that there might be different \textit{best} $\bm{A}$ that gets us from snapshot $5$ to $6$ then the one that gets us from snapshot $100$ to $101$. What our regression will aim at optimizing is to find one matrix $\bm{A}$ that \textit{sort of} does all the past-future links in the \textit{best} way it can.
+At this point, we should pause and appreciate what the above equation is representing. It describes a linear system of equations which (in the most practical case) will be underdetermined. The unknown in this equation is the matrix $\mathbf{A}$, hence the number of unknowns is equal to the number of elements of this matrix: $n_s \cdot n_s$. The number of linear equations however is $n_s \cdot n_t$ and in many dynamical systems of interest $n_s >> n_t$. Such system might have infinitely many solutions and therefore some additional constraint on $\mathbf{A}$ is needed in order to select one solution out of infinitely many. This boils down to the problem of regression - what regression condition we chose is up to us. In particular, we might restrict ourselves to such $\mathbf{A}$ that will minimize the L2 norm. It is worth noting that there might be different \textit{best} $\mathbf{A}$ that gets us from snapshot $5$ to $6$ then the one that gets us from snapshot $100$ to $101$. What our regression will aim at optimizing is to find one matrix $\mathbf{A}$ that \textit{sort of} does all the past-future links in the \textit{best} way it can.
 
-If we chose to proceed with the regression that minimizes the L2 norm (as is typically done in DMD algorithm) the solution to the system of eq.(\ref{eq:linear_dynamics}) is obtained by multiplying both sides by the \textit{pseudo-inverse} of matrix $\bm{X_1}$ which we denote by $\bm{X_1}^{+}$:
+If we chose to proceed with the regression that minimizes the L2 norm (as is typically done in DMD algorithm) the solution to the system of eq.(\ref{eq:linear_dynamics}) is obtained by multiplying both sides by the \textit{pseudo-inverse} of matrix $\mathbf{X_1}$ which we denote by $\mathbf{X_1}^{+}$:
 
 \begin{equation} \label{eq:linear_dynamics_A}
-\bm{A} = \bm{X_2} \bm{X_1}^{+}
+\mathbf{A} = \mathbf{X_2} \mathbf{X_1}^{+}
 \end{equation}
 
 The pseudo-inverse described here, also known as the Moore-Penrose inverse\footnote{Check appendix \ref{app:B} for more information.}, is computed using the least squares method. There is therefore certain information lost when going from eq.(\ref{eq:linear_dynamics}) to eq.(\ref{eq:linear_dynamics_A}).
 
-Once we have solved for matrix $\bm{A}$, we can go back to eq.(\ref{eq:eigenvalue_solution}) and solve for eigenvalues and eigenvectors.
+Once we have solved for matrix $\mathbf{A}$, we can go back to eq.(\ref{eq:eigenvalue_solution}) and solve for eigenvalues and eigenvectors.
 
 Up to this point, this is what the \textbf{exact DMD} computes. There is however a problem that the eq.(\ref{eq:linear_dynamics_A}) may pose when numerics are involved and this will be addressed in the next section. 
 
 \subsection{Going low-rank}
 
-Matrices $\bm{X_1}^{+}$ and $\bm{X_2}$ typically represent huge spacial dimensionality\footnote{This is often the case for data sets where we have very few snapshots in time but a large number of spacial points where the measurements were taken. Graphically, we might think of those matrices as being "tall" and this is illustrated in Figure \ref{fig:data-matrix}.} which in turn means that the matrix $\bm{A}$ can become a square matrix of a massive size. 
+Matrices $\mathbf{X_1}^{+}$ and $\mathbf{X_2}$ typically represent huge spacial dimensionality\footnote{This is often the case for data sets where we have very few snapshots in time but a large number of spacial points where the measurements were taken. Graphically, we might think of those matrices as being "tall" and this is illustrated in Figure \ref{fig:data-matrix}.} which in turn means that the matrix $\mathbf{A}$ can become a square matrix of a massive size. 
 
 \begin{wrapfigure}{R}{0.2\textwidth}
 \centering\includegraphics[width=3.5cm]{getting-A.png}
-\caption{Building the linear operator $\bm{A}$ in exact DMD.}
+\caption{Building the linear operator $\mathbf{A}$ in exact DMD.}
 \label{fig:building-A}
 \end{wrapfigure}
 
 We are hence reluctant to perform the multiplication of matrices as is stated in eq.(\ref{eq:linear_dynamics_A}). 
 
-The hope comes from the \textit{Singular Value Decomposition} (SVD). We belive that there are low-rank structures hidden in the data set and we are able to reduce the dimensionality of matrix $\bm{A}$ without significant loss of information\footnote{Professor Kutz said a very interesting sentence here, that the multiplication presented in Figure \ref{fig:building-A} completely ignores the fact that there might be low-rank structures in our data set.}.
+The hope comes from the \textit{Singular Value Decomposition} (SVD). We belive that there are low-rank structures hidden in the data set and we are able to reduce the dimensionality of matrix $\mathbf{A}$ without significant loss of information\footnote{Professor Kutz said a very interesting sentence here, that the multiplication presented in Figure \ref{fig:building-A} completely ignores the fact that there might be low-rank structures in our data set.}.
 
-We perform the SVD on matrix $\bm{X_1}$ and decompose it to the component matrices: $\bm{U}$, $\bm{\Sigma}$ and $\bm{V}$.
+We perform the SVD on matrix $\mathbf{X_1}$ and decompose it to the component matrices: $\mathbf{U}$, $\mathbf{\Sigma}$ and $\mathbf{V}$.
 
 \begin{equation} \label{eq:solution}
-\bm{X_1} = \bm{U} \bm{\Sigma} \bm{V}^T 
+\mathbf{X_1} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^T 
 \end{equation}
 
-Based on the rank structure of the matrix $\bm{X_1}$ (one way to get information about the rank structure is to plot the elements from the diagonal of the matrix $\bm{\Sigma}$) we perform a rank-$r$ truncation on the SVD decomposition and approximate the matrix $\bm{X_1}$ by its low-rank (rank-$r$) representation:
+Based on the rank structure of the matrix $\mathbf{X_1}$ (one way to get information about the rank structure is to plot the elements from the diagonal of the matrix $\mathbf{\Sigma}$) we perform a rank-$r$ truncation on the SVD decomposition and approximate the matrix $\mathbf{X_1}$ by its low-rank (rank-$r$) representation:
 
 \begin{equation} \label{eq:solution-approx}
-\bm{X_1} \approx \bm{X_{1r}} = \bm{U_r} \bm{\Sigma_r} \bm{V_r}^T 
+\mathbf{X_1} \approx \mathbf{X_{1r}} = \mathbf{U_r} \mathbf{\Sigma_r} \mathbf{V_r}^T 
 \end{equation}
 
 The pseudo-inverse of the truncated matrix is:
 
 \begin{equation} \label{eq:pseudo-inverse}
-\bm{X_{1r}}^{+} = \bm{V_r}  \bm{\Sigma_r}^{-1} \bm{U_r}^T
+\mathbf{X_{1r}}^{+} = \mathbf{V_r}  \mathbf{\Sigma_r}^{-1} \mathbf{U_r}^T
 \end{equation}
 
-The usefulness of this decomposition might not yet be evident, since the matrix $\bm{X_{1r}}$ is of the same size as matrix $\bm{X_{1}}$, they only differ by rank. The idea is to nevertheless use the SVD decomposition but also, to generate a matrix similar to the matrix $\bm{A}$ (since similar matrices share eigenvalues and eigenvectors, among some other properties) but one that will have a smaller size (in fact, it will be size $(r \times r)$). This similar matrix will be denoted $\underline{\bm{A}}$. Since it has a lower size than the original matrix $\bm{A}$, we will only retrieve $r$ eigenvectors and eigenvalues.
+The usefulness of this decomposition might not yet be evident, since the matrix $\mathbf{X_{1r}}$ is of the same size as matrix $\mathbf{X_{1}}$, they only differ by rank. The idea is to nevertheless use the SVD decomposition but also, to generate a matrix similar to the matrix $\mathbf{A}$ (since similar matrices share eigenvalues and eigenvectors, among some other properties) but one that will have a smaller size (in fact, it will be size $(r \times r)$). This similar matrix will be denoted $\underline{\mathbf{A}}$. Since it has a lower size than the original matrix $\mathbf{A}$, we will only retrieve $r$ eigenvectors and eigenvalues.
 
 \begin{wrapfigure}{R}{0.25\textwidth}
 \centering\includegraphics[width=4cm]{similar-matrices.png}
-\caption{Similarity transform of matrix $\bm{A}$ to reduce its size.}
+\caption{Similarity transform of matrix $\mathbf{A}$ to reduce its size.}
 \label{fig:similar-matrices}
 \end{wrapfigure}
 
-What will now follow are clever mathematical steps performed to avoid computation of the large matrix $\bm{A}$.
+What will now follow are clever mathematical steps performed to avoid computation of the large matrix $\mathbf{A}$.
 
 We come back to the eq.(\ref{eq:linear_dynamics_A}) and
 
-We perform a \textit{similarity transform} of the matrix $\bm{A}$:
+We perform a \textit{similarity transform} of the matrix $\mathbf{A}$:
 
 \begin{equation} \label{eq:similarity-transform}
-\underline{\bm{A}} = \bm{U_r}^T \bm{A} \bm{U_r}
+\underline{\mathbf{A}} = \mathbf{U_r}^T \mathbf{A} \mathbf{U_r}
 \end{equation}
 
-Matrix $\bm{A}$ can be written as:
+Matrix $\mathbf{A}$ can be written as:
 
 \begin{equation} \label{eq:A}
-\bm{A} = \bm{X_2} \bm{V_r} \bm{\Sigma_r}^{-1} \bm{U_r}^T
+\mathbf{A} = \mathbf{X_2} \mathbf{V_r} \mathbf{\Sigma_r}^{-1} \mathbf{U_r}^T
 \end{equation}
 
-The similar matrix $\underline{\bm{A}}$ can be written as:
+The similar matrix $\underline{\mathbf{A}}$ can be written as:
 
 \begin{equation} \label{eq:A_underline}
-\underline{\bm{A}} = \bm{U_r}^T \bm{X_2} \bm{V_r} \bm{\Sigma_r}^{-1} 
+\underline{\mathbf{A}} = \mathbf{U_r}^T \mathbf{X_2} \mathbf{V_r} \mathbf{\Sigma_r}^{-1} 
 \end{equation}
 
-taking into account that $\bm{U_r}^T \bm{U_r} = \bm{I}$.
+taking into account that $\mathbf{U_r}^T \mathbf{U_r} = \mathbf{I}$.
 
 We have thus chosen a low-dimensional subspace by performing rank-$r$ truncation in which we now find the solution to the linear dynamical system presented initially. The solution is built in this low-dimensional subspace.
 
 \subsection{Eigendecomposition}
 
-Now that we have computed the similar matrix $\underline{\bm{A}}$, we move on to perform the eigendecomposition:
+Now that we have computed the similar matrix $\underline{\mathbf{A}}$, we move on to perform the eigendecomposition:
 
 \begin{equation} \label{eq:A_underline}
-[\bm{W}, \bm{\Lambda}] = \text{eig}(\underline{\bm{A}})
+[\mathbf{W}, \mathbf{\Lambda}] = \text{eig}(\underline{\mathbf{A}})
 \end{equation}
 
-The matrix $\bm{W}$ is a matrix whose columns are the eigenvectors of $\underline{\bm{A}}$. The matrix $\bm{\Lambda}$ is a diagonal matrix of eigenvalues $\lambda_i$ which, in the most general case, are complex numbers. We have therefore obtained "coupled" quantities - each eigenvector has got its corresponding eigenvalue - and that link is exploited by the Dynamic Mode Decomposition to give a physical meaning to eigenvectors and eigenvalues.
+The matrix $\mathbf{W}$ is a matrix whose columns are the eigenvectors of $\underline{\mathbf{A}}$. The matrix $\mathbf{\Lambda}$ is a diagonal matrix of eigenvalues $\lambda_i$ which, in the most general case, are complex numbers. We have therefore obtained "coupled" quantities - each eigenvector has got its corresponding eigenvalue - and that link is exploited by the Dynamic Mode Decomposition to give a physical meaning to eigenvectors and eigenvalues.
 
 The eigenvectors will form the spacial modes of DMD. 
 
@@ -354,16 +384,16 @@ Once the model has been built in the low-dimensional subspace, we want to move t
 The DMD modes are obtained from:
 
 \begin{equation} \label{eq:A_underline}
-\bm{\Phi} = \bm{X_2} \bm{V} \bm{\Sigma}^{-1} \bm{W}
+\mathbf{\Phi} = \mathbf{X_2} \mathbf{V} \mathbf{\Sigma}^{-1} \mathbf{W}
 \end{equation}
 
-The above equation can be interpreted as transforming the eigenvectors matrix $\bm{W}$ to a new \textit{basis vectors} matrix $\bm{\Phi}$ where the linear transformation is given by the composition: $\bm{X_2} \bm{V} \bm{\Sigma}^{-1}$.
+The above equation can be interpreted as transforming the eigenvectors matrix $\mathbf{W}$ to a new \textit{basis vectors} matrix $\mathbf{\Phi}$ where the linear transformation is given by the composition: $\mathbf{X_2} \mathbf{V} \mathbf{\Sigma}^{-1}$.
 
 What is worth mentioning here, is that DMD modes are not guaranteed to be orthogonal after such transformation. This creates a great capacity of DMD to be applicable to systems where data structure does not exhibit orthogonality.
 
 \begin{figure}[H]
 \centering\includegraphics[width=8cm]{dmd-modes-transformation.png}
-\caption{Every of the $r$ vectors in the eigenvectors matrix $\bm{W}$ gets transformed into one of the $r$ vectors in the DMD modes matrix $\bm{\Phi}$. $\bm{M}$ is the matrix associated with this transformation. We have moved from the $r$-dimensional space onto the original space.}
+\caption{Every of the $r$ vectors in the eigenvectors matrix $\mathbf{W}$ gets transformed into one of the $r$ vectors in the DMD modes matrix $\mathbf{\Phi}$. $\mathbf{M}$ is the matrix associated with this transformation. We have moved from the $r$-dimensional space onto the original space.}
 \label{fig:linear_system}
 \end{figure}
 
@@ -372,16 +402,16 @@ What is worth mentioning here, is that DMD modes are not guaranteed to be orthog
 The solution to the original dynamical system is finally computed:
 
 \begin{equation} \label{eq:x-solution-matrix}
-\vec{x}(t) = \bm{\Phi} e^{\bm{\Omega} t} \vec{b}
+\mathbf{x}(t) = \mathbf{\Phi} e^{\mathbf{\Omega} t} \mathbf{b}
 \end{equation}
 
 the above equation is equivalent to:
 
 \begin{equation} \label{eq:x-solution-summation}
-\vec{x}(t)  = \sum_{k=1}^{r} \phi_k e^{\omega_k t} b_k
+\mathbf{x}(t)  = \sum_{k=1}^{r} \phi_k e^{\omega_k t} b_k
 \end{equation}
 
-The vector $\vec{b}$ is a vector of initial amplitudes for each mode. It is computed by projecting the initial state of the data matrix (given by $\vec{x}_1$) onto the DMD modes. This is done in order for our initial condition to be formulated in the obtained DMD basis.
+The vector $\mathbf{b}$ is a vector of initial amplitudes for each mode. It is computed by projecting the initial state of the data matrix (given by $\mathbf{x}_1$) onto the DMD modes. This is done in order for our initial condition to be formulated in the obtained DMD basis.
 
 
 
@@ -426,31 +456,31 @@ to be the exponential function: $f(x) = a \cdot e^{x}$.
 In an analogous way, the general solution to the linear dynamical system of the form:
 
 \begin{equation} \label{eq:system_linear_A}
-\frac{d \vec{x}}{dt} = \bm{A} \vec{x}
+\frac{d \mathbf{x}}{dt} = \mathbf{A} \mathbf{x}
 \end{equation}
 
 is:
 
 \begin{equation} \label{eq:general_solution_A}
-\vec{x} = \vec{v} e^{\bm{\lambda} t}
+\mathbf{x} = \mathbf{v} e^{\mathbf{\lambda} t}
 \end{equation}
 
 Computing the time derivative of the eq. \ref{eq:general_solution_A} we get:
 
 \begin{equation} \label{eq:sub1}
-\frac{d \vec{x}}{dt} = \vec{v} \bm{\lambda} e^{\bm{\lambda} t}
+\frac{d \mathbf{x}}{dt} = \mathbf{v} \mathbf{\lambda} e^{\mathbf{\lambda} t}
 \end{equation}
 
 And substituting the eq. \ref{eq:general_solution_A} to eq. \ref{eq:system_linear_A} we get:
 
 \begin{equation} \label{eq:sub2}
-\frac{d \vec{x}}{dt} = \bm{A} \vec{v} e^{\bm{\lambda} t}
+\frac{d \mathbf{x}}{dt} = \mathbf{A} \mathbf{v} e^{\mathbf{\lambda} t}
 \end{equation}
 
 The nontrivial solution for the equality of these two above equations is obtained when:
 
 \begin{equation} \label{eq:eigval}
-\bm{A} \vec{v} = \bm{\lambda} \vec{v} 
+\mathbf{A} \mathbf{v} = \mathbf{\lambda} \mathbf{v} 
 \end{equation}
 
 which is the statement of eigenvalue problem.
