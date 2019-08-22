@@ -6,4 +6,4 @@ This directory contains knowledge on DMD as well as related code.
 
 ## Notes on Dynamic Mode Decomposition
 
-Check out my notes on the theory of DMD, which for now is not complete but hopefully will be someday ;)
+Check out my notes on the theory of DMD, which for now are not complete but hopefully someday will be ;)
