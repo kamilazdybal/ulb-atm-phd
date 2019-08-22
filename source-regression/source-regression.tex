@@ -104,9 +104,19 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{PC-sources}
 
+The original chemical sources are linearly transformed using the matrix $\mathbf{A}$ of Principal Component modes and each PC-source term is additionally scaled by the corresponding scaling factor stored in a vector $\mathbf{d}$.
+
 \begin{equation}
-\mathbf{S_z} = \frac{\mathbf{S} \mathbf{A}}{\mathbf{D}}
+\mathbf{S_z} = \mathbf{S} \mathbf{A} \cdot \mathbf{d}^{-1}
 \end{equation}
+
+Each PC-source is a linear combination of the original sources (columns of $\mathbf{S}$). Each PC-source is computed from only one Principal Component (column of $\mathbf{A}$).
+
+\begin{figure}[H]
+\centering\includegraphics[width=7cm]{PC-source-computation.png}
+\caption{Computation of the PC-sources (columns of $\mathbf{S_z}$).}
+\label{fig:PC-source-computation}
+\end{figure}
 
 
 
