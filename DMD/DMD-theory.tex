@@ -102,9 +102,11 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{Setting the stage}
 
-This small opening section is here to give you a bit of intuition for DMD which will be complimentary with understanding the mathematical formulation in the next chapters. It is assumed that you have some general idea on what it means to perform data decomposition\footnote{For this you can check out my other document \cite{Zdybal_data_dec}.}.
+This small opening section is here to give you a bit of intuition for DMD which hopefully will be handy in understanding the mathematical formulation in the next chapters. It is assumed that you have some general idea on what it means to perform data decomposition\footnote{For this you can check out my other note \cite{Zdybal_data_dec}.}.
 
-The main purpose of DMD is to find \textit{dynamic modes} underlying the data set. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each spatial structure behaves in time. The original data set can then be reconstructed by summing up the dynamic modes, or approximated by summing up a \textit{significant} portion of the dynamic modes. 
+The main purpose of DMD is to find \textit{dynamic modes} underlying the data set in a purely data-driven way. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each found spatial structure behaves in time.
+
+DMD is also a data reduction/approximation technique. The original data set can be reconstructed by summing up the dynamic modes, or approximated by summing up a \textit{significant} portion of the dynamic modes.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5.5cm]{DMD-modal-decomposition.png}
@@ -112,15 +114,17 @@ The main purpose of DMD is to find \textit{dynamic modes} underlying the data se
 \label{fig:modal-decomposition}
 \end{figure}
 
-In addition to the original data being reconstructed from its modes, different data decomposition techniques can give a different meaning to the modes themselves. In general, we would like the modes to have a physical interpretation as that would allow to extract additional information about the physics of the original data set.
+In many data reduction techqniues, in addition to reconstructing data from its modes, different data decomposition techniques can give a different meaning to the modes themselves. In general, for physical data sets such as ones coming from fluid dynamics, we would like the modes to have a physical interpretation (which is not \textit{a priori} guaranteed by some decomposition techniques). That would allow to extract additional information about the physics of the original data set. We will see later how DMD performs with respect to this idea. 
 
 %Explain more. Give a more pictorial example of a meaningful mode. One more figure would be nice.
 
 \subsection{DMD of a flipbook}
 
-To see a pictorial example, we may think of DMD as designing a flipbook [\ref{bib:andymation}]. However, every page of a flipbook is not a DMD mode. Rather, each mode is such element of all the flipbook pages which has got the same behaviour in time.
+To see a pictorial example before we jump into the mathematical formalism, we may think of DMD as analyzing a flipbook\footnote{If you are unfamiliar with what a flipbook is, take a look at this YouTube video [\ref{bib:andymation}].}.
 
 Let's say that each slide is composed of a background which is the same in every slide (it is constant in time). There might also be an animation of moving objects happening in the foreground where some parts are animated as moving faster and some as moving slowly.
+
+Notice then, that every page of a flipbook is not a DMD mode. Rather, a mode can be such element of all the flipbook pages which has got the same behaviour in time and is also \textit{spatially significant}.
 
 We associate a certain number, say $\lambda$, to describe the evolution in time of every separate element (spatial structure) of the animation. This number will have a meaning of frequency of appearance.
 
@@ -174,6 +178,8 @@ A discrete multi-dimensional linear dynamical system is, on the other hand, char
 \end{equation}
 
 The measurement $\mathbf{x}$ is no longer a single variable (a scalar) but an entire vector. It could come from measurements taken at different points on the mesh at a particular moment in time. Let's assume the vector size is $n$. We may call again $\mathbf{A}$ and $\mathbf{b}$ the parameters of the system but this time $\mathbf{A}$ is a matrix of size $(n \times n)$ and $\mathbf{b}$ is a vector of size $n$.
+
+Can we find the analogous parameter to $a$ from the 1D dynamical systems that would define the time behaviour of a multi-dimensional one? Turns out this parameter are the eigenvalues of a matrix $\mathbf{A}$! If you are new to dynamical systems this probably seems like a very strange but also fortunate result. Again, for a thorough proof of that I encourage you to turn to Chapter 2 in \cite{Prof_Edward_Scheinerman}.
 
 The most important thing to remember from this section is the following: \textbf{the behaviour of a multi-dimensional linear dynamical system is dependent on the eigenvalues of the system}. This is the piece of knowledge that will soon show prove important in the explanation of the steps of Dynamic Mode Decomposition.
 
