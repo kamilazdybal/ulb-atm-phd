@@ -7,5 +7,5 @@
 *.pyc
 *__pycache__
 *.DS_Store
-deep-learning-nn/nn-for-regression/DWGs
-deep-learning-nn/nn-for-regression/Data
+deep-learning-nn/regression-with-nn/DWGs
+deep-learning-nn/regression-with-nn/Data
