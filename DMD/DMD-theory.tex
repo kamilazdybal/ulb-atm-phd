@@ -36,7 +36,7 @@
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Bruxelles, August 2019}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, September 2019}}
 
     \vskip2ex
     
@@ -222,13 +222,13 @@ This is in fact a very handy approximation since we are able to write down exact
 Once we assume that the general solution is of the form:
 
 \begin{equation} \label{eq:general_solution}
-\mathbf{x}(t) = \mathbf{v} e^{\lambda t}
+\mathbf{x}(t) = \mathbf{v} e^{\bm{\lambda} t}
 \end{equation}
 
 to obtain the parameters we effectively solve the eigenvalue problem:
 
 \begin{equation} \label{eq:eigenvalue_solution}
-\mathbf{A} \mathbf{v} = \mathbf{\lambda} \mathbf{v}
+\mathbf{A} \mathbf{v} = \bm{\lambda} \mathbf{v}
 \end{equation}
 
 The exact solution to the linear system from eq.(\ref{eq:system_linear}) is:
@@ -450,43 +450,47 @@ Sparse Identification
 
 \section{Solution to linear dynamical systems} \label{app:A}
 
+This section is based on Chapter 6 of \cite{Prof_Gilbert_Strang} where the solution to systems of differential equations is presented.
+
 We first recall the general solution to the differential equation:
 
 \begin{equation} \label{eq:DE_exp}
 \frac{d f(x)}{dt} = f(x)
 \end{equation}
 
-to be the exponential function: $f(x) = a \cdot e^{x}$.
+to be the exponential function: $f(x) = a \cdot e^{x}$. This is a single differential equation.
 
 
-In an analogous way, the general solution to the linear dynamical system of the form:
+In an analogous way, the general solution to the system of differential equations of the form:
 
 \begin{equation} \label{eq:system_linear_A}
 \frac{d \mathbf{x}}{dt} = \mathbf{A} \mathbf{x}
 \end{equation}
 
-is:
+where the vector $\mathbf{x}$ is unknown is:
 
 \begin{equation} \label{eq:general_solution_A}
-\mathbf{x} = \mathbf{v} e^{\mathbf{\lambda} t}
+\mathbf{x} = \mathbf{v} e^{\bm{\lambda} t}
 \end{equation}
 
-Computing the time derivative of the eq. \ref{eq:general_solution_A} we get:
+Notice that the above system of equations is discrete.
+
+Computing the time derivative of the eq.(\ref{eq:general_solution_A}) we get:
 
 \begin{equation} \label{eq:sub1}
-\frac{d \mathbf{x}}{dt} = \mathbf{v} \mathbf{\lambda} e^{\mathbf{\lambda} t}
+\frac{d \mathbf{x}}{dt} = \mathbf{v} \bm{\lambda} e^{\bm{\lambda} t}
 \end{equation}
 
 And substituting the eq. \ref{eq:general_solution_A} to eq. \ref{eq:system_linear_A} we get:
 
 \begin{equation} \label{eq:sub2}
-\frac{d \mathbf{x}}{dt} = \mathbf{A} \mathbf{v} e^{\mathbf{\lambda} t}
+\frac{d \mathbf{x}}{dt} = \mathbf{A} \mathbf{v} e^{\bm{\lambda} t}
 \end{equation}
 
 The nontrivial solution for the equality of these two above equations is obtained when:
 
 \begin{equation} \label{eq:eigval}
-\mathbf{A} \mathbf{v} = \mathbf{\lambda} \mathbf{v} 
+\mathbf{A} \mathbf{v} = \bm{\lambda} \mathbf{v} 
 \end{equation}
 
 which is the statement of eigenvalue problem.
