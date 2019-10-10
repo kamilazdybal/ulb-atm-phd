@@ -25,6 +25,8 @@ Z_cov_svd = X_cs * A_cov_svd;
 X_tilde_cov_svd = Z_cov_svd * A_cov_svd';
 ```
 
+The normalized Root Mean Squared error for the reconstruction of the original data set is different:
+
 ![Screenshot](NRMSE-PCA-comparison.png)
 
 ![Screenshot](eigenvalues-PCA-comparison.png)
