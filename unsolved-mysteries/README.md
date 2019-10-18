@@ -25,6 +25,29 @@ Z_cov_svd = X_cs * A_cov_svd;
 X_tilde_cov_svd = Z_cov_svd * A_cov_svd';
 ```
 
+For comparison, PCA done with Python is also added:
+
+```Python
+import numpy as np
+from sklearn.decomposition import PCA
+import pandas as pd
+
+# Data set:
+X_cs = pd.read_csv('X_cs.csv', sep = ',', header=None).to_numpy()
+
+# Perform PCA
+pca = PCA()
+pca.fit(X_cs)
+scores = pca.transform(X_cs)
+PCs = pca.components_
+eigvals = pca.explained_variance_ratio_
+
+Dataset_approx = np.dot(scores, PCs)
+
+np.savetxt('X_app_X_cs.csv', (Dataset_approx), delimiter=',', fmt='%1.32f')
+np.savetxt('eigvals_python.csv', (eigvals), delimiter=',', fmt='%1.32f')
+```
+
 The normalized Root Mean Squared error for the reconstruction of the original data set is different:
 
 ![Screenshot](NRMSE-PCA-comparison.png)
