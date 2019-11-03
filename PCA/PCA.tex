@@ -403,24 +403,24 @@ There is one more thing owed explaining. We mentioned before that the elements o
 
 We can now answer the previously posed question: the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\bm{Z}^T \bm{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
 
-\section{How it all links together}
-
-Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  technique seems like a "series of fortunate events" that makes a very effective use of a few popular concepts from linear algebra. 
-
-
-
-\section{Special topics}
-
-\subsection{PCA on a rank-deficient matrix}
-
-It is interesting to think about what PCA accomplishes on a rank-deficient matrix - one where rank $r$ is smaller than $Q$. Since PCA would produce $Q$ orthogonal eigenvectors one might ask: is PCA creating additional dimensions beyond the original $r$ ones then?
-
-It is reasonable to expect that the eigenvalues associated to such non-existent dimensions will be zero since there is zero variance on those dimensions in the original data set $\bm{X}$. So one way to account for the original $r$ dimensions in the data set is for PCA to compute only $r$ non-zero eigenvalues.
-
-But what about the approximation of the data $\bm{X_q} = \bm{Z_q} \bm{A_q}^T$ when $q=Q$? What is the rank of the reconstructed $\bm{X_Q}$?
-
-
-\subsection{Rotation of PCs}
+%\section{How it all links together}
+%
+%Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  technique seems like a "series of fortunate events" that makes a very effective use of a few popular concepts from linear algebra. 
+%
+%
+%
+%\section{Special topics}
+%
+%\subsection{PCA on a rank-deficient matrix}
+%
+%It is interesting to think about what PCA accomplishes on a rank-deficient matrix - one where rank $r$ is smaller than $Q$. Since PCA would produce $Q$ orthogonal eigenvectors one might ask: is PCA creating additional dimensions beyond the original $r$ ones then?
+%
+%It is reasonable to expect that the eigenvalues associated to such non-existent dimensions will be zero since there is zero variance on those dimensions in the original data set $\bm{X}$. So one way to account for the original $r$ dimensions in the data set is for PCA to compute only $r$ non-zero eigenvalues.
+%
+%But what about the approximation of the data $\bm{X_q} = \bm{Z_q} \bm{A_q}^T$ when $q=Q$? What is the rank of the reconstructed $\bm{X_Q}$?
+%
+%
+%\subsection{Rotation of PCs}
 
 
 

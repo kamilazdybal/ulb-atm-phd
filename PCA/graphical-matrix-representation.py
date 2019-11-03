@@ -42,6 +42,12 @@ figureSubplot.spines["bottom"].set_visible(False)
 figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
 
+# Annotate the imshow:
+for i in range(10):
+    for j in range(6):
+        text = plt.text(j, i, round(Dataset_random[i, j], 1),
+                       ha="center", va="center", color="w")
+
 # Save plot:
 filename = 'DWGs/random-matrix-original.png'
 plt.savefig(filename, dpi = 100, bbox_inches='tight')
@@ -91,6 +97,12 @@ for Nq in range(1,7):
     figureSubplot.spines["left"].set_visible(False)
     plt.subplots_adjust(wspace=0.1, hspace=0)
 
+    # Annotate the imshow:
+    for i in range(10):
+        for j in range(6):
+            text = plt.text(j, i, round(Dataset_approx[i, j], 1),
+                           ha="center", va="center", color="w")
+
     # Save plot:
     filename = 'DWGs/random-matrix-reconstruction-PCs-' + str(Nq) + '.png'
     plt.savefig(filename, dpi = 100, bbox_inches='tight')
@@ -128,6 +140,12 @@ figureSubplot.spines["top"].set_visible(False)
 figureSubplot.spines["bottom"].set_visible(False)
 figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
+
+# Annotate the imshow:
+for i in range(10):
+    for j in range(6):
+        text = plt.text(j, i, round(Dataset_semi_structured[i, j], 1),
+                       ha="center", va="center", color="w")
 
 # Save plot:
 filename = 'DWGs/semi-structured-matrix-original.png'
@@ -178,6 +196,12 @@ for Nq in range(1,7):
     figureSubplot.spines["left"].set_visible(False)
     plt.subplots_adjust(wspace=0.1, hspace=0)
 
+    # Annotate the imshow:
+    for i in range(10):
+        for j in range(6):
+            text = plt.text(j, i, round(Dataset_approx[i, j], 1),
+                           ha="center", va="center", color="w")
+
     # Save plot:
     filename = 'DWGs/semi-structured-matrix-reconstruction-PCs-' + str(Nq) + '.png'
     plt.savefig(filename, dpi = 100, bbox_inches='tight')
@@ -214,6 +238,12 @@ figureSubplot.spines["top"].set_visible(False)
 figureSubplot.spines["bottom"].set_visible(False)
 figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
+
+# Annotate the imshow:
+for i in range(10):
+    for j in range(6):
+        text = plt.text(j, i, round(Dataset_structured[i, j], 1),
+                       ha="center", va="center", color="w")
 
 # Save plot:
 filename = 'DWGs/structured-matrix-original.png'
@@ -263,6 +293,12 @@ for Nq in range(1,7):
     figureSubplot.spines["right"].set_visible(False)
     figureSubplot.spines["left"].set_visible(False)
     plt.subplots_adjust(wspace=0.1, hspace=0)
+
+    # Annotate the imshow:
+    for i in range(10):
+        for j in range(6):
+            text = plt.text(j, i, round(Dataset_approx[i, j], 1),
+                           ha="center", va="center", color="w")
 
     # Save plot:
     filename = 'DWGs/structured-matrix-reconstruction-PCs-' + str(Nq) + '.png'
