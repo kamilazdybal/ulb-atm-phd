@@ -218,16 +218,16 @@ For simplicity, for the rest of this document we assume that $\bm{X}$ represents
 
 \section{Covariance matrix}
 
-The covariance between two random vectors $X$ and $Y$ is defined as:
+The covariance between two random vectors $\bm{x}$ and $\bm{y}$ is defined as:
 
 \begin{equation}\label{eq:covariance-definition}
-\text{cov}(X,Y) = \frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X}) (Y_i - \bar{Y})
+\text{cov}(\bm{x},\bm{y}) = \frac{1}{N} \sum_{i=1}^{N} (x_i - \bar{\bm{x}}) (y_i - \bar{\bm{y}})
 \end{equation}
 
-where $N$ is the number of samples (weights of a vector). If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric, due to the symmetry $\text{cov}(X,Y) = \text{cov}(Y,X)$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(X,X) = \text{var}(X)$ where:
+where $N$ is the number of samples (weights of a vector). If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric due to symmetry: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(\bm{x},\bm{x}) = \text{var}(\bm{x})$ where:
 
 \begin{equation}\label{eq:variance-definition}
-\text{var}(X) = \frac{1}{N} \sum_{i=1}^{N} (X_i - \bar{X})^2
+\text{var}(\bm{x}) = \frac{1}{N} \sum_{i=1}^{N} (x_i - \bar{\bm{x}})^2
 \end{equation}
 
 \subsection{Construction}
@@ -242,7 +242,7 @@ and is therefore size $(Q \times Q)$. Notice the similarity with the eq.(\ref{eq
 
 We will start by exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Figure \ref{fig:covariance-matrix}.
 
-Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $V_p$ (or $V_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
+Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single variable $\upsilon_p$ (or $\upsilon_k$) and can be viewed as a single $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{cov-matrix.png}
@@ -250,25 +250,19 @@ Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all mea
 \label{fig:covariance-matrix}
 \end{figure}
 
-Notice that an element at position $(p,k)$ inside the matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and a $k$-th column of a matrix $\bm{X}$, with the $\frac{1}{n-1}$ factor out front to which we come back in the Appendix \ref{app:B}.
+Notice that an element at position $(p,k)$ inside the covariance matrix $\bm{S}$ has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and the $k$-th column of a matrix $\bm{X}$. There is also the factor $\frac{1}{n-1}$ out front, which we discuss in a closer detail in the Appendix \ref{app:B}.
 
 \begin{equation}
-s_{p,k} = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,k))
+s_{p,k} = \frac{1}{n-1} (\bm{x}_p^T \circ \bm{x}_k)
 \end{equation}
 
 In a special case, where we multiply the row $p$ with the column $p$, we get a dot product of a vector with itself.
 
 \begin{equation}
-s_{p,p} = \frac{1}{n-1} \text{dot}( \bm{X}^T(p, :), \bm{X}(:,p))
+s_{p,p} = \frac{1}{n-1} ( \bm{x}_p^T \circ \bm{x}_p)
 \end{equation}
 
-In general, the dot product between two vectors $X$ and $Y$ represents how much vector $X$ lays in the direction of vector $Y$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $V_p$ is carried by a variable $V_k$ (and vice versa).
-
-In other words, every element in the covariance matrix is computed as:
-
-\begin{equation}
-s_{i,j} = \frac{1}{n-1} \sum\limits_{k=1}^n V_i(k) V_j(k)
-\end{equation}
+In general, the dot product between two vectors $\bm{x}$ and $\bm{y}$ represents how much vector $\bm{x}$ lays in the direction of vector $\bm{y}$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to our covariance matrix $\bm{S}$. If any off-diagonal element is non-zero, say element at position $(p,k)$ this means that some information about variable $\upsilon_p$ is carried by a variable $\upsilon_k$ (and vice versa).
 
 \subsection{Properties}
 
