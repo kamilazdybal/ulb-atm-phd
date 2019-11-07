@@ -126,15 +126,11 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large, high-dimensional data set is reduced to maintain only the directions (dimensions) of the largest variance. It exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be redundancy of dimensions. Thus, in PCA a new basis is found and the data is transformed to that new basis giving certain advantages. Similarly as in some other data science techniques, PCA allows not only to make a low-rank approximation of the data set, but also to extract and visualize information hidden in the data.
+These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large, high-dimensional data set is projected on the directions of the largest variance. It exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be redundancy of dimensions. Thus, in PCA a new, orthogonal basis is found and the data transformed to that new basis give certain advantages. Similarly to other data science techniques, PCA allows not only to make a low-rank approximation of the data set but also to extract and visualize information hidden in the data.
 
 \,\,
 
-These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects governing this method. The aim is to present both a deep and intuitive approach of several linear algebra concepts such as the eigendecomposition or matrix operations that underlay the beauty and simplicity of the PCA technique. 
-
-\,\,
-
-Some initial level of linear algebra knowledge is required to understand these notes. I highly recommend a very pleasant to watch course by 3Blue1Brown YouTube channel \cite{3Blue1Brown}, which, to my belief, will be everything you need to master about linear algebra to build a great intuition behind PCA.
+These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects governing this method. The aim is to present both a deep and intuitive approach of several linear algebra concepts such as the eigendecomposition or matrix operations that underlay the PCA technique. 
 
 \,\,
 
@@ -150,38 +146,40 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \begin{tabular}{ll}
     $\bm{A}$ & is a matrix \\
-     $\bm{A}^T$ & denotes a matrix transpose \\
-    $A_{:,j}$ & is a vector formed by the $j^{th}$ column of a matrix $\bm{A}$, \\
+     $\bm{A}^T$ & is a matrix transpose \\
+     $\bm{a}$ & is a vector \\
+     $a$ & is a scalar \\
+    $\bm{a}_j$ & is the $j^{th}$ column of a matrix $\bm{A}$, \\
     & it is equivalent to  $\bm{A}(:,j)$ \\
-    $A_{i,:}$ & is a vector formed by the $i^{th}$ row of a matrix $\bm{A}$, \\
+    $\bm{a}_i$ & is the $i^{th}$ row of a matrix $\bm{A}$, \\
     & it is equivalent to  $\bm{A}(i,:)$ \\
     $a_{i,j}$ & is an element from $i^{th}$ row and $j^{th}$ column of a matrix $\bm{A}$, \\ 
     & it is equivalent to  $\bm{A}(i,j)$ \\
 \end{tabular}
 
-\section{Motivation for data reduction}
-
-To motivate why studying techniques such as PCA and learning to apply them on real data sets is important, there are several questions which stimulated the development of data reduction and data decomposition techniques:
-
-\begin{enumerate}
-\item Can we send less data but preserve maximum information contained by the data (data compression)?
-
-\item Can we predict what the outcome of another observation will be?
-
-\item Can we build a model in a purely data-driven way - based on data that we have collected (e.g. from experiments or numerics)?
-
-\item Can we make sense of a large, multi-dimensional data set (which cannot be plotted graphically)?
-
-\item Can we extract low-dimensional features that underlay the data?
-\end{enumerate}
-
-All of these questions are not necessarily answerd by PCA. Different applications might work well with different data reduction techniques.
+%\section{Motivation for data reduction}
+%
+%To motivate why studying techniques such as PCA and learning to apply them on real data sets is important, there are several questions which stimulated the development of data reduction and data decomposition techniques:
+%
+%\begin{enumerate}
+%\item Can we send less data but preserve maximum information contained by the data (data compression)?
+%
+%\item Can we predict what the outcome of another observation will be?
+%
+%\item Can we build a model in a purely data-driven way - based on data that we have collected (e.g. from experiments or numerics)?
+%
+%\item Can we make sense of a large, multi-dimensional data set (which cannot be plotted graphically)?
+%
+%\item Can we extract low-dimensional features that underlay the data?
+%\end{enumerate}
+%
+%All of these questions are not necessarily answerd by PCA. Different applications might work well with different data reduction techniques.
 
 \section{Data sets for PCA}
 
-For the rest of this document, we assume that the data set for performing PCA is structured as follows: each column represents one variable (feature) $V_j$ observations and the rows correspond to all variable's observations (samples) $O_i$, e.g. at different positions in space, or in time. Let $i \in \braket{1, n}$ and $j \in \braket{1, Q}$. The raw data matrix $\bm{X}$ is hence size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} and for the Python function \texttt{sklearn.decomposition.PCA}.} This structure can be seen in Fig.\ref{fig:data-matrix}.
+For the rest of this document, we assume that the data set for performing PCA is a matrix $\bm{X}$. Each column of $\bm{X}$ represents all observations of one variable (feature). Each row of $\bm{X}$ corresponds to a single observation (sample) of all variables. Let $i \in \braket{1, n}$ numerate the observations and $j \in \braket{1, Q}$ numerate the variables. The data matrix $\bm{X}$ is hence size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} and for the Python function \texttt{sklearn.decomposition.PCA}.} This structure can be seen in Fig.\ref{fig:data-matrix}.
 
-One of the strengths of PCA is that it can be performed on a non-time-resolved data set, namely the matrix $\bm{X}$ can be collected at a single time snapshot and be only spatially-resolved.
+%One of the strengths of PCA is that it can be performed on a non-time-resolved data set, namely the matrix $\bm{X}$ can be collected at a single time snapshot and be only spatially-resolved.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{data-set-PCA.png}
@@ -191,25 +189,32 @@ One of the strengths of PCA is that it can be performed on a non-time-resolved d
 
 \section{Data pre-processing}
 
-In data science we are typically given a raw data set which is not centered and not scaled. 
+In data science we are typically given a raw data set which is not centered and not scaled. However, standardizing the data set might be a good idea before applying a data science technique [quote].
 
-Centering allows to look at data as variations from some center. Typically we might center each variable by subtracting the mean of this variable's observations (realizations) - we would then look at the data as variations from the mean. This would substitute the original data set with:
+In particular, \textit{centering} allows to look at data as variations from some center. Graphically, centering shifts the center of the \textit{cloud} of data points (which in general is multi-dimensional) to a new, selected center. One of the popular choices is to center each variable by subtracting the mean of this variable's observations - the center will be shifted to the origin\footnote{See Fig.\ref{fig:python-raw-data}-\ref{fig:python-raw-data-centered}.}.
+Other centering that could be encountered\footnote{For instance in the \textit{Min-Max} standardizing.} is subtracting the minimum of the variable's observations.
 
-\begin{equation}
-\bm{X'} = \bm{X} - \text{mean}(\bm{X})
-\end{equation}
-
-Graphically, such centering will shift the center of the \textit{cloud} of data points (which in general is multi-dimensional) to the origin\footnote{See Fig.\ref{fig:python-raw-data}-\ref{fig:python-raw-data-centered}.}. However, other values for centering can be used depending on the purpose, for instance $\text{min}(\bm{X})$.
-
-Scaling, on the other hand, allow us to cancel the effect of units that variables in our data set might have, and treat all variables with equal importance. 
+Centering thus substitutes the original data set with:
 
 \begin{equation}
-\bm{X''} = \bm{X'}\bm{D}^{-1}
+\bm{X_c} = \bm{X} - \bm{C}
 \end{equation}
 
-In the above equation, the matrix $\bm{D}$ is a diagonal matrix whose entries are the corresponding scalings. Hence, every column of the matrix $\bm{X'}$ gets divided by a corresponding scale from the diagonal of the matrix $\bm{D}$. One of the popular scaling methods used in literature is the \textit{auto scaling} (also known as \textit{standard scaling}) in which each column is divided by the standard deviation of that column. After auto scaling all columns have a standard deviation equal to 1. To motivate data scaling with an illustrative example, you might think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300-1500 $K$ and associated pressures in the units of $[atm]$ which range from 1-1.1 $atm$. If we did not scale the data, the largest \textit{spread} or the \textit{variance} would be found in temperature, since on purely numerical grounds, the range 300-1500 is more significant than the range 1-1.1.
+Here, a matrix of centers $\bm{C}$ is created, for instance by computing the mean of each column of $\bm{X}$. A specific center $\bm{c}_j$ is then subtracted from a corresponding column $\bm{X}_j$.
 
-For simplicity, for the rest of this document we assume that $\bm{X}$ represents already pre-processed data (in place of $\bm{X'}$ or $\bm{X''}$).
+\textit{Scaling}, on the other hand, allows us to cancel the effect of units that variables in our data set might have, and treat all variables with equal importance. It can also remove the effect of various ranges of variables. A centered and scaled data set can then be written as follows:
+
+\begin{equation}
+\bm{X_{cs}} = \bm{X_c}\bm{D}^{-1}
+\end{equation}
+
+In the above equation, the matrix $\bm{D}$ is a diagonal matrix whose entries are the corresponding scalings. Hence, every column of the matrix $\bm{X_c}$ gets divided by a corresponding scale from the diagonal of the matrix $\bm{D}$.
+
+To motivate data scaling with an illustrative example, you might think about a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300-1500 $K$ and associated pressures in the units of $[atm]$ which range from 1-1.1 $atm$. If we did not scale the data, the largest \textit{spread} or the \textit{variance} would be found in temperature, since on purely numerical grounds, the range 300-1500 is more significant than the range 1-1.1.
+
+One of the popular scaling methods used in literature is the \textit{auto scaling}\footnote{also known as \textit{standard scaling} or \textit{z-score} (in that case refers to a combination of centering by the mean value and scaling by the standard deviation).} in which each column is divided by the standard deviation of that column. After auto scaling all columns have a standard deviation equal to 1.
+
+For simplicity, for the rest of this document we assume that $\bm{X}$ represents already pre-processed data (in place of $\bm{X_{cs}}$).
 
 \section{Covariance matrix}
 
