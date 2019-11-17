@@ -10,6 +10,16 @@ set(groot, 'DefaultAxesTickLabelInterpreter', 'LaTex');
 
 `groot` - root graphics object
 
+## Saving variables
+
+```Matlab
+% To .csv:
+dlmwrite('variable.csv', var, 'precision', 16);
+
+% To .txt:
+dlmwrite('variable.txt', var, 'precision', 16);
+```
+
 ## Scatter
 
 ```matlab
