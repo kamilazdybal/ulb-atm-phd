@@ -4,4 +4,4 @@
 
 We used K-Means clustering, variable bins clustering and random selection. The training percentage is the percentage of the total data that was used for training. The NRMSE is computed on the remainging test data.
 
-![Screenshot](NRMSE.png)
+![Screenshot](NRMSE_training_data_selection.png)
