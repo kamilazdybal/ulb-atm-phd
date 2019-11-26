@@ -60,7 +60,7 @@ MW_O2 = 2*MW_O; % kg/mole
 T1 = 300; %K
 T2 = 300; %K
 
-Q = 50.0*10^6*MW_CH4; % heat of combustion (LHV) [J/mole] 
+Q = 50.0*10^6*MW_CH4; % heat of combustion (LHV) [J/mole]
 Cp = 1.4*1000; % heat capacity [J/kg-K]
 
 % Stoichiometric ratio:
@@ -108,7 +108,7 @@ for i = 1:1:length(Z)
     else
         yCO2(i) = yCO2_st * ((1 - Z(i))/(1 - Z_st));
     end
-    
+
 end
 
 % H2O mass fraction:
@@ -121,7 +121,7 @@ for i = 1:1:length(Z)
     else
         yH2O(i) = yH2O_st * ((1 - Z(i))/(1 - Z_st));
     end
-    
+
 end
 
 % N2 mass fraction:
@@ -131,25 +131,25 @@ end
 
 % Temperature:
 for i = 1:1:length(Z)
-        
+
     Tu = T2 + Z(i) * (T1 - T2);
-    
+
     if Z(i) <= Z_st
         T(i) = Tu + Q*yCH4_1/(Cp * 1 * MW_CH4) * Z(i);
     else
         T(i) = Tu + Q*yO2_2/(Cp * 2 * MW_O2) * (1 - Z(i));
     end
-    
+
 end
 
-state_space = [T', yCH4', yO2', yCO2', yH2O', yN2'];
+state_space = [T, yCH4, yO2, yCO2, yH2O, yN2];
 state_space_labels = {'T', 'CH4', 'O2', 'CO2', 'H2O', 'N2'};
 
 %% Plot state-space:
 if graph == true
-    
+
     figure();
-    set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0, 0.7, 1]); 
+    set(gcf, 'Units', 'Normalized', 'OuterPosition', [0, 0, 0.7, 1]);
     subplot(2, 3, 1)
     plot(Z, T, 'k', 'LineWidth', 2)
     title('T [K]', 'FontSize', 25)
@@ -176,7 +176,7 @@ if graph == true
     set(gca, 'FontSize', 20); box on; grid on
     filename = ['Burke_Schumann_CH4_air_state_space.png'];
     saveas(gcf, filename, 'png');
-    
+
 end
 
 end
