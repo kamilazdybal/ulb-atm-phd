@@ -126,7 +126,7 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-These are notes on \textbf{Principal Component Analysis} (PCA), a dimensionality reduction technique in which a large, high-dimensional data set is projected on the directions of the largest variance. It exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be redundancy of dimensions. Thus, in PCA a new, orthogonal basis is found and the data transformed to that new basis give certain advantages. Similarly to other data science techniques, PCA allows not only to make a low-rank approximation of the data set but also to extract and visualize information hidden in the data.
+\textbf{Principal Component Analysis} (PCA) is a multivariate dimensionality reduction technique in which a high-dimensional data set is projected on the directions of the largest variance. The technique exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be a redundancy of dimensions. Once a new, orthogonal basis is found, the data can be transformed to that new basis which give certain advantages. The projected data has lower rank and is thus easier to analyze. This in turn can be helpful in a variety of problems such as extracting information, data compression or analysis of structures hidden in the data \cite{Abdi_Williams}.
 
 \,\,
 
@@ -402,6 +402,16 @@ There is one more thing owed explaining. We mentioned before that the elements o
 
 We can now answer the previously posed question: the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\bm{Z}^T \bm{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
 
+
+
+\section{Eigenvalues as energy}
+
+You may sometimes encounter the following statement in the literature: the eigenvalues in PCA represent the energy contributions of each of the Principal Components. The energy here is considered in a physical sense, so that since the PCs are ordered, the first ones are said to carry most of the energy, which in mathematical terms was previously treated in terms of variance. Variance and energy can be encountered as terms used interchangeably. How do we know that the eigenvalues associated to PCs can be viewed that way?
+
+In order to understand this, let's introduce a measure called \textit{inertia}, that can be computed for any vector. We would like that measure to capture the amount of             carried by the elements of that vector, on purely numerical grounds.
+
+
+
 %\section{How it all links together}
 %
 %Hopefully by now the steps of PCA begin to look connected. In fact, at least to my eye, PCA  technique seems like a "series of fortunate events" that makes a very effective use of a few popular concepts from linear algebra. 
@@ -652,6 +662,15 @@ Indeed, the multiplications from Fig.\ref{fig:matrices-reconstruction-6} show fu
 
 
 
+\subsection{Local PCA}
+
+
+
+
+
+
+
+
 \appendix
 
 
@@ -664,7 +683,7 @@ Indeed, the multiplications from Fig.\ref{fig:matrices-reconstruction-6} show fu
 %\subsection{Statistical independence}
 
 
-The Principal Components are linearly independent (since they are orthogonal) but it does not mean that they are statistically independent. This is one of the limitations of PCA.
+%The Principal Components are linearly independent (since they are orthogonal) but it does not mean that they are statistically independent. This is one of the limitations of PCA.
 
 \thebibliography{}
 
@@ -678,5 +697,7 @@ The Principal Components are linearly independent (since they are orthogonal) bu
 \bibitem{Smith} Lindsay I. Smith, \textit{A tutorial on Principal Component Analysis}, 2002
 
 \bibitem{Shalizi} Cosma Shalizi, Course on statistics: \textit{The Truth about Principal Components and Factor Analysis}, 2009 https://www.stat.cmu.edu/~cshalizi/350/
+
+\bibitem{Abdi_Williams} Herve Abdi, Lynne J. Williams, \textit{Principal component analysis}, 2010
 
 \end{document}
