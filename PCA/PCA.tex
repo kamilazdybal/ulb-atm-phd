@@ -664,9 +664,9 @@ Indeed, the multiplications from Fig.\ref{fig:matrices-reconstruction-6} show fu
 
 \subsection{Local PCA}
 
-PCA can also be applied on portions of the entire data set, in \textit{local clusters}. This can have certain advantages. Firstly, the reconstruction of the data set from low-rank approximations in the local clusters can allow for further reduction in dimensionality of a non-linear data set. This is due to the fact that clustering creates portions that are locally linear, or that seem locally linear. Secondly, the interpretation of Principal Components in local clusters can have more physical meaning, since they become better suited to represent that specific cluster.
+PCA can also be applied on portions of the entire data set, in \textit{local clusters}. This can have certain advantages. Firstly, the reconstruction of the data set from low-rank approximations in the local clusters can allow for further reduction in dimensionality of a non-linear data set. This is due to the fact that clustering creates portions that are locally linear, or that are close to being locally linear. Secondly, the interpretation of Principal Components in local clusters can have more physical meaning, since they become better suited to represent that specific cluster.
 
-Below is an example of the general idea of performing Local PCA. A data set composed of two distinct clouds of data can be first partitioned (for instance by techniques such as K-Means clustering) and then PCA is performed separately on both portions of the entire data set. Notice that the found PCs have slightly different directions.
+Below is an example of the general idea of performing Local PCA. A data set composed of two distinct clouds of data can be first partitioned (for instance by techniques such as K-Means clustering) and then PCA is performed separately on both portions of the entire data set. What happens in practice is that the same PCA workflow is applied but on a subset of the data. Notice that the found PCs have different directions.
 
 \begin{figure}[H]
 \centering\includegraphics[width=8cm]{lpca-on-cloud-data.png}
@@ -674,15 +674,15 @@ Below is an example of the general idea of performing Local PCA. A data set comp
 \label{fig:local-pca}
 \end{figure}
 
-In the second example presented in the figure below we have a data set with a non-linear behaviour. Performing PCA on this entire data set will result in two PCs that will not represent very accurately the direction of variance of the most "bent" region at the top of the figure. You can observe that after dividing the data into three clusters the local PCs adjust to the direction of variance.
+In the second example presented in the figure below we have a data set with a non-linear behaviour. Performing PCA on the entire data set will result in two PCs that will not represent very accurately the direction of variance of the most "bent" region at the top of the figure. You can observe that after dividing the data into three clusters the local PCs adjust to the direction of variance in each cluster.
 
 \begin{figure}[H]
-\centering\includegraphics[width=8cm]{lpca-on-nonlinear-data.png}
+\centering\includegraphics[width=6cm]{lpca-on-nonlinear-data.png}
 \caption{Local PCA.}
 \label{fig:local-pca}
 \end{figure}
 
-
+The reconstruction from the Local PCA is slightly more involved since now we have to account for contributions from each cluster separately.
 
 
 
