@@ -124,7 +124,13 @@ showstringspaces=false            %
 
 \,\,
 
-This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
+I would like to give credit to many wonderful resources that let me study GPR with joy. In particular, a great lecture by Professor Anna Scaife \cite{Scaife} is among the ones that gave me a lot of intuition during my first encounter. Figures presented in section \ref{sec:meaning-of-hyp} are reproduction of figures from Professor Scaife's lecture. I also gained deeper mathematical understanding of GPR from the great textbook \textit{Gaussian Process for Machine Learning} by C. E. Rasmussen and C. Williams \cite{Rasmussen}. Many other resources helped me in understanding GPR and writing this short document and all of them are included in References.
+
+I also acknowledge the help that I got from the Cross Validated Stack Exchange community, in particular in response to my question \cite{SE}.
+
+\,\,
+
+Please feel free to contact me with any suggestions, corrections or comments.
 
 \section*{Keywords}
 
@@ -134,12 +140,12 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{Introduction}
 
-\textit{Gaussian Process Regression} (GPR) is a regression technique which does not restrict what functions are used to model the data - unlike linear regression for instance. Instead, we allow many possible functions from a certain pre-specified "pool". To each of these function we attribute a certain  probability of how likely we believe it will fit well our data and update this functions pool as new data points are observed.
+\textit{Gaussian Process Regression} (GPR) is a regression technique which does not restrict what functions are used to model the data - unlike linear or polynomial regression for instance. Instead, we allow many possible functions from a certain pre-specified \textit{pool}. To each of these function we attribute a certain probability of how likely we believe it will fit well our data and update this function pool as new data points are observed.
 
 
 \subsection{Distribution over functions} \label{sec:dist_over_fun}
 
-In GPR we do not assume a specific class of function for regression. Instead, we allow many types of functions but to each of them we attribute a certain likelihood that it can well regress our data. The space of these functions is mapped on a space of likelihoods and such mapping is called a \textit{distribution over functions}. Visually, one may treat this as a probability distribution drawn "above" the space of all possible functions - some functions are more likely, some less.
+In GPR we do not assume a specific class of function for regression. Instead, we allow many types of functions and to each of them we attribute a certain likelihood that it can well regress our data. The space of these functions is mapped on a space of likelihoods and such mapping is called a \textit{distribution over functions}. Visually, one may treat this as a probability distribution drawn "above" the space of all possible functions - some functions are more likely, some less.
 
 \begin{figure}[H]
 \centering\includegraphics[width=8.5cm]{distr_over_fun.png}
@@ -163,7 +169,7 @@ The \textbf{\textit{prior probability}} is the probability we assign to a specif
 As explained in section \ref{sec:dist_over_fun}, in GP we encounter probabilities associated to functions. The prior will be the functions that we believe will fit our data well before we actually attempt fitting these functions to new observation points. After the observations have been made, the functions get the "update" to better fit the newly arrived points and these functions that are left will become our posterior.
 
 
-\subsection{Likelihood and marginal likelihood}
+% \subsection{Likelihood and marginal likelihood}
 
 
 \section{Covariance matrix}
@@ -198,18 +204,18 @@ The covariance matrix is symmetric due to symmetry: $\text{dot}(x_i, x_j) = \tex
 
 The \textit{covariance kernel} is essentialy a function that populates the covariance matrix. This makes our life easier, since first, this matrix might be huge and second, we can easily implement the underlying structure to the covariance.
 
-The covariance kernel has to be designed such that there is symmetry: $K(x_i, x_j) = K(x_j, x_i)$.\footnote{In \cite{Scaife}, it has been said that the covariance can vary in different directions which made me wonder...}
+The covariance kernel has to be designed such that there is symmetry: $K(x_i, x_j) = K(x_j, x_i)$.
 
 \subsection{Examples}
 
-Squared exponential kernel:
+Squared Exponential kernel:
 
 \begin{equation}
 K(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
 \end{equation}
 
 
-\subsection{The meaning of hyperparameters}
+\subsection{The meaning of hyperparameters} \label{sec:meaning-of-hyp}
 
 We will now take a look at the Squared Exponential kernel which was introduced before and explore how the hyperparameters affect the structure of the covariance matrix and the type of priors drawn from the distribution.
 
@@ -233,7 +239,7 @@ Varying the scaling factor $h$, the priors are stationary and the covariance has
 \label{fig:SE-kernel-scaling-factor}
 \end{figure}
 
-\subsection{What is Gaussian in Gaussian Process?}
+\subsection{What is Gaussian in a Gaussian Process?}
 
 The mean value of the distribution is reflected in the $y$-axis values in Fig. \ref{fig:SE-kernel-width} and \ref{fig:SE-kernel-scaling-factor}. It is yet more evident to look at the histograms from more than one prior realisation. In Fig. \ref{fig:realisation-histogram} 20 realisations have been drawn and it already becomes visible that the $y$-value distribution starts to have the bell shape with the prescribed mean.
 
@@ -245,13 +251,13 @@ The mean value of the distribution is reflected in the $y$-axis values in Fig. \
 \end{figure}
 
 
-In fact, one restriction is placed on the possible regression functions inside the ""
-pool": all functions have a Gaussian marginal distribution. (Though it does not need to be a case either - GPML uses other likelihoods - but we still call the technique \textbf{Gaussian} Process Regression). In other words, the histogram of realisations' values begin to look like a normal distribution as the number of realisations increase.
+In fact, one restriction is placed on the possible regression functions inside the
+\textit{pool}: all functions have a Gaussian marginal distribution. (Though it does not need to be a case either - GPML uses other likelihoods - but we still call the technique \textbf{Gaussian} Process Regression). In other words, the histogram of realisations' values begin to look like a normal distribution as the number of realisations increase.
 
 
 
 
-\section{Building your GPR in Python}
+%\section{Building your GPR in Python}
 
 
 
@@ -271,9 +277,12 @@ pool": all functions have a Gaussian marginal distribution. (Though it does not 
 
 \bibitem{Scaife} A. Scaife, \textit{Machine Learning: Gaussian Process Modelling in Python}, an online lecture
 
+\bibitem{Malik} M. R. Malik, B. J. Isaac, A. Coussement, P. J. Smith, A. Parente, \textit{Principal component analysis coupled with nonlinear regression for chemistry reduction}, Combustion and Flame 187 (2018) 30-41
+
+\bibitem{SE} https://stats.stackexchange.com/questions/376141/what-is-a-distribution-over-functions
 
 
- \label{bib:pope}
+
 
 
 \end{document}
