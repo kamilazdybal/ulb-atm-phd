@@ -1,5 +1,6 @@
-# Gaussian Process Regression
+# Gaussian Process Regression (GPR)
 
+The content of this repository was developed mostly thanks to a great [lecture](https://www.youtube.com/watch?v=UpsV1y6wMQ8) by Professor Anna Scaife [1] and insights from probably the best textbook in the subject of GPR [3]. Other wonderful resources for studying Gaussian Processes are listed in the **Bibliography** section below.
 
 ## GPR with George (Python code)
 
@@ -9,7 +10,7 @@
 
 ![Screenshot](GPML-Matlab/GPR-GPML.png)
 
-## Resources:
+## Bibliography:
 
 [1] [Anna Scaife, Machine Learning: Gaussian Process Modelling in Python](https://www.youtube.com/watch?v=UpsV1y6wMQ8)
 
