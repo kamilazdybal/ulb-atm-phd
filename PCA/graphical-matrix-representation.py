@@ -15,6 +15,9 @@ ln = 2
 fnts = 16
 plt.rc('grid', linestyle="--", color='black', linewidth=0.1)
 
+# Boolean, specify if you want to annotate the imshow:
+annotate_bool = False
+
 # Fonts:
 csfont = {'fontname':'Charter', 'fontweight':'regular'}
 hfont = {'fontname':'Charter', 'fontweight':'bold'}
@@ -43,10 +46,11 @@ figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
 
 # Annotate the imshow:
-for i in range(10):
-    for j in range(6):
-        text = plt.text(j, i, round(Dataset_random[i, j], 1),
-                       ha="center", va="center", color="w")
+if annotate_bool == True:
+    for i in range(10):
+        for j in range(6):
+            text = plt.text(j, i, round(Dataset_random[i, j], 1),
+                           ha="center", va="center", color="w")
 
 # Save plot:
 filename = 'DWGs/random-matrix-original.png'
@@ -98,10 +102,11 @@ for Nq in range(1,7):
     plt.subplots_adjust(wspace=0.1, hspace=0)
 
     # Annotate the imshow:
-    for i in range(10):
-        for j in range(6):
-            text = plt.text(j, i, round(Dataset_approx[i, j], 1),
-                           ha="center", va="center", color="w")
+    if annotate_bool == True:
+        for i in range(10):
+            for j in range(6):
+                text = plt.text(j, i, round(Dataset_approx[i, j], 1),
+                               ha="center", va="center", color="w")
 
     # Save plot:
     filename = 'DWGs/random-matrix-reconstruction-PCs-' + str(Nq) + '.png'
@@ -142,10 +147,11 @@ figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
 
 # Annotate the imshow:
-for i in range(10):
-    for j in range(6):
-        text = plt.text(j, i, round(Dataset_semi_structured[i, j], 1),
-                       ha="center", va="center", color="w")
+if annotate_bool == True:
+    for i in range(10):
+        for j in range(6):
+            text = plt.text(j, i, round(Dataset_semi_structured[i, j], 1),
+                           ha="center", va="center", color="w")
 
 # Save plot:
 filename = 'DWGs/semi-structured-matrix-original.png'
@@ -197,10 +203,11 @@ for Nq in range(1,7):
     plt.subplots_adjust(wspace=0.1, hspace=0)
 
     # Annotate the imshow:
-    for i in range(10):
-        for j in range(6):
-            text = plt.text(j, i, round(Dataset_approx[i, j], 1),
-                           ha="center", va="center", color="w")
+    if annotate_bool == True:
+        for i in range(10):
+            for j in range(6):
+                text = plt.text(j, i, round(Dataset_approx[i, j], 1),
+                               ha="center", va="center", color="w")
 
     # Save plot:
     filename = 'DWGs/semi-structured-matrix-reconstruction-PCs-' + str(Nq) + '.png'
@@ -240,10 +247,11 @@ figureSubplot.spines["right"].set_visible(False)
 figureSubplot.spines["left"].set_visible(False)
 
 # Annotate the imshow:
-for i in range(10):
-    for j in range(6):
-        text = plt.text(j, i, round(Dataset_structured[i, j], 1),
-                       ha="center", va="center", color="w")
+if annotate_bool == True:
+    for i in range(10):
+        for j in range(6):
+            text = plt.text(j, i, round(Dataset_structured[i, j], 1),
+                           ha="center", va="center", color="w")
 
 # Save plot:
 filename = 'DWGs/structured-matrix-original.png'
@@ -295,10 +303,11 @@ for Nq in range(1,7):
     plt.subplots_adjust(wspace=0.1, hspace=0)
 
     # Annotate the imshow:
-    for i in range(10):
-        for j in range(6):
-            text = plt.text(j, i, round(Dataset_approx[i, j], 1),
-                           ha="center", va="center", color="w")
+    if annotate_bool == True:
+        for i in range(10):
+            for j in range(6):
+                text = plt.text(j, i, round(Dataset_approx[i, j], 1),
+                               ha="center", va="center", color="w")
 
     # Save plot:
     filename = 'DWGs/structured-matrix-reconstruction-PCs-' + str(Nq) + '.png'
