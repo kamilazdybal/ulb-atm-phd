@@ -85,7 +85,11 @@
 
 \textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for approximating a generally nonlinear dynamical system with a linear one. The technique can be used for finding low-rank structures in multi-dimensional data sets, as well as predicting the future state of the system with inference made solely from the collected data. As a data decomposition technique, DMD offers the possibility of performing a low-rank approximation of the original data set.
 
-This document combines the knowledge from various sources that shaped my journey through understanding DMD. Finally, the notes are accompanied by a set of codes that aim to show DMD in action.
+These notes are additionally accompanied by a set of codes that aim to show DMD in action.
+
+\,\,
+
+We all stand on the shoulders of giants. This document combines the knowledge from various sources that shaped my journey through understanding DMD. The two main resources that pushed me to writing this document are: wonderful lectures by Professor Nathan Kutz from the University of Washington \cite{Prof_Nathan_Kutz_1}-\cite{Prof_Nathan_Kutz_2} and an excellent introductory textbook \textit{Invitation to dynamical systems} by Professor Edward Scheinerman from the John Hopkins University \cite{Prof_Edward_Scheinerman}. I would also like to express my gratitude to Professor Miguel Mendez thanks to whom I took the first step into this journey and discovered the beauty of data decomposition.
 
 \,\,
 
@@ -104,9 +108,9 @@ This document is still in preparation. Please feel free to contact me with any s
 
 This small opening section is here to give you a bit of intuition for DMD which hopefully will be handy in understanding the mathematical formulation in the next chapters. It is assumed that you have some general idea on what it means to perform data decomposition\footnote{For this you can check out my other note \cite{Zdybal_data_dec}.}.
 
-The main purpose of DMD is to find \textit{dynamic modes} underlying the data set in a purely data-driven way. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each found spatial structure behaves in time.
+The main purpose of DMD is to find \textit{dynamic modes} underlying the data set in a purely data-driven way. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each spatial structure behaves in time. These two concepts will go hand in hand in DMD, unlike in some other decomposition techniques you might know.
 
-DMD is also a data reduction/approximation technique. The original data set can be reconstructed by summing up the dynamic modes, or approximated by summing up a \textit{significant} portion of the dynamic modes.
+DMD is also a data reduction/approximation technique. The original data set can be reconstructed by summing up the dynamic modes, or approximated by summing up a \textit{significant portion} of the dynamic modes.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5.5cm]{DMD-modal-decomposition.png}
@@ -114,15 +118,17 @@ DMD is also a data reduction/approximation technique. The original data set can 
 \label{fig:modal-decomposition}
 \end{figure}
 
-In many data reduction techqniues, in addition to reconstructing data from its modes, different data decomposition techniques can give a different meaning to the modes themselves. In general, for physical data sets such as ones coming from fluid dynamics, we would like the modes to have a physical interpretation (which is not \textit{a priori} guaranteed by some decomposition techniques). That would allow to extract additional information about the physics of the original data set. We will see later how DMD performs with respect to this idea. 
+In many data reduction techniques, in addition to reconstructing data from its modes, different data decomposition techniques can give a different meaning to the modes themselves. In general, for physical data sets such as ones coming from fluid dynamics, we would like the modes to have a physical interpretation (which is not \textit{a priori} guaranteed by some decomposition techniques). That would allow to extract additional information about the physics of the original data set. We will see later how DMD performs with respect to this idea. 
 
 %Explain more. Give a more pictorial example of a meaningful mode. One more figure would be nice.
 
 \subsection{DMD of a flipbook}
 
-To see a pictorial example before we jump into the mathematical formalism, we may think of DMD as analyzing a flipbook\footnote{If you are unfamiliar with what a flipbook is, take a look at this YouTube video [\ref{bib:andymation}].}.
+To see a pictorial example before we jump into the mathematical formalism, let's take a small detour and think about DMD as of analyzing a flipbook\footnote{a flipbook is essentially a collection of pages that have consecutive snapshots of a scene drawn on them. As we flip the pages in our hands fast enough, we get an impression of watching a moving scene. If you would like to see for yourself, take a look at this YouTube video [\ref{bib:andymation}].}.
 
-Let's say that each slide is composed of a background which is the same in every slide (it is constant in time). There might also be an animation of moving objects happening in the foreground where some parts are animated as moving faster and some as moving slowly.
+Let's say that each page is composed of a background which is the same in every slide (it is constant in time). There might also be an animation of moving objects happening in the foreground where some parts are animated as moving faster and some as moving slowly.
+
+So what would be a DMD mode in that example?
 
 Notice then, that every page of a flipbook is not a DMD mode. Rather, a mode can be such element of all the flipbook pages which has got the same behaviour in time and is also \textit{spatially significant}.
 
@@ -531,9 +537,9 @@ which is the statement of eigenvalue problem.
 
 \bibitem{Grosek} J. Grosek, N. Kutz, \textit{Dynamic Mode Decomposition for Real-Time Background/Foreground Separation in Video}, 2014
 
-\bibitem{Prof_Nathan_Kutz} N. Kutz, \textit{Dynamic Mode Decomposition Theory}, an online lecture: \verb|https://youtu.be/bYfGVQ1Sg98| \label{bib:kutz_1}
+\bibitem{Prof_Nathan_Kutz_1} N. Kutz, \textit{Dynamic Mode Decomposition Theory}, an online lecture: \verb|https://youtu.be/bYfGVQ1Sg98| \label{bib:kutz_1}
 
-\bibitem{Prof_Nathan_Kutz} N. Kutz, \textit{Dynamic Mode Decomposition Code }, an online lecture: \verb|https://youtu.be/KAau5TBU0Sc| \label{bib:kutz_2}
+\bibitem{Prof_Nathan_Kutz_2} N. Kutz, \textit{Dynamic Mode Decomposition Code }, an online lecture: \verb|https://youtu.be/KAau5TBU0Sc| \label{bib:kutz_2}
 
 \bibitem{Andymation} \verb|https://www.youtube.com/watch?v=ZCCETV-8950| \label{bib:andymation}
 
