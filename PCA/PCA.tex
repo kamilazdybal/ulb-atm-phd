@@ -283,6 +283,12 @@ Another important property is that the eigenvectors of the covariance matrix are
 
 Finally, the eigenvalues associated with the eigenvectors are ordered in a decreasing order with the first one being the highest. This property becomes very useful for dimensionality reduction.
 
+\subsection{Some remarks}
+
+Interestingly, computing a dot product between two vectors is not the only way to \textit{measure} covariance between variables. This might come as a surprise at first, but think for instance about different ways that we can measure distance. Euclidean distance is just \textit{a} way and not \textit{the} way - other distance metrics exist such as city block or Mahalanobis distance. Everything depends on your use case. The same story can be told about covariance. If up to this point in the tutorial I managed to convinced you that computing dot products is how we should populate the covariance matrix then you probably start to wonder: would there be any meaning in doing it differently? Well, here's a brain twister: as long as the resulting covariance matrix is symmetric, we can populate it however we want. In other words, we can generate a \textit{rule} that takes two vectors and gives a scalar as a result. We often call that rule a \textit{covariance function} or a \textit{covariance kernel}. This might give us many advantages, as now we become chefs managing our variables in a data set and we specify how we would like our variables to correlate. This concept is the basis for formulating a variation of the classical PCA presented here - a Kernel PCA.
+
+% If you want to explore this subject more, I invite you to check out my other tutorial on Gaussian Process Regression.
+
 \section{PCA workflow}
 
 As you may have already anticipated, the next step in PCA is to perform the eigendecomposition of the covariance matrix:
@@ -291,15 +297,17 @@ As you may have already anticipated, the next step in PCA is to perform the eige
 \text{eig}(\bm{S}) = [\bm{A}, \bm{\Lambda}]
 \end{equation}
 
-\begin{wrapfigure}{L}{0.2\textwidth}
-\centering\includegraphics[width=3cm]{new-basis.png}
-\caption{Eigenvalues of the covariance matrix form a new orthogonal basis.}
-\label{fig:new-basis}
-\end{wrapfigure}
+
 
 $\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector is called a \textit{principal component} (PC). The principal components are orthogonal (due to properties discussed in \ref{sec:covariance-properties}) and therefore another important property holds: $\bm{A}^T = \bm{A}^{-1}$ (proof\footnote{for orthogonal columns of $\bm{A}$ we have $\bm{A}^T \bm{A} = \bm{I}$. Multiplying both sides by $\bm{A}^{-1}$ we get $(\bm{A}^T \bm{A}) \bm{A}^{-1}= \bm{I}\bm{A}^{-1}$. Since matrix multiplication is associative, we may also perform: $\bm{A}^T (\bm{A} \bm{A}^{-1}) = \bm{A}^{-1}$. From definition of an inverse matrix,  $\bm{A} \bm{A}^{-1} = \bm{I}$, hence: $\bm{A}^T = \bm{A}^{-1}$.}).
 
 The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of the corresponding eigenvalues.
+
+\begin{figure}[H]
+\centering\includegraphics[width=3cm]{new-basis.png}
+\caption{Eigenvalues of the covariance matrix form a new orthogonal basis.}
+\label{fig:new-basis}
+\end{figure}
 
 Given the eigendecomposition of matrix $\bm{S}$, we may state that: 
 
@@ -334,6 +342,8 @@ The above equation is our route back to obtain the original data set in which th
 Suppose that we would like to find the approximation of the data matrix $\bm{X}$ with only $q$ principal components (we project the PC-scores onto only $q$ out of $Q$ principal components).
 
 We shrink the transformation matrix $\bm{A}$ to the size $(Q \times q)$ (we only keep $q$ columns of $\bm{A}$). To match the matrix sizes we also need to shrink in size the PC-scores matrix which is originally of size $(n \times Q)$. We will denote these truncated matrices $\bm{A_q}$ and $\bm{Z_q}$ respectively.
+
+
 
 Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approximation of the original data set:
 
