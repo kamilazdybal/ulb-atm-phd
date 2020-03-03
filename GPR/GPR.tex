@@ -83,7 +83,7 @@ showstringspaces=false            %
     \vskip-5em
 
     \hfill
-    \fontsize{10}{10}\selectfont {\textit{Salt Lake City, February 2020}}
+    \fontsize{10}{10}\selectfont {\textit{Bruxelles, November 2018 - Salt Lake City, March 2020}}
     \vskip2ex
 	\vspace{5ex}
     \fontsize{20}{10}\selectfont {Notes on Gaussian Process Regression}
@@ -134,13 +134,17 @@ Please feel free to contact me with any suggestions, corrections or comments.
 
 \section*{Keywords}
 
-\textit{Gausssian Process Regression (GPR), regression, covariance}
+\textit{Gausssian Process Regression (GPR), regression, covariance function, covariance kernel}
 
 \tableofcontents
 
 \section{Introduction}
 
 \textit{Gaussian Process Regression} (GPR) is a regression technique which does not restrict what functions are used to model the data - unlike linear or polynomial regression for instance. Instead, we allow many possible functions from a certain pre-specified \textit{pool}. To each of these function we attribute a certain probability of how likely we believe it will fit well our data and update this function pool as new data points are observed. This brings us to the first concept worth discussing: \textit{distribution over functions}.
+
+
+%\section{World according to Bayes}
+
 
 
 \subsection{Distribution over functions} \label{sec:dist_over_fun}
@@ -288,6 +292,9 @@ In other words, the histogram of realisations begin to look like a normal distri
 \bibitem{} https://matthewdharris.com/2016/05/16/gaussian-process-hyperparameter-estimation/
 
 \bibitem{kernel-cookbook} D. Duvenaud, \textit{The Kernel Cookbook: Advice on Covariance functions}, https://www.cs.toronto.edu/~duvenaud/cookbook/
+
+
+\bibitem{duvenaud-thesis} D. Duvenaud, \textit{Automatic Model Construction with Gaussian Processes}, PhD thesis,  University of Cambridge, 2014
 
 \bibitem{George} S. Ambikasaran, D. Foreman-Mackey, L. Greengard, D. W. Hogg, M. O'Neil, \textit{Fast Direct Methods for Gaussian Processes}, 2014
 
