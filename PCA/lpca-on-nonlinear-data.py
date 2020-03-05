@@ -10,11 +10,14 @@ import matplotlib
 # Styles:
 newPointColour = '#02111b'
 PCColour = '#002f72'
+cluster_1 = '#d3ebd5'
+cluster_2 = '#80bfb7'
+cluster_3 = '#0b87a1'
 
 dataPointSize = 5
 data_point = 1
 new_point = 1
-font_axis = 10
+font_axis = 12
 font_text = 16
 font_title = 15
 
@@ -49,7 +52,9 @@ plt.axis('equal')
 # Plot division into clusters:
 cmap = matplotlib.cm.get_cmap('Set2')
 
-plt.scatter(X[:,0], X[:,1], c=cmap(idx), s=dataPointSize, marker='.')
+plt.scatter(X[idx==0,0], X[idx==0,1], c=cluster_1, s=dataPointSize, marker='.')
+plt.scatter(X[idx==1,0], X[idx==1,1], c=cluster_2, s=dataPointSize, marker='.')
+plt.scatter(X[idx==2,0], X[idx==2,1], c=cluster_3, s=dataPointSize, marker='.')
 
 for i in range(0,k):
     origin = [centroids[i][0]], [centroids[i][1]]
@@ -57,9 +62,9 @@ for i in range(0,k):
     origin = [centroids[i][0]], [centroids[i][1]]
     plt.quiver(*origin, PCs[i][1,0], PCs[i][1,1], scale=15*(1-eigvals[i][1]), color=PCColour, width=0.005)
 
-plt.text(0.5, 17, r'$k_1$', **csfont, fontsize=font_text, color=cmap(1), horizontalalignment='right')
-plt.text(3.5, 7, r'$k_3$', **csfont, fontsize=font_text, color=cmap(2), horizontalalignment='right')
-plt.text(4, 12, r'$k_2$', **csfont, fontsize=font_text, color=cmap(0), horizontalalignment='right')
+plt.text(0.5, 17, r'$k_1$', **csfont, fontsize=font_text, color=cluster_2, horizontalalignment='right')
+plt.text(3.5, 7, r'$k_3$', **csfont, fontsize=font_text, color=cluster_3, horizontalalignment='right')
+plt.text(4, 12, r'$k_2$', **csfont, fontsize=font_text, color=cluster_1, horizontalalignment='right')
 
 # Plot centroids
 plt.scatter(centroids[:, 0], centroids[:, 1], color=newPointColour, marker='x', lineWidth=data_point, s=20);

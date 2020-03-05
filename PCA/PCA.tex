@@ -146,7 +146,7 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \tableofcontents
 
-\section{Nomenclature}
+\section*{Nomenclature}
 
 \begin{tabular}{ll}
     $\bm{A}$ & is a matrix \\
@@ -450,10 +450,13 @@ Hopefully you could now see for yourself that the basis associated with the eige
 
 
 
+\newpage
 
+\section*{Appendix}
 
+\appendix
 
-\section{Python visual examples}
+\section{Visualizing PCA with Python}
 
 \subsection{Plotting the workflow}\label{sec:pca-workflow}
 
@@ -552,7 +555,7 @@ pca.components_[:q,:]) + Dataset_mean
 
 \subsection{Low-rank approximations}
 
-We perform PCA on three artificially generated matrices of size $(10 \times 6)$: a \textbf{random} matrix which is populated by random floats in the range 0-1 and a \textbf{semi-structured} and \textbf{structured} matrices whose elements are also in the range 0-1 but were populated by the user and have an increasing level of structure that was judged visually. These matrices are presented in Fig.\ref{fig:matrices}.
+We perform PCA on three artificially generated matrices of size $(10 \times 6)$: a \textbf{random} matrix which is populated by random floats in the range 0-1 and a \textbf{semi-structured} and \textbf{structured} matrices whose elements are also in the range 0-1 but were populated so that there is an increasing level of structure that was judged visually. These matrices are presented in Fig.\ref{fig:matrices}.
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -596,11 +599,11 @@ The above multiplication is presented in three cases in Fig.\ref{fig:matrices-re
 
 What can be seen visually is that for the semi-structured and structured matrix the low numerical value region is clearly separated. For the random matrix, only few regions of lowest and highest numerical values are recovered in the rank-1 approximation.
 
-\begin{figure}[H]
-\centering\includegraphics[width=7cm]{DWGs/matrix-multiplication-explanation.png}
-\caption{Matrix multiplication from eq.(\ref{eq:data-set-approximation}) shown graphically.}			
-\label{fig:matrix-multiplication-graphically}
-\end{figure}
+%\begin{figure}[H]
+%\centering\includegraphics[width=7cm]{DWGs/matrix-multiplication-explanation.png}
+%\caption{Matrix multiplication from eq.(\ref{eq:data-set-approximation}) shown graphically.}			
+%\label{fig:matrix-multiplication-graphically}
+%\end{figure}
 
 It is worth noticing here that indeed the obtained matrices are necessarily rank-1, since they are formed as a linear combination of a single vector. This can be seen in two ways: either you may take the vector of PC-scores $(10 \times 1)$ and assume that it forms every column of the $(10 \times 6)$ matrix through multiplying it by the corresponding element from the PC vector. Or, you may assume that the PC is a vector that forms every row of the $(10 \times 6)$ matrix when multiplied by the corresponding element from the PC-scores vector. In either case, the full matrix $(10 \times 6)$ becomes a linear combination of a single vector - hence, it is rank-1.
 
@@ -681,7 +684,7 @@ Indeed, the multiplications from Fig.\ref{fig:matrices-reconstruction-6} show fu
 
 \subsection{Local PCA}
 
-PCA can also be applied on portions of the entire data set, in \textit{local clusters}. This can have certain advantages. Firstly, the reconstruction of the data set from low-rank approximations in the local clusters can allow for further reduction in dimensionality of a non-linear data set. This is due to the fact that clustering creates portions that are locally linear, or that are close to being locally linear. Secondly, the interpretation of Principal Components in local clusters can have more physical meaning, since they become better suited to represent that specific cluster.
+PCA can also be applied on portions of the entire data set, in \textit{local clusters}. This can have certain advantages. Firstly, the reconstruction of the data set from low-rank approximations in the local clusters can allow for further reduction in dimensionality of a non-linear data set. This is due to the fact that clustering creates portions that are locally linear (or at least that are close to being linear). Secondly, the interpretation of Principal Components in local clusters can have more physical meaning, since they become better suited to represent that specific cluster.
 
 Below is an example of the general idea of performing Local PCA. A data set composed of two distinct clouds of data can be first partitioned (for instance by techniques such as K-Means clustering) and then PCA is performed separately on both portions of the entire data set. What happens in practice is that the same PCA workflow is applied but on a subset of the data. Notice that the found PCs have different directions.
 
@@ -706,11 +709,6 @@ The reconstruction from the Local PCA is slightly more involved since now we hav
 
 
 
-
-\appendix
-
-
-\newpage
 
 \section{Questions to pause and ponder} \label{app:questions}
 
