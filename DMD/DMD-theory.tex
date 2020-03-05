@@ -83,17 +83,17 @@
 
 \section*{Preface}
 
-\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for approximating a generally nonlinear dynamical system with a linear one. The technique can be used for finding low-rank structures in multi-dimensional data sets, as well as predicting the future state of the system with inference made solely from the collected data. As a data decomposition technique, DMD offers the possibility of performing a low-rank approximation of the original data set.
+\textit{Dynamic Mode Decomposition} (DMD) is a data-driven method for approximating a (generally) nonlinear dynamical system with a linear one. The technique can be used for performing low-rank approximation of a data set as well as for finding low-rank structures in multi-dimensional data sets.
 
 These notes are additionally accompanied by a set of codes that aim to show DMD in action.
 
 \,\,
 
-We all stand on the shoulders of giants. This document combines the knowledge from various sources that shaped my journey through understanding DMD. The two main resources that pushed me to writing this document are: wonderful lectures by Professor Nathan Kutz from the University of Washington \cite{Prof_Nathan_Kutz_1}-\cite{Prof_Nathan_Kutz_2} and an excellent introductory textbook \textit{Invitation to dynamical systems} by Professor Edward Scheinerman from the John Hopkins University \cite{Prof_Edward_Scheinerman}. I would also like to express my gratitude to Professor Miguel Mendez thanks to whom I took the first step into this journey and discovered the beauty of data decomposition.
+We all stand on the shoulders of giants. This document combines the knowledge from various sources that shaped my journey through understanding DMD. The two main resources that pushed me to writing this document are: wonderful lectures by Professor Nathan Kutz from the University of Washington \cite{Prof_Nathan_Kutz_1}-\cite{Prof_Nathan_Kutz_2} and an excellent introductory textbook \textit{Invitation to dynamical systems} by Professor Edward Scheinerman from the John Hopkins University \cite{Prof_Edward_Scheinerman}. I would also like to express my gratitude to Professor Miguel Mendez from the von Karman Institute for Fluid Dynamics thanks to whom I took the first step into this journey and discovered the beauty of data decomposition.
 
 \,\,
 
-This document is still in preparation. Please feel free to contact me with any suggestions, corrections or comments.
+Please feel free to contact me with any suggestions, corrections or comments.
 
 \section*{Keywords}
 
@@ -106,9 +106,9 @@ This document is still in preparation. Please feel free to contact me with any s
 
 \section{Setting the stage}
 
-This small opening section is here to give you a bit of intuition for DMD which hopefully will be handy in understanding the mathematical formulation in the next chapters. It is assumed that you have some general idea on what it means to perform data decomposition\footnote{For this you can check out my other note \cite{Zdybal_data_dec}.}.
+This small opening section is here to give you a bit of intuition for DMD which hopefully will be handy in understanding the mathematical formulation in the next chapters. It is assumed that you have some general idea on what it means to perform data decomposition.
 
-The main purpose of DMD is to find \textit{dynamic modes} underlying the data set in a purely data-driven way. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each spatial structure behaves in time. These two concepts will go hand in hand in DMD, unlike in some other decomposition techniques you might know.
+The main purpose of DMD is to find \textit{dynamic modes} underlying the data set, in a purely data-driven way. The modes are \textit{dynamic} in a sense that they are spatial structures, each associated with a certain time evolution given by frequency of oscillations. In other words, in DMD we not only know how the system can be decomposed spatially (what spatial structures it is composed of), but also how each spatial structure behaves in time. These two concepts will go hand in hand in DMD, unlike in some other decomposition techniques you might know.
 
 DMD is also a data reduction/approximation technique. The original data set can be reconstructed by summing up the dynamic modes, or approximated by summing up a \textit{significant portion} of the dynamic modes.
 
@@ -118,19 +118,19 @@ DMD is also a data reduction/approximation technique. The original data set can 
 \label{fig:modal-decomposition}
 \end{figure}
 
-In many data reduction techniques, in addition to reconstructing data from its modes, different data decomposition techniques can give a different meaning to the modes themselves. In general, for physical data sets such as ones coming from fluid dynamics, we would like the modes to have a physical interpretation (which is not \textit{a priori} guaranteed by some decomposition techniques). That would allow to extract additional information about the physics of the original data set. We will see later how DMD performs with respect to this idea. 
+In many data reduction techniques, in addition to reconstructing data from its modes, different data decomposition techniques can give a different meaning to the modes themselves. In general, for physical data sets such as ones coming from fluid dynamics, we would like the modes to have a physical interpretation (which is not \textit{a priori} guaranteed). That would allow to extract additional information about the physics of the original data set.
 
 %Explain more. Give a more pictorial example of a meaningful mode. One more figure would be nice.
 
-\subsection{DMD of a flipbook}
+\subsection{Dynamic decomposition of a flipbook}
 
-To see a pictorial example before we jump into the mathematical formalism, let's take a small detour and think about DMD as of analyzing a flipbook\footnote{a flipbook is essentially a collection of pages that have consecutive snapshots of a scene drawn on them. As we flip the pages in our hands fast enough, we get an impression of watching a moving scene. If you would like to see for yourself, take a look at this YouTube video [\ref{bib:andymation}].}.
+To see a pictorial example before we jump into the mathematical formalism, let's take a small detour and think about what it would mean to dynamically decompose a flipbook\footnote{a flipbook is a collection of pages that have consecutive snapshots of a scene drawn on them. As we flip the pages in our hands fast enough, we get an impression of watching a moving scene. If you would like to see for yourself, take a look at this YouTube video [\ref{bib:andymation}].}.
 
 Let's say that each page is composed of a background which is the same in every slide (it is constant in time). There might also be an animation of moving objects happening in the foreground where some parts are animated as moving faster and some as moving slowly.
 
-So what would be a DMD mode in that example?
+So what would be a dynamic mode in that example?
 
-Notice then, that every page of a flipbook is not a DMD mode. Rather, a mode can be such element of all the flipbook pages which has got the same behaviour in time and is also \textit{spatially significant}.
+A mode can simply be such element of all the flipbook pages which has got the same behaviour in time. One mode that we may find would be the stationary background, another one would be an animated car moving from left to right on the pages. Notice that the dynamic mode is not an entire page (snapshot), but rather some portion of each page. As we sum all the spatial portions, each associated with its evolution in time, we get back the full flipbook animation.
 
 We associate a certain number, say $\lambda$, to describe the evolution in time of every separate element (spatial structure) of the animation. This number will have a meaning of frequency of appearance.
 
@@ -140,10 +140,11 @@ The analogy presented in this section is based on \cite{Grosek}.
 
 In order to attach a physical meaning to the spatial modes extracted, the DMD technique can distinguish a particular physical object as a separate dynamic mode (for instance: a jumping ball in the foreground, or a moving cloud in the background).
 
-
 \section{Dynamical systems}
 
-Dynamic Mode Decomposition connects strongly with the arguments made for \textit{dynamical systems} - systems that change in time. There is an interesting intuition carried from one-dimensional linear dynamical systems to multi-dimensional linear dynamical systems and we will briefly present it here. For a more thorough explanation the reader is encouraged to look into \cite{Prof_Edward_Scheinerman}, which is an excellent introductory position for the first encounter with dynamical systems.
+Dynamic Mode Decomposition connects strongly with the arguments made for \textit{dynamical systems} - systems that change in time. There is an interesting intuition carried from one-dimensional linear dynamical systems to multi-dimensional linear dynamical systems and we will briefly present it here.
+
+This section gathers the knowledge from an excellent book \cite{Prof_Edward_Scheinerman} and I encourage you to look into Chapter 2 for a much more complete explanation.
 
 %Introducing the dynamical systems will be a good tool to understand the underlying concepts of DMD, especially the role of eigendecomposition which will appear as we present the theory in section \ref{sec:theory}.
 
@@ -171,7 +172,7 @@ x(k) = x_0 + k b
 
 when $a = 1$.
 
-Let's think now what could a linear dynamical system behaviour be? What are the possible ways in which the measured variable propagates? Surely it can stay constant in time, or if not, it can either grow or decay as we keep on measuring the system. The constant behaviour is captured by the solution described by eq.(\ref{eq:1D-lin-dyn-sys-constant}). The other two behaviours are somehow hidden in eq.(\ref{eq:1D-lin-dyn-sys-not-constant}). At this point, I would like to draw your attention to an important observation: the character of the system's evolution in time is dependent on the parameter $a$.
+Let's think now what could a linear dynamical system behaviour be? What are the possible ways in which the measured variable propagates? Surely it can stay constant in time, or if not, it can either grow or decay as we keep on measuring the system. The constant behaviour is captured by the solution described by eq.(\ref{eq:1D-lin-dyn-sys-constant}). The other two behaviours are encoded in eq.(\ref{eq:1D-lin-dyn-sys-not-constant}) - the character of the system's evolution in time is dependent on the parameter $a$.
 
 For a deeper explanation of various cases I encourage you to take a look at Chapter 2 in \cite{Prof_Edward_Scheinerman}.
 
@@ -427,30 +428,32 @@ The vector $\mathbf{b}$ is a vector of initial amplitudes for each mode. It is c
 
 
 
-\section{A broader view} \label{sec:view}
+%\section{A broader view} \label{sec:view}
+%
+%What can go different with our data sets?
+%
+%\subsection{Optimized DMD}
+%
+%- varying time steps
+%
+%We mentioned earlier, that 
+%
+%\subsection{Robust DMD}
+%
+%
+%
+%Sparse Identification
+%
+%
+%
+%
+%\subsection{Multi-diagnostics DMD}
+%
+%\section{Python example}
 
-What can go different with our data sets?
+\newpage
 
-\subsection{Optimized DMD}
-
-- varying time steps
-
-We mentioned earlier, that 
-
-\subsection{Robust DMD}
-
-
-
-Sparse Identification
-
-
-
-
-\subsection{Multi-diagnostics DMD}
-
-\section{Python example}
-
-
+\section*{Appendix}
 
 \appendix
 
@@ -509,22 +512,13 @@ which is the statement of eigenvalue problem.
 \label{fig:linear_system}
 \end{figure}
 
+%\section{Moore-Penrose inverse} \label{app:B}
 
-
-
-
-
-
-
-
-
-\section{Moore-Penrose inverse} \label{app:B}
-
-
-
+\newpage
 
 \section{Singular Value Decomposition} \label{app:C}
 
+Here we present a pictorial representation of Singular Value Decomposition of a data matrix $\mathbf{X}$ for your reference. The red matrices are truncated to keep only $r$ first components and their multiplication results in a rank-$r$ approximation to the original matrix $\mathbf{X}$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=8cm]{svd.png}
@@ -535,21 +529,21 @@ which is the statement of eigenvalue problem.
 
 \thebibliography{}
 
-\bibitem{Grosek} J. Grosek, N. Kutz, \textit{Dynamic Mode Decomposition for Real-Time Background/Foreground Separation in Video}, 2014
+
 
 \bibitem{Prof_Nathan_Kutz_1} N. Kutz, \textit{Dynamic Mode Decomposition Theory}, an online lecture: \verb|https://youtu.be/bYfGVQ1Sg98| \label{bib:kutz_1}
 
-\bibitem{Prof_Nathan_Kutz_2} N. Kutz, \textit{Dynamic Mode Decomposition Code }, an online lecture: \verb|https://youtu.be/KAau5TBU0Sc| \label{bib:kutz_2}
+\bibitem{Prof_Nathan_Kutz_2} N. Kutz, \textit{Dynamic Mode Decomposition Code}, an online lecture: \verb|https://youtu.be/KAau5TBU0Sc| \label{bib:kutz_2}
 
 \bibitem{Andymation} \verb|https://www.youtube.com/watch?v=ZCCETV-8950| \label{bib:andymation}
 
 \bibitem{Prof_Edward_Scheinerman} E. R. Scheinerman, \textit{Invitation to Dynamical Systems}
 
+\bibitem{Grosek} J. Grosek, N. Kutz, \textit{Dynamic Mode Decomposition for Real-Time Background/Foreground Separation in Video}, 2014
+
 \bibitem{Prof_Gilbert_Strang} G. Strang, \textit{Introduction to Linear Algebra}, 5th edition
 
-\bibitem{Zdybal} K. Zdybal, \textit{POD and DMD decomposition of numerical and experimental data}, von Karman Institute for Fluid Dynamics, stagiaire report 
-
-\bibitem{Zdybal_data_dec} K. Zdybal, \textit{Exactly what is data decomposition?}
+\bibitem{Zdybal} K. Zdybal, M. A. Mendez, \textit{POD and DMD decomposition of numerical and experimental data}, von Karman Institute for Fluid Dynamics, 2016
 
 
 \end{document}
