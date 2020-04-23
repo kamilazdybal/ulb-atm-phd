@@ -126,7 +126,7 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-\textbf{Principal Component Analysis} (PCA) is a multivariate dimensionality reduction technique in which a high-dimensional data set is projected on the directions of the largest variance. The technique exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be a redundancy of dimensions. Once a new, orthogonal basis is found, the data can be transformed to that new basis and that can give certain advantages. The projected data has lower rank and is thus easier to analyze. This in turn can be helpful in a variety of problems such as extracting information, data compression or analysis of structures hidden in the data \cite{Abdi_Williams}.
+\textbf{Principal Component Analysis} (PCA) is a multivariate dimensionality reduction technique in which a high-dimensional data set is projected on directions of decreasing importance, ordered by the amount of variance explained. The technique exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be a redundancy of dimensions. Once a new, orthogonal basis is found, the data can be transformed to that new basis and that can give certain advantages. The projected data has lower rank and is thus easier to analyze. This in turn can be helpful in a variety of problems such as extracting information, data compression or analysis of structures hidden in the data \cite{Abdi_Williams}.
 
 \,\,
 
@@ -228,7 +228,7 @@ The covariance between two random vectors $\bm{x}$ and $\bm{y}$ is defined as:
 \text{cov}(\bm{x},\bm{y}) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{\bm{x}}) (y_i - \bar{\bm{y}})
 \end{equation}
 
-where $N$ is the number of samples (weights of a vector). If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric due to symmetry: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(\bm{x},\bm{x}) = \text{var}(\bm{x})$ where:
+where $n$ is the number of samples (weights of a vector). If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric due to symmetry: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(\bm{x},\bm{x}) = \text{var}(\bm{x})$ where:
 
 \begin{equation}\label{eq:variance-definition}
 \text{var}(\bm{x}) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{\bm{x}})^2
@@ -285,7 +285,7 @@ Finally, the eigenvalues associated with the eigenvectors are ordered in a decre
 
 \subsection{Some remarks}
 
-Interestingly, computing a dot product between two vectors is not the only way to \textit{measure} covariance between variables. This might come as a surprise at first, but think for instance about different ways that we can measure distance. Euclidean distance is just \textit{a} way and not \textit{the} way - other distance metrics exist such as city block or Mahalanobis distance. Everything depends on your use case. The same story can be told about covariance. If up to this point in the tutorial I managed to convinced you that computing dot products is how we should populate the covariance matrix then you probably start to wonder: would there be any meaning in doing it differently? Well, here's a brain twister: as long as the resulting covariance matrix is symmetric, we can populate it however we want. In other words, we can generate a \textit{rule} that takes two vectors and gives a scalar as a result. We often call that rule a \textit{covariance function} or a \textit{covariance kernel}. This might give us many advantages, as now we become chefs managing our variables in a data set and we specify how we would like our variables to correlate. This concept is the basis for formulating a variation of the classical PCA presented here - a Kernel PCA.
+Interestingly, computing a dot product between two vectors is not the only way to \textit{measure} covariance between variables. This might come as a surprise at first, but think for instance about different ways that we can measure distance. Euclidean distance is just \textit{a} way and not \textit{the} way - other distance metrics exist such as city block or Mahalanobis distance. Everything depends on your use case. The same story can be told about covariance. If up to this point in the tutorial I managed to convince you that computing dot products is how we should populate the covariance matrix then you probably start to wonder: would there be any meaning in doing it differently? Well, here's a brain twister: as long as the resulting covariance matrix is symmetric, we can populate it however we want. In other words, we can generate a \textit{rule} that takes two vectors and gives a scalar as a result. We often call that rule a \textit{covariance function} or a \textit{covariance kernel}. This might give us many advantages, as now we become chefs managing our variables in a data set and we specify how we would like our variables to correlate. This concept is the basis for formulating a variation of the classical PCA presented here - a Kernel PCA.
 
 % If you want to explore this subject more, I invite you to check out my other tutorial on Gaussian Process Regression.
 
@@ -712,7 +712,7 @@ The reconstruction from the Local PCA is slightly more involved since now we hav
 
 \section{Questions to pause and ponder} \label{app:questions}
 
-To give you a chance for further exposure to PCA, I present below a few questions for you to think about. Take a piece of paper and a pencil, or use your favourite programming language to explore these.
+To give you a chance for further exposure to PCA,  here are a few questions for you to think about. Take a piece of paper and a pencil, or use your favourite programming language to explore these.
 
 \begin{enumerate}
 \item What happens if you did PCA on a rank-deficient matrix? Would it still find all the Principal Components? And if yes, what's the meaning of that...? What would the eigenvalues look like?
@@ -723,11 +723,10 @@ To give you a chance for further exposure to PCA, I present below a few question
 \caption{Ring data set.}
 \label{fig:ring-data-set}
 \end{figure}
+\item What would the original data set $\bm{X}$ have to be so that the PCs found are the standard basis vectors?
 \end{enumerate}
 
-
-
-%\subsection{The intuition behind $\frac{1}{1-n}$.}
+%\subsection{The intuition behind $\frac{1}{n - 1}$.}
 
 
 %\subsection{Statistical independence}
