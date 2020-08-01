@@ -24,7 +24,7 @@
 \usepackage{xcolor}
 \usepackage{framed}
 \usepackage[utf8]{inputenc}
-\graphicspath{{DWGs/}}
+\graphicspath{{plots/}}
 \usepackage{framed}
 \usepackage{textcomp}
 \usepackage{braket}
@@ -560,17 +560,17 @@ We perform PCA on three artificially generated matrices of size $(10 \times 6)$:
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/random-matrix-original.png}
+\includegraphics[scale=.2]{random-matrix-original.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/semi-structured-matrix-original.png}
+\includegraphics[scale=.2]{semi-structured-matrix-original.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/structured-matrix-original.png}
+\includegraphics[scale=.2]{structured-matrix-original.png}
 \caption{ }
 \end{subfigure}
 \caption{Original data matrices: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
@@ -582,7 +582,7 @@ The visual judgment of the level of imposed "structure" is quite objective in th
 The level of the imposed structure can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig.\ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits the strongest low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{DWGs/matrix-reconstruction-eigenvalues-comparison.png}
+\centering\includegraphics[width=7cm]{matrix-reconstruction-eigenvalues-comparison.png}
 \caption{Eigenvalue distribution after performing PCA on original data matrices.}			
 \label{fig:eigenvalues}
 \end{figure}
@@ -610,17 +610,17 @@ It is worth noticing here that indeed the obtained matrices are necessarily rank
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-1.png}
+\includegraphics[scale=.2]{random-matrix-reconstruction-PCs-1.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-1.png}
+\includegraphics[scale=.2]{semi-structured-matrix-reconstruction-PCs-1.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-1.png}
+\includegraphics[scale=.2]{structured-matrix-reconstruction-PCs-1.png}
 \caption{ }
 \end{subfigure}
 \caption{Reconstruction with $1^{st}$ Principal Component of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
@@ -637,17 +637,17 @@ Following the analogous reasoning as for Fig.\ref{fig:matrices-reconstruction-1}
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-2.png}
+\includegraphics[scale=.2]{random-matrix-reconstruction-PCs-2.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-2.png}
+\includegraphics[scale=.2]{semi-structured-matrix-reconstruction-PCs-2.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-2.png}
+\includegraphics[scale=.2]{structured-matrix-reconstruction-PCs-2.png}
 \caption{ }
 \end{subfigure}
 \caption{Reconstruction with 2 Principal Components of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
@@ -661,17 +661,17 @@ The PC-scores are low-dimensional representations of the original data matrix an
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/random-matrix-reconstruction-PCs-6.png}
+\includegraphics[scale=.2]{random-matrix-reconstruction-PCs-6.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/semi-structured-matrix-reconstruction-PCs-6.png}
+\includegraphics[scale=.2]{semi-structured-matrix-reconstruction-PCs-6.png}
 \caption{ }
 \end{subfigure}
 \begin{subfigure}[t]{.15\textwidth}
 \centering
-\includegraphics[scale=.2]{DWGs/structured-matrix-reconstruction-PCs-6.png}
+\includegraphics[scale=.2]{structured-matrix-reconstruction-PCs-6.png}
 \caption{ }
 \end{subfigure}
 \caption{Reconstruction with 6 Principal Components of: (a) random matrix, (b) semi-structured matrix, (c) structured matrix.}
@@ -750,7 +750,5 @@ sklearn.decomposition.PCA.html
 \bibitem{Smith} Lindsay I. Smith, \textit{A tutorial on Principal Component Analysis}, 2002
 
 \bibitem{Shalizi} Cosma Shalizi, Course on statistics: \textit{The Truth about Principal Components and Factor Analysis}, 2009 https://www.stat.cmu.edu/~cshalizi/350/
-
-
 
 \end{document}
