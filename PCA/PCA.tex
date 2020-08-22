@@ -122,7 +122,11 @@ showstringspaces=false            %
 
 \fontsize{8}{10}\selectfont {\textit{Université libre de Bruxelles, kamila.zdybal@ulb.ac.be}}
 
-\fontsize{8}{10}\selectfont {\textit{camillejr.github.io/science-docs, kamila.zdybal@gmail.com}}
+\fontsize{8}{10}\selectfont {\textit{kamilazdybal.github.io/science-docs, kamila.zdybal@gmail.com}}
+
+\vspace{5mm}
+
+This tutorial was generated from a Jupyter notebook that can be accessed \href{https://github.com/kamilazdybal/ulb-atm-phd/blob/master/PCA/PCA-tutorial.ipynb}{here}.
 
 \section*{Preface}
 
@@ -228,7 +232,7 @@ The covariance between two random vectors $\bm{x}$ and $\bm{y}$ is defined as:
 \text{cov}(\bm{x},\bm{y}) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{\bm{x}}) (y_i - \bar{\bm{y}})
 \end{equation}
 
-where $n$ is the number of samples (weights of a vector). If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric due to symmetry: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(\bm{x},\bm{x}) = \text{var}(\bm{x})$ where:
+where $n$ is the number of samples (weights of a vector) and $\bar{\bm{x}}$ and $\bar{\bm{y}}$ are the means of $\bm{x}$ and $\bm{y}$ respectively. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric due to symmetry: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(\bm{x},\bm{x}) = \text{var}(\bm{x})$ where:
 
 \begin{equation}\label{eq:variance-definition}
 \text{var}(\bm{x}) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{\bm{x}})^2
@@ -277,11 +281,11 @@ In general, the dot product between two vectors $\bm{x}$ and $\bm{y}$ represents
 
 The covariance matrix is a very special matrix and it is worth pointing out some of its interesting properties that the Principal Component Analysis makes extensive use of.
 
-First of all, any matrix constructed as: $\bm{S} = \bm{C}^T \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric\footnote{the symmetry follows from the symmetry in: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$.} (the reason for this is easy to see from Fig.\ref{fig:covariance-matrix}). Apart from that, the eigenvalues of such matrix are real and all are at least non-negative - such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
+First of all, any matrix constructed as: $\bm{S} = \bm{C}^T \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric\footnote{the symmetry follows from the symmetry in: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$.} (the reason for this is easy to see looking at Fig.\ref{fig:covariance-matrix}). Apart from that, the eigenvalues of such matrix are real and all are at least non-negative - such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
 
 Another important property is that the eigenvectors of the covariance matrix are orthogonal, which is a very special thing indeed. You may already see some interesting uses for such eigenvectors. One of which could be: they can form a new, $Q$-dimensional coordinate system - a \textit{basis}. Hopefully we are now on the right track to convincing you that such basis can be a very interesting basis.
 
-Finally, the eigenvalues associated with the eigenvectors are ordered in a decreasing order with the first one being the highest. This property becomes very useful for dimensionality reduction.
+Finally, the eigenvalues corresponding to the associated eigenvectors can be ordered in a decreasing order. This becomes very useful for dimensionality reduction.
 
 \subsection{Some remarks}
 
