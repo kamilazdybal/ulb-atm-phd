@@ -124,10 +124,6 @@ showstringspaces=false            %
 
 \fontsize{8}{10}\selectfont {\textit{kamilazdybal.github.io/science-docs, kamila.zdybal@gmail.com}}
 
-\vspace{5mm}
-
-This tutorial was generated from a Jupyter notebook that can be accessed \href{https://github.com/kamilazdybal/ulb-atm-phd/blob/master/PCA/PCA-tutorial.ipynb}{here}.
-
 \section*{Preface}
 
 \textbf{Principal Component Analysis} (PCA) is a multivariate dimensionality reduction technique in which a high-dimensional data set is projected on directions of decreasing importance, ordered by the amount of variance explained. The technique exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be a redundancy of dimensions. Once a new, orthogonal basis is found, the data can be transformed to that new basis and that can give certain advantages. The projected data has lower rank and is thus easier to analyze. This in turn can be helpful in a variety of problems such as extracting information, data compression or analysis of structures hidden in the data \cite{Abdi_Williams}.
@@ -154,7 +150,8 @@ Please feel free to contact me with any suggestions, corrections or comments.
 
 \begin{tabular}{ll}
     $\bm{A}$ & is a matrix \\
-     $\bm{A}^T$ & is a matrix transpose \\
+     $\bm{A}^{\top}$ & is a matrix transpose \\
+     $\bm{A}^{-1}$ & is a matrix inverse \\
      $\bm{a}$ & is a vector \\
      $a$ & is a scalar \\
     $\bm{a}_j$ & is the $j^{th}$ column of a matrix $\bm{A}$, \\
@@ -185,21 +182,19 @@ Please feel free to contact me with any suggestions, corrections or comments.
 
 \section{Data sets for PCA}
 
-For the rest of this document, we assume that the data set for performing PCA is a matrix $\bm{X}$. Each column of $\bm{X}$ represents all observations of one variable (feature). Each row of $\bm{X}$ corresponds to a single observation (sample) of all variables. Let $i \in \braket{1, n}$ index the observations and $j \in \braket{1, Q}$ index the variables. The data matrix $\bm{X}$ is hence size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} \cite{Matlab-pca} and for the Python function \texttt{sklearn.decomposition.PCA} \cite{Python-pca}.} This structure can be seen in Fig.\ref{fig:data-matrix}.
-
-%One of the strengths of PCA is that it can be performed on a non-time-resolved data set, namely the matrix $\bm{X}$ can be collected at a single time snapshot and be only spatially-resolved.
+The data set for performing PCA is a matrix $\bm{X} \in \mathbb{R}^{n \times Q}$. Each column of $\bm{X}$ represents all $n$ observations of one variable. Each row of $\bm{X}$ corresponds to a single observation of all $Q$ variables. The data matrix $\bm{X}$ is hence size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} \cite{Matlab-pca} and for the Python function \texttt{sklearn.decomposition.PCA} \cite{Python-pca}.} This structure can be seen in Fig.~\ref{fig:data-matrix}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=5cm]{data-set-PCA.png}
-\caption{Data matrix for PCA.}
+\caption{Structure of the data matrix for PCA.}
 \label{fig:data-matrix}
 \end{figure}
 
-\section{Data pre-processing}
+\subsection{Data pre-processing}
 
 In data science we are typically given a raw data set which is not centered and not scaled. However, standardizing the data set might be a good idea before applying a data science technique.
 
-In particular, \textit{centering} allows to look at data as variations from some center. Graphically, centering shifts the center of the \textit{cloud} of data points (which in general is multi-dimensional) to a new, selected center. One of the popular choices is to center each variable by subtracting the mean of this variable's observations - the center will be shifted to the origin\footnote{see Fig.\ref{fig:python-raw-data}-\ref{fig:python-raw-data-centered}.}.
+In particular, \textit{centering} allows to look at data as variations from some center. Graphically, centering shifts the center of the \textit{cloud} of data points (which in general is multi-dimensional) to a new, selected center. One of the popular choices is to center each variable by subtracting the mean of this variable's observations - the center will be shifted to the origin\footnote{see Fig.~\ref{fig:python-raw-data}-\ref{fig:python-raw-data-centered}.}.
 Other centering that could be encountered\footnote{for instance in the \textit{Min-Max} standardizing.} is subtracting the minimum of the variable's observations.
 
 Centering thus substitutes the original data set with:
@@ -243,14 +238,14 @@ where $n$ is the number of samples (weights of a vector) and $\bar{\bm{x}}$ and 
 The starting point for performing PCA is to compute a covariance matrix from the data set. The covariance matrix is given by:
 
 \begin{equation}\label{eq:cov-matrix}
-\bm{S} = \frac{1}{n-1} \bm{X}^T \bm{X}
+\bm{S} = \frac{1}{n-1} \bm{X}^{\top} \bm{X}
 \end{equation}
 
 and is therefore size $(Q \times Q)$. Notice the similarity with the eq.(\ref{eq:covariance-definition}).
 
-We will start by exploring the meaning of $\bm{X}^T \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig.\ref{fig:covariance-matrix}.
+We will start by exploring the meaning of $\bm{X}^{\top} \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig.~\ref{fig:covariance-matrix}.
 
-Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single $p^{th}$ (or $k^{th}$) variable and can be viewed as an $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^T$.
+Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single $p^{th}$ (or $k^{th}$) variable and can be viewed as an $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^{\top}$.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{cov-matrix.png}
@@ -258,11 +253,11 @@ Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all mea
 \label{fig:covariance-matrix}
 \end{figure}
 
-Notice that an element at position $(p,k)$ inside the covariance matrix has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^T$ and the $k$-th column of a matrix $\bm{X}$.
+Notice that an element at position $(p,k)$ inside the covariance matrix has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^{\top}$ and the $k$-th column of a matrix $\bm{X}$.
 %There is also the factor $\frac{1}{n-1}$ out front, which we discuss in a closer detail in the Appendix \ref{app:B}.
 
 \begin{equation}
-s_{p,k} = \frac{1}{n-1} (\bm{x}_p^T \circ \bm{x}_k)
+s_{p,k} = \frac{1}{n-1} (\bm{x}_p^{\top} \circ \bm{x}_k)
 \end{equation}
 
 The similarity with eq.(\ref{eq:covariance-definition}) is now even more evident. Notice that as long as the columns of $\bm{X}$ have been centered, the off-diagonal elements of the covariance matrix have the mathematical meaning of covariance between two variables.
@@ -270,7 +265,7 @@ The similarity with eq.(\ref{eq:covariance-definition}) is now even more evident
 In a case where we multiply row $p$ with column $p$, we get a dot product of a vector with itself:
 
 \begin{equation}
-s_{p,p} = \frac{1}{n-1} ( \bm{x}_p^T \circ \bm{x}_p)
+s_{p,p} = \frac{1}{n-1} ( \bm{x}_p^{\top} \circ \bm{x}_p)
 \end{equation}
 
 This in turn looks similar to eq.(\ref{eq:variance-definition}) and thus the diagonal elements of the covariance matrix represent the variance of a single variable.
@@ -279,17 +274,20 @@ In general, the dot product between two vectors $\bm{x}$ and $\bm{y}$ represents
 
 \subsection{Properties} \label{sec:covariance-properties}
 
-The covariance matrix is a very special matrix and it is worth pointing out some of its interesting properties that the Principal Component Analysis makes extensive use of.
+The covariance matrix is a very special matrix. It is worth pointing out some of its interesting properties that PCA makes an extensive use of.
 
-First of all, any matrix constructed as: $\bm{S} = \bm{C}^T \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric\footnote{the symmetry follows from the symmetry in: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$.} (the reason for this is easy to see looking at Fig.\ref{fig:covariance-matrix}). Apart from that, the eigenvalues of such matrix are real and all are at least non-negative - such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
+First, any matrix $\bm{S}$ constructed as $\bm{S} = \bm{C}^{\top} \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric. The reason for the symmetry can be seen looking at Fig.~\ref{fig:covariance-matrix} -- notice that the element $(p,k)$ has the same value as the element $(k,p)$ since it is a result of multiplying the same two vectors, just in different order. Notice also that there is a symmetry in: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$. 
 
-Another important property is that the eigenvectors of the covariance matrix are orthogonal, which is a very special thing indeed. You may already see some interesting uses for such eigenvectors. One of which could be: they can form a new, $Q$-dimensional coordinate system - a \textit{basis}. Hopefully we are now on the right track to convincing you that such basis can be a very interesting basis.
+Second, the eigenvalues of $\bm{S}$ are real and all are at least non-negative. Such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
 
-Finally, the eigenvalues corresponding to the associated eigenvectors can be ordered in a decreasing order. This becomes very useful for dimensionality reduction.
+Third, the eigenvectors of the covariance matrix are orthogonal. Well, now it gets even more interesting! You may already see some use-cases for such eigenvectors. One of which could be: they can form a new, $Q$-dimensional coordinate system -- a \textit{basis}. 
+Hopefully, we are now entering the right track to convincing you that such basis can be a very interesting basis.
+
+%The eigenvalues corresponding to the associated eigenvectors can be ordered in a decreasing order. This becomes very useful for dimensionality reduction.
 
 \subsection{Some remarks}
 
-Interestingly, computing a dot product between two vectors is not the only way to \textit{measure} covariance between variables. This might come as a surprise at first, but think for instance about different ways that we can measure distance. Euclidean distance is just \textit{a} way and not \textit{the} way - other distance metrics exist such as city block or Mahalanobis distance. Everything depends on your use case. The same story can be told about covariance. If up to this point in the tutorial I managed to convince you that computing dot products is how we should populate the covariance matrix then you probably start to wonder: would there be any meaning in doing it differently? Well, here's a brain twister: as long as the resulting covariance matrix is symmetric, we can populate it however we want. In other words, we can generate a \textit{rule} that takes two vectors and gives a scalar as a result. We often call that rule a \textit{covariance function} or a \textit{covariance kernel}. This might give us many advantages, as now we become chefs managing our variables in a data set and we specify how we would like our variables to correlate\footnote{This concept is a basis for formulating a variation of the classical PCA presented here - Kernel PCA.}.
+Interestingly, computing a dot product between two vectors is not the only way to \textit{measure} covariance between variables. This might come as a surprise at first, but think for instance about different ways that we can measure distance. Euclidean distance is just \textit{a} way and not \textit{the} way - other distance metrics exist such as city block or Mahalanobis distance. Everything depends on your use case. The same story can be told about covariance. If up to this point in the tutorial I managed to convince you that computing dot products is how we should populate the covariance matrix then you probably start to wonder: would there be any meaning in doing it differently? Well, here's a brain twister: as long as the resulting covariance matrix is symmetric, we can populate it however we want. In other words, we can generate a \textit{rule} that takes two vectors and gives a scalar as a result. We often call that rule a \textit{covariance function} or a \textit{covariance kernel}. This might give us many advantages, as now we become chefs managing our variables in a data set and we specify how we would like our variables to correlate\footnote{This concept is the basis for formulating Kernel PCA -- a variation of the classical PCA presented here.}.
 
 % If you want to explore this subject more, I invite you to check out my other tutorial on Gaussian Process Regression.
 
@@ -301,22 +299,20 @@ As you may have already anticipated, the next step in PCA is to perform the eige
 \text{eig}(\bm{S}) = [\bm{A}, \bm{\Lambda}]
 \end{equation}
 
-
-
-$\bm{A}$ is a matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector is called a \textit{principal component} (PC). The principal components are orthogonal (due to properties discussed in \ref{sec:covariance-properties}) and therefore another important property holds: $\bm{A}^T = \bm{A}^{-1}$ (proof\footnote{for orthogonal columns of $\bm{A}$ we have $\bm{A}^T \bm{A} = \bm{I}$. Multiplying both sides by $\bm{A}^{-1}$ we get $(\bm{A}^T \bm{A}) \bm{A}^{-1}= \bm{I}\bm{A}^{-1}$. Since matrix multiplication is associative, we may also perform: $\bm{A}^T (\bm{A} \bm{A}^{-1}) = \bm{A}^{-1}$. From definition of an inverse matrix,  $\bm{A} \bm{A}^{-1} = \bm{I}$, hence: $\bm{A}^T = \bm{A}^{-1}$.}).
+$\bm{A}$ is the matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector defines the direction for the \textit{principal components} (PCs). The principal components are orthogonal (due to properties discussed in \ref{sec:covariance-properties}) and therefore another important property holds: $\bm{A}^{\top} = \bm{A}^{-1}$ (proof\footnote{for orthogonal columns of $\bm{A}$ we have $\bm{A}^{\top} \bm{A} = \bm{I}$. Multiplying both sides from the right by $ \bm{A}^{-1}$ we get $(\bm{A}^{\top} \bm{A}) \bm{A}^{-1}= \bm{I}\bm{A}^{-1}$. Since matrix multiplication is associative, we may also perform: $\bm{A}^{\top} (\bm{A} \bm{A}^{-1}) = \bm{A}^{-1}$. From the definition of an inverse matrix $\bm{A} \bm{A}^{-1} = \bm{I}$. Hence $\bm{A}^{\top} = \bm{A}^{-1}$.}).
 
 The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of the corresponding eigenvalues.
 
 \begin{figure}[H]
 \centering\includegraphics[width=3cm]{new-basis.png}
-\caption{Eigenvalues of the covariance matrix form a new orthogonal basis.}
+\caption{The orthonormal eigenvectors of the covariance matrix can form a $Q$-dimensional basis.}
 \label{fig:new-basis}
 \end{figure}
 
-Given the eigendecomposition of matrix $\bm{S}$, we may state that: 
+Given the eigendecomposition of the matrix $\bm{S}$, we may state that: 
 
 \begin{equation} \label{eq:eig-dec-cov-matrix}
-\bm{S} = \bm{A} \bm{\Lambda} \bm{A}^T
+\bm{S} = \bm{A} \bm{\Lambda} \bm{A}^{\top}
 \end{equation}
 
 The principal components form a new basis in which we can represent our data set. We perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the PCs. This transformation is achieved with the following multiplication:
@@ -338,10 +334,10 @@ The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the bas
 We now approach the dimensionality reduction but first let's obtain the original data set back, given the PC-scores and the transformation matrix:
 
 \begin{equation} \label{eq:X-retrieval}
-\bm{X} = \bm{Z} \bm{A}^T
+\bm{X} = \bm{Z} \bm{A}^{\top}
 \end{equation}
 
-The above equation is our route back to obtain the original data set in which the PC-scores are projected on the basis associated with a transposed eigenvectors matrix $\bm{A}$ (the fact that $\bm{A}^T = \bm{A}^{-1}$ now appears in all  of its usefulness).
+The above equation is our route back to obtain the original data set in which the PC-scores are projected on the basis associated with a transposed eigenvectors matrix $\bm{A}$ (the fact that $\bm{A}^{\top} = \bm{A}^{-1}$ now appears in all  of its usefulness).
 
 Suppose that we would like to find the approximation of the data matrix $\bm{X}$ with only $q$ principal components (we project the PC-scores onto only $q$ out of $Q$ principal components).
 
@@ -349,13 +345,13 @@ We shrink the transformation matrix $\bm{A}$ to the size $(Q \times q)$ (we only
 
 
 
-Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^T$ will result in an an approximation of the original data set:
+Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^{\top}$ will result in an an approximation of the original data set:
 
 \begin{equation} \label{eq:X-approximation}
-\bm{X_q} = \bm{Z_q} \bm{A_q}^T
+\bm{X_q} = \bm{Z_q} \bm{A_q}^{\top}
 \end{equation}
 
-It is now worth discussing how good is such approximation. It turns out that $\bm{X_q}$ is the closest rank-$q$ approximation to $\bm{X}$ in terms of three popular norms: $L^2$-norm, Frobenius norm and trace norm (also known as nuclear norm). This is known as the Eckart-Young theorem \cite{eckart-young}.
+It is now worth discussing how good is such approximation. It turns out that $\bm{X_q}$ is the closest rank-$q$ approximation to $\bm{X}$ in terms of three popular norms: $L^2$-norm, Frobenius norm and trace norm. This is known as the Eckart-Young theorem \cite{eckart-young}.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6.1cm]{data-approx.png}
@@ -367,10 +363,10 @@ It is now worth discussing how good is such approximation. It turns out that $\b
 
 In this section we come back to the eq.(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? 
 
-To begin the understanding, let's look at Fig.\ref{fig:PC-scores}. Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix in such a way:
+To begin the understanding, let's look at Fig.~\ref{fig:PC-scores}. Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix in such a way:
 
 \begin{equation}
-\bm{S_Z} =  \frac{1}{n-1} \bm{Z}^T \bm{Z}
+\bm{S_Z} =  \frac{1}{n-1} \bm{Z}^{\top} \bm{Z}
 \end{equation}
 
 the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$. This removes the redundancy of information that could have been present in the original data set $\bm{X}$; each column of $\bm{Z}$ now contributes to a "unique" piece of information that cannot be found in any other column of $\bm{Z}$. In other words:
@@ -386,26 +382,26 @@ As a "template" for a diagonal matrix, PCA uses a diagonal matrix that is easily
 We find $\bm{Z}$ through a series of transformations in which we combine eq.(\ref{eq:eig-dec-cov-matrix}) with eq.(\ref{eq:cov-matrix}):
 
 \begin{equation}
-\bm{A} \bm{\Lambda} \bm{A}^T =  \frac{1}{n-1} \bm{X}^T \bm{X} \,\, \Big/ \bm{A}^T \times
+\bm{A} \bm{\Lambda} \bm{A}^{\top} =  \frac{1}{n-1} \bm{X}^{\top} \bm{X} \,\, \Big/ \bm{A}^{\top} \times
 \end{equation}
 
 \begin{equation}
-\bm{A}^T \bm{A} \bm{\Lambda} \bm{A}^T =  \frac{1}{n-1} \bm{A}^T  \bm{X}^T \bm{X} \,\, \Big/ \times \bm{A}
+\bm{A}^{\top} \bm{A} \bm{\Lambda} \bm{A}^{\top} =  \frac{1}{n-1} \bm{A}^{\top}  \bm{X}^{\top} \bm{X} \,\, \Big/ \times \bm{A}
 \end{equation}
 
 \begin{equation}
-\bm{A}^T \bm{A} \bm{\Lambda} \bm{A}^T \bm{A} =  \frac{1}{n-1} \bm{A}^T  \bm{X}^T \bm{X} \bm{A}
+\bm{A}^{\top} \bm{A} \bm{\Lambda} \bm{A}^{\top} \bm{A} =  \frac{1}{n-1} \bm{A}^{\top}  \bm{X}^{\top} \bm{X} \bm{A}
 \end{equation}
 
 \begin{equation}
-\bm{I} \bm{\Lambda} \bm{I} =  \frac{1}{n-1} \bm{A}^T  \bm{X}^T \bm{X} \bm{A}
+\bm{I} \bm{\Lambda} \bm{I} =  \frac{1}{n-1} \bm{A}^{\top}  \bm{X}^{\top} \bm{X} \bm{A}
 \end{equation}
 
 \begin{equation}
-\bm{S_Z}  = \bm{\Lambda} = \frac{1}{n-1} \bm{A}^T  \bm{X}^T \bm{X} \bm{A}
+\bm{S_Z}  = \bm{\Lambda} = \frac{1}{n-1} \bm{A}^{\top}  \bm{X}^{\top} \bm{X} \bm{A}
 \end{equation}
 
-It is thus visible, that if we chose $\bm{Z} = \bm{X} \bm{A}$, the product $\bm{Z}^T \bm{Z}$ give a diagonal matrix.\footnote{Note here that if $\bm{Z} = \bm{X} \bm{A}$, then $\bm{Z}^T = (\bm{X} \bm{A})^T = \bm{A}^T \bm{X}^T$.}
+It is thus visible, that if we chose $\bm{Z} = \bm{X} \bm{A}$, the product $\bm{Z}^{\top} \bm{Z}$ give a diagonal matrix.\footnote{Note here that if $\bm{Z} = \bm{X} \bm{A}$, then $\bm{Z}^{\top} = (\bm{X} \bm{A})^{\top} = \bm{A}^{\top} \bm{X}^{\top}$.}
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{PC-scores.png}
@@ -423,7 +419,7 @@ So in fact, we should say:
 
 \,\,
 
-Hopefully you could now see for yourself that the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\bm{Z}^T \bm{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
+Hopefully you could now see for yourself that the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\bm{Z}^{\top} \bm{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
 
 %\section{Eigenvalues as energy}
 %
@@ -447,7 +443,7 @@ Hopefully you could now see for yourself that the basis associated with the eige
 %
 %It is reasonable to expect that the eigenvalues associated to such non-existent dimensions will be zero since there is zero variance on those dimensions in the original data set $\bm{X}$. So one way to account for the original $r$ dimensions in the data set is for PCA to compute only $r$ non-zero eigenvalues.
 %
-%But what about the approximation of the data $\bm{X_q} = \bm{Z_q} \bm{A_q}^T$ when $q=Q$? What is the rank of the reconstructed $\bm{X_Q}$?
+%But what about the approximation of the data $\bm{X_q} = \bm{Z_q} \bm{A_q}^{\top}$ when $q=Q$? What is the rank of the reconstructed $\bm{X_Q}$?
 %
 %
 %\subsection{Rotation of PCs}
@@ -459,6 +455,8 @@ Hopefully you could now see for yourself that the basis associated with the eige
 \section*{Appendix}
 
 \appendix
+
+This tutorial was generated from a Jupyter notebook that can be accessed \href{https://github.com/kamilazdybal/ulb-atm-phd/blob/master/PCA/PCA-tutorial.ipynb}{here}.
 
 \section{Visualizing PCA with Python}
 
@@ -478,7 +476,7 @@ Dataset = np.column_stack((x, y))
 
 Let's assume that the first column of this data set are realizations of the first variable $x$ and the second column are realizations of the second variable $y$.
 
-The two variables $x$ and $y$ span two dimensional space but the data set exhibits a low-dimensional structure which is easily visible to the eye just by looking at the Fig.\ref{fig:python-raw-data}. We already see that the data seems to be spread along some linear function. Perhaps changing the basis to a basis associated with this linear function will be a more effective representation by our data set? Note here also, that for multidimensional data sets "seeing" such data structures is no longer possible (as it still is in 2-D or 3D). We need to rely on the dimensionality reduction technique that we chose to find this low-dimensional structure for us.
+The two variables $x$ and $y$ span two dimensional space but the data set exhibits a low-dimensional structure which is easily visible to the eye just by looking at the Fig.~\ref{fig:python-raw-data}. We already see that the data seems to be spread along some linear function. Perhaps changing the basis to a basis associated with this linear function will be a more effective representation by our data set? Note here also, that for multidimensional data sets "seeing" such data structures is no longer possible (as it still is in 2-D or 3D). We need to rely on the dimensionality reduction technique that we chose to find this low-dimensional structure for us.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-raw-data.png}
@@ -513,7 +511,7 @@ PCscores = pca.transform(Dataset)
 
 In the above code, we create an object \pythoninline{pca} of class \pythoninline{PCA}. We train the model with our \pythoninline{Dataset} using the \pythoninline{fit} function. 
 
-The eigenvectors are plotted on the data set in Fig.\ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is perpendicular to the first one.
+The eigenvectors are plotted on the data set in Fig.~\ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is perpendicular to the first one.
 
 \begin{figure}[H]
 \centering\includegraphics[width=6cm]{python-PCs.png}
@@ -529,7 +527,7 @@ We also compute the transformed data set \pythoninline{PCscores} represented in 
 \label{fig:python-PC-scores}
 \end{figure}
 
-Next, the PC-scores can be projected on the first PC, to reduce the dimensionality - from two dimensions to one. The data representation from Fig.\ref{fig:python-data-projection} can be viewed as the "scores" each data point would attain it represented on 1-dimensional structure associated with the first Principal Component.
+Next, the PC-scores can be projected on the first PC, to reduce the dimensionality - from two dimensions to one. The data representation from Fig.~\ref{fig:python-data-projection} can be viewed as the "scores" each data point would attain it represented on 1-dimensional structure associated with the first Principal Component.
 
 \begin{python}
 q = 1
@@ -559,7 +557,7 @@ pca.components_[:q,:]) + Dataset_mean
 
 \subsection{Low-rank approximations}
 
-We perform PCA on three artificially generated matrices of size $(10 \times 6)$: a \textbf{random} matrix which is populated by random floats in the range 0-1 and a \textbf{semi-structured} and \textbf{structured} matrices whose elements are also in the range 0-1 but were populated so that there is an increasing level of structure that was judged visually. These matrices are presented in Fig.\ref{fig:matrices}.
+We perform PCA on three artificially generated matrices of size $(10 \times 6)$: a \textbf{random} matrix which is populated by random floats in the range 0-1 and a \textbf{semi-structured} and \textbf{structured} matrices whose elements are also in the range 0-1 but were populated so that there is an increasing level of structure that was judged visually. These matrices are presented in Fig.~\ref{fig:matrices}.
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -583,7 +581,7 @@ We perform PCA on three artificially generated matrices of size $(10 \times 6)$:
 
 The visual judgment of the level of imposed "structure" is quite objective in this exercise but the aim was to group the elements of high numerical value (most yellow) in a single region of the matrix and elements of low numerical value (most purple) in other regions of the matrix.
 
-The level of the imposed structure can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig.\ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits the strongest low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
+The level of the imposed structure can also be observed quantitatively after performing PCA from the eigenvalue distribution, presented in Fig.~\ref{fig:eigenvalues}. The structured matrix has got the strongest decaying behaviour which suggest that the matrix can be approximated by relatively low number of modes and hence exhibits the strongest low-rank structure. The first PC is expected to carry 80\% of the total variance in the structured data matrix.
 
 \begin{figure}[H]
 \centering\includegraphics[width=7cm]{matrix-reconstruction-eigenvalues-comparison.png}
@@ -594,12 +592,12 @@ The level of the imposed structure can also be observed quantitatively after per
 We reconstruct the original data matrices using a certain number $q$ of PC-scores and corresponding PCs. Using the Matlab notation we may write the approximation as:
 
 \begin{equation} \label{eq:data-set-approximation}
-\bm{D}_{\text{app}} = \text{PC-scores}(:,1:q) \cdot \text{PCs}^T(1:q,:) + \bm{D}_{\text{mean}}
+\bm{D}_{\text{app}} = \text{PC-scores}(:,1:q) \cdot \text{PCs}^{\top}(1:q,:) + \bm{D}_{\text{mean}}
 \end{equation}
 
 which is equivalent to eq.(\ref{eq:X-approximation}) and to the Python approximation presented in Sec.\ref{sec:pca-workflow}.
 
-The above multiplication is presented in three cases in Fig.\ref{fig:matrices-reconstruction-1}. We can see a rank-1 approximation of the original matrices using the $1^{st}$ Principal Component found by PCA. The vectors $(10 \times 1)$ represent the PC-scores and the vectors $(1 \times 6)$ represent the PCs.
+The above multiplication is presented in three cases in Fig.~\ref{fig:matrices-reconstruction-1}. We can see a rank-1 approximation of the original matrices using the $1^{st}$ Principal Component found by PCA. The vectors $(10 \times 1)$ represent the PC-scores and the vectors $(1 \times 6)$ represent the PCs.
 
 What can be seen visually is that for the semi-structured and structured matrix the low numerical value region is clearly separated. For the random matrix, only few regions of lowest and highest numerical values are recovered in the rank-1 approximation.
 
@@ -631,11 +629,11 @@ It is worth noticing here that indeed the obtained matrices are necessarily rank
 \label{fig:matrices-reconstruction-1}
 \end{figure}
 
-In Fig.\ref{fig:matrices-reconstruction-2} we present a rank-2 approximation, where we maintained two first PCs. Again, the matrices $(10 \times 2)$ represent the PC-scores and the vectors $(2 \times 6)$ represent the PCs.
+In Fig.~\ref{fig:matrices-reconstruction-2} we present a rank-2 approximation, where we maintained two first PCs. Again, the matrices $(10 \times 2)$ represent the PC-scores and the vectors $(2 \times 6)$ represent the PCs.
 
 In the semi-structured and structured matrix, the single matrix elements with highest numerical values (yellow) are already recovered in their actual positions. In the random matrix this is still not the case with rank 2-approximation.
 
-Following the analogous reasoning as for Fig.\ref{fig:matrices-reconstruction-1} we may notice that the matrix reconstructed with two PCs is a rank-2 matrix.
+Following the analogous reasoning as for Fig.~\ref{fig:matrices-reconstruction-1} we may notice that the matrix reconstructed with two PCs is a rank-2 matrix.
 
 
 \begin{figure}[H]
@@ -658,7 +656,7 @@ Following the analogous reasoning as for Fig.\ref{fig:matrices-reconstruction-1}
 \label{fig:matrices-reconstruction-2}
 \end{figure}
 
-The original data matrices are not completely retrieved until all 6 Principal Components and 6 PC-scores are taken into account. In Fig.\ref{fig:matrices-reconstruction-6} we obtain the final data matrices of rank-6.
+The original data matrices are not completely retrieved until all 6 Principal Components and 6 PC-scores are taken into account. In Fig.~\ref{fig:matrices-reconstruction-6} we obtain the final data matrices of rank-6.
 
 The PC-scores are low-dimensional representations of the original data matrix and we return to the original dimensions by the transformation from eq.(\ref{eq:X-approximation}). In the case of taking all 6 PCs, the PC-scores $\bm{Z_q} = \bm{Z}$ and the eq.(\ref{eq:data-set-approximation}) becomes the eq.(\ref{eq:X-retrieval}), rather than the approximation from eq.(\ref{eq:X-approximation}).
 
@@ -682,7 +680,7 @@ The PC-scores are low-dimensional representations of the original data matrix an
 \label{fig:matrices-reconstruction-6}
 \end{figure}
 
-Indeed, the multiplications from Fig.\ref{fig:matrices-reconstruction-6} show full PC-scores matrices transformed to the original 6 dimensions using the inverse (transposition) of the basis matrix made from PCs. The resulting matrix has to be the original data matrix.
+Indeed, the multiplications from Fig.~\ref{fig:matrices-reconstruction-6} show full PC-scores matrices transformed to the original 6 dimensions using the inverse (transposition) of the basis matrix made from PCs. The resulting matrix has to be the original data matrix.
 
 
 
@@ -721,7 +719,7 @@ To give you a chance for further exposure to PCA,  here are a few questions for 
 \begin{enumerate}
 \item What happens if you did PCA on a rank-deficient matrix? Would it still find all the Principal Components? And if yes, what's the meaning of that...? What would the eigenvalues look like?
 \item What happens if the columns of the original data matrix $\bm{X}$ are \textit{very close} to being linearly dependent? What I mean by that is, let's assume that matrix $\bm{X}$ is still of full-rank, but each column is approximately a linear combination of some other column.
-\item What happens if you do PCA on a \textit{ring} data set like the one in Fig.\ref{fig:ring-data-set}?
+\item What happens if you do PCA on a \textit{ring} data set like the one in Fig.~\ref{fig:ring-data-set}?
 \begin{figure}[H]
 \centering\includegraphics[width=4cm]{ring-data-set.png}
 \caption{Ring data set.}
