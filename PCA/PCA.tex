@@ -241,7 +241,7 @@ The starting point for performing PCA is to compute a covariance matrix from the
 \mathbf{S} = \frac{1}{n-1} \mathbf{X}^{\top} \mathbf{X}
 \end{equation}
 
-and is therefore size $(Q \times Q)$. Notice the similarity with the eq.(\ref{eq:covariance-definition}).
+and is therefore size $(Q \times Q)$. Notice the similarity with the Eq.~(\ref{eq:covariance-definition}).
 
 We will start by exploring the meaning of $\mathbf{X}^{\top} \mathbf{X}$. Let's look at the graphical representation of this matrix multiplication in Fig.~\ref{fig:covariance-matrix}.
 
@@ -260,7 +260,7 @@ Notice that an element at position $(p,k)$ inside the covariance matrix has the 
 s_{p,k} = \frac{1}{n-1} (\mathbf{x}_p^{\top} \circ \mathbf{x}_k)
 \end{equation}
 
-The similarity with eq.(\ref{eq:covariance-definition}) is now even more evident. Notice that as long as the columns of $\mathbf{X}$ have been centered, the off-diagonal elements of the covariance matrix have the mathematical meaning of covariance between two variables.
+The similarity with Eq.~(\ref{eq:covariance-definition}) is now even more evident. Notice that as long as the columns of $\mathbf{X}$ have been centered, the off-diagonal elements of the covariance matrix have the mathematical meaning of covariance between two variables.
 
 In a case where we multiply row $p$ with column $p$, we get a dot product of a vector with itself:
 
@@ -268,7 +268,7 @@ In a case where we multiply row $p$ with column $p$, we get a dot product of a v
 s_{p,p} = \frac{1}{n-1} ( \mathbf{x}_p^{\top} \circ \mathbf{x}_p)
 \end{equation}
 
-This in turn looks similar to eq.(\ref{eq:variance-definition}) and thus the diagonal elements of the covariance matrix represent the variance of a single variable.
+This in turn looks similar to Eq.~(\ref{eq:variance-definition}) and thus the diagonal elements of the covariance matrix represent the variance of a single variable.
 
 In general, the dot product between two vectors $\mathbf{x}$ and $\mathbf{y}$ represents how much vector $\mathbf{x}$ lays in the direction of vector $\mathbf{y}$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to the covariance matrix. If any off-diagonal element is non-zero, say element at position $(p,k)$ it means that some information about a $p^{th}$ variable is carried by a $k^{th}$ variable (and vice versa).
 
@@ -327,7 +327,7 @@ The principal components form a new basis in which we can represent our data set
 \label{fig:data-transformation}
 \end{figure}
 
-The new matrix $\mathbf{Z}$ is still our dataset $\mathbf{X}$ but represented in the basis associated with the matrix $\mathbf{A}$. It is also called the \textit{PC-scores} matrix, since one may think of every element in this matrix as a "score" that the corresponding element in $\mathbf{X}$ gets when represented in the new coordinate system after transformation. In the matrix multiplication from eq.(\ref{eq:data-transform}), every variable vector inside $\mathbf{X}$ gets transformed by the transformation matrix $\mathbf{A}$ and attains new scores in the basis associated with $\mathbf{A}$. The new representation of the old variable is now kept in the matrix $\mathbf{Z}$.
+The new matrix $\mathbf{Z}$ is still our dataset $\mathbf{X}$ but represented in the basis associated with the matrix $\mathbf{A}$. It is also called the \textit{PC-scores} matrix, since one may think of every element in this matrix as a "score" that the corresponding element in $\mathbf{X}$ gets when represented in the new coordinate system after transformation. In the matrix multiplication from Eq.~(\ref{eq:data-transform}), every variable vector inside $\mathbf{X}$ gets transformed by the transformation matrix $\mathbf{A}$ and attains new scores in the basis associated with $\mathbf{A}$. The new representation of the old variable is now kept in the matrix $\mathbf{Z}$.
 
 
 
@@ -361,7 +361,7 @@ It is now worth discussing how good is such approximation. It turns out that $\m
 
 \section{Why eigenvectors?}
 
-In this section we come back to the eq.(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? 
+In this section we come back to the Eq.~(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? 
 
 To begin the understanding, let's look at Fig.~\ref{fig:PC-scores}. Principal Component Analysis aims to find a new, transformed data set $\mathbf{Z}$ such that if we computed a new covariance matrix in such a way:
 
@@ -379,7 +379,7 @@ the variances (the elements on the diagonal) are maximized and the covariances (
 
 As a "template" for a diagonal matrix, PCA uses a diagonal matrix that is easily available (and which we have already produced!) - the matrix of eigenvalues $\mathbf{\Lambda}$. We will now ask ourselves: how do we need to construct $\mathbf{Z}$, so that the matrix $\mathbf{S_Z} = \mathbf{\Lambda}$?
 
-We find $\mathbf{Z}$ through a series of transformations in which we combine eq.(\ref{eq:eig-dec-cov-matrix}) with eq.(\ref{eq:cov-matrix}):
+We find $\mathbf{Z}$ through a series of transformations in which we combine Eq.~(\ref{eq:eig-dec-cov-matrix}) with Eq.~(\ref{eq:cov-matrix}):
 
 \begin{equation}
 \mathbf{A} \mathbf{\Lambda} \mathbf{A}^{\top} =  \frac{1}{n-1} \mathbf{X}^{\top} \mathbf{X} \,\, \Big/ \mathbf{A}^{\top} \times
@@ -595,7 +595,7 @@ We reconstruct the original data matrices using a certain number $q$ of PC-score
 \mathbf{D}_{\text{app}} = \text{PC-scores}(:,1:q) \cdot \text{PCs}^{\top}(1:q,:) + \mathbf{D}_{\text{mean}}
 \end{equation}
 
-which is equivalent to eq.(\ref{eq:X-approximation}) and to the Python approximation presented in Sec.\ref{sec:pca-workflow}.
+which is equivalent to Eq.~(\ref{eq:X-approximation}) and to the Python approximation presented in Sec.\ref{sec:pca-workflow}.
 
 The above multiplication is presented in three cases in Fig.~\ref{fig:matrices-reconstruction-1}. We can see a rank-1 approximation of the original matrices using the $1^{st}$ Principal Component found by PCA. The vectors $(10 \times 1)$ represent the PC-scores and the vectors $(1 \times 6)$ represent the PCs.
 
@@ -603,7 +603,7 @@ What can be seen visually is that for the semi-structured and structured matrix 
 
 %\begin{figure}[H]
 %\centering\includegraphics[width=7cm]{DWGs/matrix-multiplication-explanation.png}
-%\caption{Matrix multiplication from eq.(\ref{eq:data-set-approximation}) shown graphically.}			
+%\caption{Matrix multiplication from Eq.~(\ref{eq:data-set-approximation}) shown graphically.}			
 %\label{fig:matrix-multiplication-graphically}
 %\end{figure}
 
@@ -658,7 +658,7 @@ Following the analogous reasoning as for Fig.~\ref{fig:matrices-reconstruction-1
 
 The original data matrices are not completely retrieved until all 6 Principal Components and 6 PC-scores are taken into account. In Fig.~\ref{fig:matrices-reconstruction-6} we obtain the final data matrices of rank-6.
 
-The PC-scores are low-dimensional representations of the original data matrix and we return to the original dimensions by the transformation from eq.(\ref{eq:X-approximation}). In the case of taking all 6 PCs, the PC-scores $\mathbf{Z_q} = \mathbf{Z}$ and the eq.(\ref{eq:data-set-approximation}) becomes the eq.(\ref{eq:X-retrieval}), rather than the approximation from eq.(\ref{eq:X-approximation}).
+The PC-scores are low-dimensional representations of the original data matrix and we return to the original dimensions by the transformation from Eq.~(\ref{eq:X-approximation}). In the case of taking all 6 PCs, the PC-scores $\mathbf{Z_q} = \mathbf{Z}$ and the Eq.~(\ref{eq:data-set-approximation}) becomes the Eq.~(\ref{eq:X-retrieval}), rather than the approximation from Eq.~(\ref{eq:X-approximation}).
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
