@@ -149,17 +149,17 @@ Please feel free to contact me with any suggestions, corrections or comments.
 \section*{Nomenclature}
 
 \begin{tabular}{ll}
-    $\bm{A}$ & is a matrix \\
-     $\bm{A}^{\top}$ & is a matrix transpose \\
-     $\bm{A}^{-1}$ & is a matrix inverse \\
-     $\bm{a}$ & is a vector \\
+    $\mathbf{A}$ & is a matrix \\
+     $\mathbf{A}^{\top}$ & is a matrix transpose \\
+     $\mathbf{A}^{-1}$ & is a matrix inverse \\
+     $\mathbf{a}$ & is a vector \\
      $a$ & is a scalar \\
-    $\bm{a}_j$ & is the $j^{th}$ column of a matrix $\bm{A}$, \\
-    & it is equivalent to  $\bm{A}(:,j)$ \\
-    $\bm{a}_i$ & is the $i^{th}$ row of a matrix $\bm{A}$, \\
-    & it is equivalent to  $\bm{A}(i,:)$ \\
-    $a_{i,j}$ & is an element from $i^{th}$ row and $j^{th}$ column of a matrix $\bm{A}$, \\ 
-    & it is equivalent to  $\bm{A}(i,j)$ \\
+    $\mathbf{a}_j$ & is the $j^{th}$ column of a matrix $\mathbf{A}$, \\
+    & it is equivalent to  $\mathbf{A}(:,j)$ \\
+    $\mathbf{a}_i$ & is the $i^{th}$ row of a matrix $\mathbf{A}$, \\
+    & it is equivalent to  $\mathbf{A}(i,:)$ \\
+    $a_{i,j}$ & is an element from $i^{th}$ row and $j^{th}$ column of a matrix $\mathbf{A}$, \\ 
+    & it is equivalent to  $\mathbf{A}(i,j)$ \\
 \end{tabular}
 
 %\section{Motivation for data reduction}
@@ -182,10 +182,10 @@ Please feel free to contact me with any suggestions, corrections or comments.
 
 \section{Data sets for PCA}
 
-The data set for performing PCA is a matrix $\bm{X} \in \mathbb{R}^{n \times Q}$. Each column of $\bm{X}$ represents all $n$ observations of one variable. Each row of $\bm{X}$ corresponds to a single observation of all $Q$ variables. The data matrix $\bm{X}$ is hence size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} \cite{Matlab-pca} and for the Python function \texttt{sklearn.decomposition.PCA} \cite{Python-pca}.} This structure can be seen in Fig.~\ref{fig:data-matrix}.
+The data set for performing PCA is a matrix $\mathbf{X} \in \mathbb{R}^{n \times Q}$. Each column of $\mathbf{X}$ represents all $n$ observations of one variable. Each row of $\mathbf{X}$ corresponds to a single observation of all $Q$ variables. The data matrix $\mathbf{X}$ is hence size $(n \times Q)$.\footnote{This is also the data format that is needed for the MATLAB\textregistered \, function \texttt{pca} \cite{Matlab-pca} and for the Python function \texttt{sklearn.decomposition.PCA} \cite{Python-pca}.} This structure can be seen in Fig.~\ref{fig:data-matrix}.
 
 \begin{figure}[H]
-\centering\includegraphics[width=5cm]{data-set-PCA.png}
+\centering\includegraphics[width=6cm]{data-set-PCA.pdf}
 \caption{Structure of the data matrix for PCA.}
 \label{fig:data-matrix}
 \end{figure}
@@ -200,37 +200,37 @@ Other centering that could be encountered\footnote{for instance in the \textit{M
 Centering thus substitutes the original data set with:
 
 \begin{equation}
-\bm{X_c} = \bm{X} - \bm{C}
+\mathbf{X_c} = \mathbf{X} - \mathbf{C}
 \end{equation}
 
-Here, a matrix of centers $\bm{C}$ is created, for instance by computing the mean of each column of $\bm{X}$. In that case, a single column of $\bm{C}$ is populated with the same value representing the mean of the corresponding column in $\bm{X}$. $\bm{C}$ is thus also size $(n \times Q)$. A specific center $\bm{c}_j$ is then subtracted from a corresponding column $\bm{x}_j$.
+Here, a matrix of centers $\mathbf{C}$ is created, for instance by computing the mean of each column of $\mathbf{X}$. In that case, a single column of $\mathbf{C}$ is populated with the same value representing the mean of the corresponding column in $\mathbf{X}$. $\mathbf{C}$ is thus also size $(n \times Q)$. A specific center $\mathbf{c}_j$ is then subtracted from a corresponding column $\mathbf{x}_j$.
 
 \textit{Scaling}, on the other hand, allows us to cancel the effect of various ranges that the variables in the data set might have, and treat all variables with equal (or at least similar) importance. A centered and scaled data set can then be written as follows:
 
 \begin{equation}
-\bm{X_{cs}} = \bm{X_c}\bm{D}^{-1}
+\mathbf{X_{cs}} = \mathbf{X_c}\mathbf{D}^{-1}
 \end{equation}
 
-In the above equation, matrix $\bm{D}$ is a diagonal matrix whose entries are the corresponding scalings. Hence, every column of $\bm{X_c}$ gets divided by a corresponding scale from the diagonal of matrix $\bm{D}$.
+In the above equation, matrix $\mathbf{D}$ is a diagonal matrix whose entries are the corresponding scalings. Hence, every column of $\mathbf{X_c}$ gets divided by a corresponding scale from the diagonal of matrix $\mathbf{D}$.
 
 One of the popular scaling methods used in literature is the \textit{auto scaling}\footnote{also known as \textit{standard scaling} or \textit{z-score} (although \textit{z-score} refers to a combination of centering by mean and scaling with a standard deviation).} in which each column is divided by the standard deviation of that column. After auto scaling all columns have a standard deviation equal to 1.
 
 To further motivate data scaling with an illustrative example, you might think of a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300-1500 $K$ and associated pressures in the units of $[atm]$ which range from 1-1.1 $atm$. If we did not scale the data, the largest \textit{spread} or the \textit{variance} would be found in temperature, since on purely numerical grounds, the range 300-1500 is more significant than the range 1-1.1.
 
-For simplicity, for the rest of this document we assume that $\bm{X}$ represents already pre-processed data (in place of $\bm{X_{cs}}$).
+For simplicity, for the rest of this document we assume that $\mathbf{X}$ represents already pre-processed data (in place of $\mathbf{X_{cs}}$).
 
 \section{Covariance matrix}
 
-The covariance between two random vectors $\bm{x}$ and $\bm{y}$ is defined as:
+The covariance between two random vectors $\mathbf{x}$ and $\mathbf{y}$ is defined as:
 
 \begin{equation}\label{eq:covariance-definition}
-\text{cov}(\bm{x},\bm{y}) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{\bm{x}}) (y_i - \bar{\bm{y}})
+\text{cov}(\mathbf{x},\mathbf{y}) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{\mathbf{x}}) (y_i - \bar{\mathbf{y}})
 \end{equation}
 
-where $n$ is the number of samples (weights of a vector) and $\bar{\bm{x}}$ and $\bar{\bm{y}}$ are the means of $\bm{x}$ and $\bm{y}$ respectively. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric due to symmetry: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(\bm{x},\bm{x}) = \text{var}(\bm{x})$ where:
+where $n$ is the number of samples (weights of a vector) and $\bar{\mathbf{x}}$ and $\bar{\mathbf{y}}$ are the means of $\mathbf{x}$ and $\mathbf{y}$ respectively. If we look at any data matrix as a composition of vectors formed by its columns, we may compute the covariances of these vectors and store the result in another matrix, called a \textit{covariance matrix}. This matrix is symmetric due to symmetry: $\text{cov}(\mathbf{x},\mathbf{y}) = \text{cov}(\mathbf{y},\mathbf{x})$. The off-diagonal elements have the meaning of covariance of two random vectors and the elements on the diagonal represent variance of each corresponding column, since $\text{cov}(\mathbf{x},\mathbf{x}) = \text{var}(\mathbf{x})$ where:
 
 \begin{equation}\label{eq:variance-definition}
-\text{var}(\bm{x}) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{\bm{x}})^2
+\text{var}(\mathbf{x}) = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{\mathbf{x}})^2
 \end{equation}
 
 \subsection{Construction}
@@ -238,47 +238,47 @@ where $n$ is the number of samples (weights of a vector) and $\bar{\bm{x}}$ and 
 The starting point for performing PCA is to compute a covariance matrix from the data set. The covariance matrix is given by:
 
 \begin{equation}\label{eq:cov-matrix}
-\bm{S} = \frac{1}{n-1} \bm{X}^{\top} \bm{X}
+\mathbf{S} = \frac{1}{n-1} \mathbf{X}^{\top} \mathbf{X}
 \end{equation}
 
 and is therefore size $(Q \times Q)$. Notice the similarity with the eq.(\ref{eq:covariance-definition}).
 
-We will start by exploring the meaning of $\bm{X}^{\top} \bm{X}$. Let's look at the graphical representation of this matrix multiplication in Fig.~\ref{fig:covariance-matrix}.
+We will start by exploring the meaning of $\mathbf{X}^{\top} \mathbf{X}$. Let's look at the graphical representation of this matrix multiplication in Fig.~\ref{fig:covariance-matrix}.
 
-Any given column, say $p$ or $k$, of the data matrix $\bm{X}$ represents all measurements of a single $p^{th}$ (or $k^{th}$) variable and can be viewed as an $n$-dimensional vector. The same can be said about any row of a matrix $\bm{X}^{\top}$.
+Any given column, say $p$ or $k$, of the data matrix $\mathbf{X}$ represents all measurements of a single $p^{th}$ (or $k^{th}$) variable and can be viewed as an $n$-dimensional vector. The same can be said about any row of a matrix $\mathbf{X}^{\top}$.
 
 \begin{figure}[H]
-\centering\includegraphics[width=7cm]{cov-matrix.png}
-\caption{Covariance matrix $\bm{S}$ graphical interpretation.}
+\centering\includegraphics[width=7cm]{cov-matrix.pdf}
+\caption{Covariance matrix $\mathbf{S}$ graphical interpretation.}
 \label{fig:covariance-matrix}
 \end{figure}
 
-Notice that an element at position $(p,k)$ inside the covariance matrix has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\bm{X}^{\top}$ and the $k$-th column of a matrix $\bm{X}$.
+Notice that an element at position $(p,k)$ inside the covariance matrix has the interpretation of a dot product between a vector formed by the $p$-th row of a matrix $\mathbf{X}^{\top}$ and the $k$-th column of a matrix $\mathbf{X}$.
 %There is also the factor $\frac{1}{n-1}$ out front, which we discuss in a closer detail in the Appendix \ref{app:B}.
 
 \begin{equation}
-s_{p,k} = \frac{1}{n-1} (\bm{x}_p^{\top} \circ \bm{x}_k)
+s_{p,k} = \frac{1}{n-1} (\mathbf{x}_p^{\top} \circ \mathbf{x}_k)
 \end{equation}
 
-The similarity with eq.(\ref{eq:covariance-definition}) is now even more evident. Notice that as long as the columns of $\bm{X}$ have been centered, the off-diagonal elements of the covariance matrix have the mathematical meaning of covariance between two variables.
+The similarity with eq.(\ref{eq:covariance-definition}) is now even more evident. Notice that as long as the columns of $\mathbf{X}$ have been centered, the off-diagonal elements of the covariance matrix have the mathematical meaning of covariance between two variables.
 
 In a case where we multiply row $p$ with column $p$, we get a dot product of a vector with itself:
 
 \begin{equation}
-s_{p,p} = \frac{1}{n-1} ( \bm{x}_p^{\top} \circ \bm{x}_p)
+s_{p,p} = \frac{1}{n-1} ( \mathbf{x}_p^{\top} \circ \mathbf{x}_p)
 \end{equation}
 
 This in turn looks similar to eq.(\ref{eq:variance-definition}) and thus the diagonal elements of the covariance matrix represent the variance of a single variable.
 
-In general, the dot product between two vectors $\bm{x}$ and $\bm{y}$ represents how much vector $\bm{x}$ lays in the direction of vector $\bm{y}$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to the covariance matrix. If any off-diagonal element is non-zero, say element at position $(p,k)$ it means that some information about a $p^{th}$ variable is carried by a $k^{th}$ variable (and vice versa).
+In general, the dot product between two vectors $\mathbf{x}$ and $\mathbf{y}$ represents how much vector $\mathbf{x}$ lays in the direction of vector $\mathbf{y}$ (and vice versa) - and it is zero when two vectors are perpendicular to each other. This intuition can be carried to the covariance matrix. If any off-diagonal element is non-zero, say element at position $(p,k)$ it means that some information about a $p^{th}$ variable is carried by a $k^{th}$ variable (and vice versa).
 
 \subsection{Properties} \label{sec:covariance-properties}
 
 The covariance matrix is a very special matrix. It is worth pointing out some of its interesting properties that PCA makes an extensive use of.
 
-First, any matrix $\bm{S}$ constructed as $\bm{S} = \bm{C}^{\top} \bm{C}$ (where $\bm{C}$ is any real matrix) is square and symmetric. The reason for the symmetry can be seen looking at Fig.~\ref{fig:covariance-matrix} -- notice that the element $(p,k)$ has the same value as the element $(k,p)$ since it is a result of multiplying the same two vectors, just in different order. Notice also that there is a symmetry in: $\text{cov}(\bm{x},\bm{y}) = \text{cov}(\bm{y},\bm{x})$. 
+First, any matrix $\mathbf{S}$ constructed as $\mathbf{S} = \mathbf{C}^{\top} \mathbf{C}$ (where $\mathbf{C}$ is any real matrix) is square and symmetric. The reason for the symmetry can be seen looking at Fig.~\ref{fig:covariance-matrix} -- notice that the element $(p,k)$ has the same value as the element $(k,p)$ since it is a result of multiplying the same two vectors, just in different order. Notice also that there is a symmetry in: $\text{cov}(\mathbf{x},\mathbf{y}) = \text{cov}(\mathbf{y},\mathbf{x})$. 
 
-Second, the eigenvalues of $\bm{S}$ are real and all are at least non-negative. Such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
+Second, the eigenvalues of $\mathbf{S}$ are real and all are at least non-negative. Such matrix is called a \textit{positive semidefinite} matrix. In a practical case that we are most interested in, this matrix has got only positive eigenvalues and we call it a \textit{positive definite} matrix.
 
 Third, the eigenvectors of the covariance matrix are orthogonal. Well, now it gets even more interesting! You may already see some use-cases for such eigenvectors. One of which could be: they can form a new, $Q$-dimensional coordinate system -- a \textit{basis}. 
 Hopefully, we are now entering the right track to convincing you that such basis can be a very interesting basis.
@@ -296,66 +296,66 @@ Interestingly, computing a dot product between two vectors is not the only way t
 As you may have already anticipated, the next step in PCA is to perform the eigendecomposition of the covariance matrix:
 
 \begin{equation} \label{eq:eig-dec}
-\text{eig}(\bm{S}) = [\bm{A}, \bm{\Lambda}]
+\text{eig}(\mathbf{S}) = [\mathbf{A}, \mathbf{\Lambda}]
 \end{equation}
 
-$\bm{A}$ is the matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector defines the direction for the \textit{principal components} (PCs). The principal components are orthogonal (due to properties discussed in \ref{sec:covariance-properties}) and therefore another important property holds: $\bm{A}^{\top} = \bm{A}^{-1}$ (proof\footnote{for orthogonal columns of $\bm{A}$ we have $\bm{A}^{\top} \bm{A} = \bm{I}$. Multiplying both sides from the right by $ \bm{A}^{-1}$ we get $(\bm{A}^{\top} \bm{A}) \bm{A}^{-1}= \bm{I}\bm{A}^{-1}$. Since matrix multiplication is associative, we may also perform: $\bm{A}^{\top} (\bm{A} \bm{A}^{-1}) = \bm{A}^{-1}$. From the definition of an inverse matrix $\bm{A} \bm{A}^{-1} = \bm{I}$. Hence $\bm{A}^{\top} = \bm{A}^{-1}$.}).
+$\mathbf{A}$ is the matrix of eigenvectors and it is size $(Q \times Q)$. Each eigenvector defines the direction for the \textit{principal components} (PCs). The principal components are orthogonal (due to properties discussed in \ref{sec:covariance-properties}) and therefore another important property holds: $\mathbf{A}^{\top} = \mathbf{A}^{-1}$ (proof\footnote{for orthogonal columns of $\mathbf{A}$ we have $\mathbf{A}^{\top} \mathbf{A} = \mathbf{I}$. Multiplying both sides from the right by $ \mathbf{A}^{-1}$ we get $(\mathbf{A}^{\top} \mathbf{A}) \mathbf{A}^{-1}= \mathbf{I}\mathbf{A}^{-1}$. Since matrix multiplication is associative, we may also perform: $\mathbf{A}^{\top} (\mathbf{A} \mathbf{A}^{-1}) = \mathbf{A}^{-1}$. From the definition of an inverse matrix $\mathbf{A} \mathbf{A}^{-1} = \mathbf{I}$. Hence $\mathbf{A}^{\top} = \mathbf{A}^{-1}$.}).
 
-The diagonal matrix $\bm{\Lambda}$ of size $(Q \times Q)$ is a matrix of the corresponding eigenvalues.
+The diagonal matrix $\mathbf{\Lambda}$ of size $(Q \times Q)$ is a matrix of the corresponding eigenvalues.
 
 \begin{figure}[H]
-\centering\includegraphics[width=3cm]{new-basis.png}
+\centering\includegraphics[width=3cm]{new-basis.pdf}
 \caption{The orthonormal eigenvectors of the covariance matrix can form a $Q$-dimensional basis.}
 \label{fig:new-basis}
 \end{figure}
 
-Given the eigendecomposition of the matrix $\bm{S}$, we may state that: 
+Given the eigendecomposition of the matrix $\mathbf{S}$, we may state that: 
 
 \begin{equation} \label{eq:eig-dec-cov-matrix}
-\bm{S} = \bm{A} \bm{\Lambda} \bm{A}^{\top}
+\mathbf{S} = \mathbf{A} \mathbf{\Lambda} \mathbf{A}^{\top}
 \end{equation}
 
-The principal components form a new basis in which we can represent our data set. We perform a transformation of the original data matrix $\bm{X}$ from the original space to the new space represented by the PCs. This transformation is achieved with the following multiplication:
+The principal components form a new basis in which we can represent our data set. We perform a transformation of the original data matrix $\mathbf{X}$ from the original space to the new space represented by the PCs. This transformation is achieved with the following multiplication:
 
 \begin{equation} \label{eq:data-transform}
-\bm{Z} = \bm{X} \bm{A}
+\mathbf{Z} = \mathbf{X} \mathbf{A}
 \end{equation}
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{data-transformation.png}
-\caption{Data transformation to a new basis.}
+\centering\includegraphics[width=6.5cm]{data-transformation.pdf}
+\caption{Data transformation to the new basis defined by $\mathbf{A}$.}
 \label{fig:data-transformation}
 \end{figure}
 
-The new matrix $\bm{Z}$ is still our dataset $\bm{X}$ but represented in the basis associated with the matrix $\bm{A}$. It is also called the \textit{PC-scores} matrix, since one may think of every element in this matrix as a "score" that the corresponding element in $\bm{X}$ gets when represented in the new coordinate system after transformation. In the matrix multiplication from eq.(\ref{eq:data-transform}), every variable vector inside $\bm{X}$ gets transformed by the transformation matrix $\bm{A}$ and attains new scores in the basis associated with $\bm{A}$. The new representation of the old variable is now kept in the matrix $\bm{Z}$.
+The new matrix $\mathbf{Z}$ is still our dataset $\mathbf{X}$ but represented in the basis associated with the matrix $\mathbf{A}$. It is also called the \textit{PC-scores} matrix, since one may think of every element in this matrix as a "score" that the corresponding element in $\mathbf{X}$ gets when represented in the new coordinate system after transformation. In the matrix multiplication from eq.(\ref{eq:data-transform}), every variable vector inside $\mathbf{X}$ gets transformed by the transformation matrix $\mathbf{A}$ and attains new scores in the basis associated with $\mathbf{A}$. The new representation of the old variable is now kept in the matrix $\mathbf{Z}$.
 
 
 
 We now approach the dimensionality reduction but first let's obtain the original data set back, given the PC-scores and the transformation matrix:
 
 \begin{equation} \label{eq:X-retrieval}
-\bm{X} = \bm{Z} \bm{A}^{\top}
+\mathbf{X} = \mathbf{Z} \mathbf{A}^{\top}
 \end{equation}
 
-The above equation is our route back to obtain the original data set in which the PC-scores are projected on the basis associated with a transposed eigenvectors matrix $\bm{A}$ (the fact that $\bm{A}^{\top} = \bm{A}^{-1}$ now appears in all  of its usefulness).
+The above equation is our route back to obtain the original data set in which the PC-scores are projected on the basis associated with a transposed eigenvectors matrix $\mathbf{A}$ (the fact that $\mathbf{A}^{\top} = \mathbf{A}^{-1}$ now appears in all  of its usefulness).
 
-Suppose that we would like to find the approximation of the data matrix $\bm{X}$ with only $q$ principal components (we project the PC-scores onto only $q$ out of $Q$ principal components).
+Suppose that we would like to find the approximation of the data matrix $\mathbf{X}$ with only $q$ principal components (we project the PC-scores onto only $q$ out of $Q$ principal components).
 
-We shrink the transformation matrix $\bm{A}$ to the size $(Q \times q)$ (we only keep $q$ columns of $\bm{A}$). To match the matrix sizes we also need to shrink in size the PC-scores matrix which is originally of size $(n \times Q)$. We will denote these truncated matrices $\bm{A_q}$ and $\bm{Z_q}$ respectively.
+We shrink the transformation matrix $\mathbf{A}$ to the size $(Q \times q)$ (we only keep $q$ columns of $\mathbf{A}$). To match the matrix sizes we also need to shrink in size the PC-scores matrix which is originally of size $(n \times Q)$. We will denote these truncated matrices $\mathbf{A_q}$ and $\mathbf{Z_q}$ respectively.
 
 
 
-Projecting $\bm{Z_q}$ onto the basis $\bm{A_q}^{\top}$ will result in an an approximation of the original data set:
+Projecting $\mathbf{Z_q}$ onto the basis $\mathbf{A_q}^{\top}$ will result in an an approximation of the original data set:
 
 \begin{equation} \label{eq:X-approximation}
-\bm{X_q} = \bm{Z_q} \bm{A_q}^{\top}
+\mathbf{X_q} = \mathbf{Z_q} \mathbf{A_q}^{\top}
 \end{equation}
 
-It is now worth discussing how good is such approximation. It turns out that $\bm{X_q}$ is the closest rank-$q$ approximation to $\bm{X}$ in terms of three popular norms: $L^2$-norm, Frobenius norm and trace norm. This is known as the Eckart-Young theorem \cite{eckart-young}.
+It is now worth discussing how good is such approximation. It turns out that $\mathbf{X_q}$ is the closest rank-$q$ approximation to $\mathbf{X}$ in terms of three popular norms: $L^2$-norm, Frobenius norm and trace norm. This is known as the Eckart-Young theorem \cite{eckart-young}.
 
 \begin{figure}[H]
-\centering\includegraphics[width=6.1cm]{data-approx.png}
-\caption{Data approximation with $q$ PCs.}
+\centering\includegraphics[width=6.1cm]{data-approx.pdf}
+\caption{Data approximation with $q$ first PCs.}
 \label{fig:data-approx}
 \end{figure}
 
@@ -363,49 +363,49 @@ It is now worth discussing how good is such approximation. It turns out that $\b
 
 In this section we come back to the eq.(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? 
 
-To begin the understanding, let's look at Fig.~\ref{fig:PC-scores}. Principal Component Analysis aims to find a new, transformed data set $\bm{Z}$ such that if we computed a new covariance matrix in such a way:
+To begin the understanding, let's look at Fig.~\ref{fig:PC-scores}. Principal Component Analysis aims to find a new, transformed data set $\mathbf{Z}$ such that if we computed a new covariance matrix in such a way:
 
 \begin{equation}
-\bm{S_Z} =  \frac{1}{n-1} \bm{Z}^{\top} \bm{Z}
+\mathbf{S_Z} =  \frac{1}{n-1} \mathbf{Z}^{\top} \mathbf{Z}
 \end{equation}
 
-the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\bm{Z}$ is carried by any other column of $\bm{Z}$. This removes the redundancy of information that could have been present in the original data set $\bm{X}$; each column of $\bm{Z}$ now contributes to a "unique" piece of information that cannot be found in any other column of $\bm{Z}$. In other words:
+the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\mathbf{Z}$ is carried by any other column of $\mathbf{Z}$. This removes the redundancy of information that could have been present in the original data set $\mathbf{X}$; each column of $\mathbf{Z}$ now contributes to a "unique" piece of information that cannot be found in any other column of $\mathbf{Z}$. In other words:
 
 \,\,
 
-\textbf{The goal of PCA is to diagonalize the new covariance matrix $\bm{S_Z}$.}
+\textbf{The goal of PCA is to diagonalize the new covariance matrix $\mathbf{S_Z}$.}
 
 \,\,
 
-As a "template" for a diagonal matrix, PCA uses a diagonal matrix that is easily available (and which we have already produced!) - the matrix of eigenvalues $\bm{\Lambda}$. We will now ask ourselves: how do we need to construct $\bm{Z}$, so that the matrix $\bm{S_Z} = \bm{\Lambda}$?
+As a "template" for a diagonal matrix, PCA uses a diagonal matrix that is easily available (and which we have already produced!) - the matrix of eigenvalues $\mathbf{\Lambda}$. We will now ask ourselves: how do we need to construct $\mathbf{Z}$, so that the matrix $\mathbf{S_Z} = \mathbf{\Lambda}$?
 
-We find $\bm{Z}$ through a series of transformations in which we combine eq.(\ref{eq:eig-dec-cov-matrix}) with eq.(\ref{eq:cov-matrix}):
+We find $\mathbf{Z}$ through a series of transformations in which we combine eq.(\ref{eq:eig-dec-cov-matrix}) with eq.(\ref{eq:cov-matrix}):
 
 \begin{equation}
-\bm{A} \bm{\Lambda} \bm{A}^{\top} =  \frac{1}{n-1} \bm{X}^{\top} \bm{X} \,\, \Big/ \bm{A}^{\top} \times
+\mathbf{A} \mathbf{\Lambda} \mathbf{A}^{\top} =  \frac{1}{n-1} \mathbf{X}^{\top} \mathbf{X} \,\, \Big/ \mathbf{A}^{\top} \times
 \end{equation}
 
 \begin{equation}
-\bm{A}^{\top} \bm{A} \bm{\Lambda} \bm{A}^{\top} =  \frac{1}{n-1} \bm{A}^{\top}  \bm{X}^{\top} \bm{X} \,\, \Big/ \times \bm{A}
+\mathbf{A}^{\top} \mathbf{A} \mathbf{\Lambda} \mathbf{A}^{\top} =  \frac{1}{n-1} \mathbf{A}^{\top}  \mathbf{X}^{\top} \mathbf{X} \,\, \Big/ \times \mathbf{A}
 \end{equation}
 
 \begin{equation}
-\bm{A}^{\top} \bm{A} \bm{\Lambda} \bm{A}^{\top} \bm{A} =  \frac{1}{n-1} \bm{A}^{\top}  \bm{X}^{\top} \bm{X} \bm{A}
+\mathbf{A}^{\top} \mathbf{A} \mathbf{\Lambda} \mathbf{A}^{\top} \mathbf{A} =  \frac{1}{n-1} \mathbf{A}^{\top}  \mathbf{X}^{\top} \mathbf{X} \mathbf{A}
 \end{equation}
 
 \begin{equation}
-\bm{I} \bm{\Lambda} \bm{I} =  \frac{1}{n-1} \bm{A}^{\top}  \bm{X}^{\top} \bm{X} \bm{A}
+\mathbf{I} \mathbf{\Lambda} \mathbf{I} =  \frac{1}{n-1} \mathbf{A}^{\top}  \mathbf{X}^{\top} \mathbf{X} \mathbf{A}
 \end{equation}
 
 \begin{equation}
-\bm{S_Z}  = \bm{\Lambda} = \frac{1}{n-1} \bm{A}^{\top}  \bm{X}^{\top} \bm{X} \bm{A}
+\mathbf{S_Z}  = \mathbf{\Lambda} = \frac{1}{n-1} \mathbf{A}^{\top}  \mathbf{X}^{\top} \mathbf{X} \mathbf{A}
 \end{equation}
 
-It is thus visible, that if we chose $\bm{Z} = \bm{X} \bm{A}$, the product $\bm{Z}^{\top} \bm{Z}$ give a diagonal matrix.\footnote{Note here that if $\bm{Z} = \bm{X} \bm{A}$, then $\bm{Z}^{\top} = (\bm{X} \bm{A})^{\top} = \bm{A}^{\top} \bm{X}^{\top}$.}
+It is thus visible, that if we chose $\mathbf{Z} = \mathbf{X} \mathbf{A}$, the product $\mathbf{Z}^{\top} \mathbf{Z}$ give a diagonal matrix.\footnote{Note here that if $\mathbf{Z} = \mathbf{X} \mathbf{A}$, then $\mathbf{Z}^{\top} = (\mathbf{X} \mathbf{A})^{\top} = \mathbf{A}^{\top} \mathbf{X}^{\top}$.}
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{PC-scores.png}
-\caption{New transformed data set $\bm{Z}$ and its diagonal covariance matrix $\bm{S_Z}$.}
+\centering\includegraphics[width=6cm]{PC-scores.pdf}
+\caption{New transformed data set $\mathbf{Z}$ and its diagonal covariance matrix $\mathbf{S_Z}$.}
 \label{fig:PC-scores}
 \end{figure}
 
@@ -415,11 +415,11 @@ So in fact, we should say:
 
 \,\,
 
-\textbf{The goal of PCA is to diagonalize the new covariance matrix $\bm{S_Z}$ and maximize the elements on the diagonal.}
+\textbf{The goal of PCA is to diagonalize the new covariance matrix $\mathbf{S_Z}$ and maximize the elements on the diagonal.}
 
 \,\,
 
-Hopefully you could now see for yourself that the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\bm{Z}^{\top} \bm{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
+Hopefully you could now see for yourself that the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\mathbf{Z}^{\top} \mathbf{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
 
 %\section{Eigenvalues as energy}
 %
@@ -441,9 +441,9 @@ Hopefully you could now see for yourself that the basis associated with the eige
 %
 %It is interesting to think about what PCA accomplishes on a rank-deficient matrix - one where rank $r$ is smaller than $Q$. Since PCA would produce $Q$ orthogonal eigenvectors one might ask: is PCA creating additional dimensions beyond the original $r$ ones then?
 %
-%It is reasonable to expect that the eigenvalues associated to such non-existent dimensions will be zero since there is zero variance on those dimensions in the original data set $\bm{X}$. So one way to account for the original $r$ dimensions in the data set is for PCA to compute only $r$ non-zero eigenvalues.
+%It is reasonable to expect that the eigenvalues associated to such non-existent dimensions will be zero since there is zero variance on those dimensions in the original data set $\mathbf{X}$. So one way to account for the original $r$ dimensions in the data set is for PCA to compute only $r$ non-zero eigenvalues.
 %
-%But what about the approximation of the data $\bm{X_q} = \bm{Z_q} \bm{A_q}^{\top}$ when $q=Q$? What is the rank of the reconstructed $\bm{X_Q}$?
+%But what about the approximation of the data $\mathbf{X_q} = \mathbf{Z_q} \mathbf{A_q}^{\top}$ when $q=Q$? What is the rank of the reconstructed $\mathbf{X_Q}$?
 %
 %
 %\subsection{Rotation of PCs}
@@ -464,7 +464,7 @@ This tutorial was generated from a Jupyter notebook that can be accessed \href{h
 
 We will now go on to visualizing on an artificial 2D data set every step of PCA. We will use the \pythoninline{PCA} function from a Python library \pythoninline{sklearn.decompositions}. The full code can be accessed in the GitHub repository. Here, we will only recall elements of that code that are for performing PCA.
 
-We create the \pythoninline{Dataset} (the equivalent of $\bm{X}$) as follows:
+We create the \pythoninline{Dataset} (the equivalent of $\mathbf{X}$) as follows:
 
 \begin{python}
 import numpy as np
@@ -592,7 +592,7 @@ The level of the imposed structure can also be observed quantitatively after per
 We reconstruct the original data matrices using a certain number $q$ of PC-scores and corresponding PCs. Using the Matlab notation we may write the approximation as:
 
 \begin{equation} \label{eq:data-set-approximation}
-\bm{D}_{\text{app}} = \text{PC-scores}(:,1:q) \cdot \text{PCs}^{\top}(1:q,:) + \bm{D}_{\text{mean}}
+\mathbf{D}_{\text{app}} = \text{PC-scores}(:,1:q) \cdot \text{PCs}^{\top}(1:q,:) + \mathbf{D}_{\text{mean}}
 \end{equation}
 
 which is equivalent to eq.(\ref{eq:X-approximation}) and to the Python approximation presented in Sec.\ref{sec:pca-workflow}.
@@ -658,7 +658,7 @@ Following the analogous reasoning as for Fig.~\ref{fig:matrices-reconstruction-1
 
 The original data matrices are not completely retrieved until all 6 Principal Components and 6 PC-scores are taken into account. In Fig.~\ref{fig:matrices-reconstruction-6} we obtain the final data matrices of rank-6.
 
-The PC-scores are low-dimensional representations of the original data matrix and we return to the original dimensions by the transformation from eq.(\ref{eq:X-approximation}). In the case of taking all 6 PCs, the PC-scores $\bm{Z_q} = \bm{Z}$ and the eq.(\ref{eq:data-set-approximation}) becomes the eq.(\ref{eq:X-retrieval}), rather than the approximation from eq.(\ref{eq:X-approximation}).
+The PC-scores are low-dimensional representations of the original data matrix and we return to the original dimensions by the transformation from eq.(\ref{eq:X-approximation}). In the case of taking all 6 PCs, the PC-scores $\mathbf{Z_q} = \mathbf{Z}$ and the eq.(\ref{eq:data-set-approximation}) becomes the eq.(\ref{eq:X-retrieval}), rather than the approximation from eq.(\ref{eq:X-approximation}).
 
 \begin{figure}[H]
 \begin{subfigure}[t]{.15\textwidth}
@@ -718,14 +718,14 @@ To give you a chance for further exposure to PCA,  here are a few questions for 
 
 \begin{enumerate}
 \item What happens if you did PCA on a rank-deficient matrix? Would it still find all the Principal Components? And if yes, what's the meaning of that...? What would the eigenvalues look like?
-\item What happens if the columns of the original data matrix $\bm{X}$ are \textit{very close} to being linearly dependent? What I mean by that is, let's assume that matrix $\bm{X}$ is still of full-rank, but each column is approximately a linear combination of some other column.
+\item What happens if the columns of the original data matrix $\mathbf{X}$ are \textit{very close} to being linearly dependent? What I mean by that is, let's assume that matrix $\mathbf{X}$ is still of full-rank, but each column is approximately a linear combination of some other column.
 \item What happens if you do PCA on a \textit{ring} data set like the one in Fig.~\ref{fig:ring-data-set}?
 \begin{figure}[H]
 \centering\includegraphics[width=4cm]{ring-data-set.png}
 \caption{Ring data set.}
 \label{fig:ring-data-set}
 \end{figure}
-\item What would the original data set $\bm{X}$ have to be so that the PCs found are the standard basis vectors?
+\item What would the original data set $\mathbf{X}$ have to be so that the PCs found are the standard basis vectors?
 \end{enumerate}
 
 %\subsection{The intuition behind $\frac{1}{n - 1}$.}
