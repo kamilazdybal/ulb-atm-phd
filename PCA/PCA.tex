@@ -126,17 +126,14 @@ showstringspaces=false            %
 
 \section*{Preface}
 
-\textbf{Principal Component Analysis} (PCA) is a multivariate dimensionality reduction technique in which a high-dimensional data set is projected on directions of decreasing importance, ordered by the amount of variance explained. The technique exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be a redundancy of dimensions. Once a new, orthogonal basis is found, the data can be transformed to that new basis and that can give certain advantages. The projected data has lower rank and is thus easier to analyze. This in turn can be helpful in a variety of problems such as extracting information, data compression or analysis of structures hidden in the data \cite{Abdi_Williams}.
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.5em}
 
-\,\,
+\textbf{Principal Component Analysis} (PCA) is a dimensionality reduction technique in which a high-dimensional data set is projected on directions of decreasing importance, ordered by the amount of variance explained. The technique exploits the fact that the original basis to represent the data set might not be an \textit{optimal} one and there might be a redundancy of dimensions. Once a new, orthogonal basis is found, the data can be transformed to that new basis and that can give certain advantages. The projected data has lower rank and is thus easier to analyze. This in turn can be helpful in a variety of problems such as extracting information, data compression or analysis of structures hidden in the data \cite{Abdi_Williams}.
 
 These notes are in a way a tutorial on PCA with a deeper focus on linear algebra and statistics aspects governing this method. The aim is to present a deeper understanding of several linear algebra concepts than online tutorials typically give. My goal was also to gather all important knowledge on PCA in one place. 
 
-\,\,
-
 The prerequisite for these notes is mainly familiarity with undergraduate level linear algebra. You should be comfortable with the concept of matrices and operations on matrices. You will profit more from these notes if you have an intuitive understanding of eigendecomposition. If you need a refresher, the excellent series on linear algebra by 3Blue1Brown \cite{3Blue1Brown} will be, in my opinion, everything you need to go through these notes. In addition, few concepts from statistics such as variance and covariance will be used.
-
-\,\,
 
 Please feel free to contact me with any suggestions, corrections or comments.
 
@@ -154,9 +151,9 @@ Please feel free to contact me with any suggestions, corrections or comments.
      $\mathbf{A}^{-1}$ & is a matrix inverse \\
      $\mathbf{a}$ & is a vector \\
      $a$ & is a scalar \\
-    $\mathbf{a}_j$ & is the $j^{th}$ column of a matrix $\mathbf{A}$, \\
+    $\mathbf{a}_{:j}$ & is the $j^{th}$ column of a matrix $\mathbf{A}$, \\
     & it is equivalent to  $\mathbf{A}(:,j)$ \\
-    $\mathbf{a}_i$ & is the $i^{th}$ row of a matrix $\mathbf{A}$, \\
+    $\mathbf{a}_{i:}$ & is the $i^{th}$ row of a matrix $\mathbf{A}$, \\
     & it is equivalent to  $\mathbf{A}(i,:)$ \\
     $a_{i,j}$ & is an element from $i^{th}$ row and $j^{th}$ column of a matrix $\mathbf{A}$, \\ 
     & it is equivalent to  $\mathbf{A}(i,j)$ \\
@@ -179,6 +176,8 @@ Please feel free to contact me with any suggestions, corrections or comments.
 %\end{enumerate}
 %
 %All of these questions are not necessarily answerd by PCA. Different applications might work well with different data reduction techniques.
+
+\newpage
 
 \section{Data sets for PCA}
 
@@ -479,7 +478,7 @@ Let's assume that the first column of this data set are realizations of the firs
 The two variables $x$ and $y$ span two dimensional space but the data set exhibits a low-dimensional structure which is easily visible to the eye just by looking at the Fig.~\ref{fig:python-raw-data}. We already see that the data seems to be spread along some linear function. Perhaps changing the basis to a basis associated with this linear function will be a more effective representation by our data set? Note here also, that for multidimensional data sets "seeing" such data structures is no longer possible (as it still is in 2-D or 3D). We need to rely on the dimensionality reduction technique that we chose to find this low-dimensional structure for us.
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-raw-data.png}
+\centering\includegraphics[width=6cm]{python-raw-data.pdf}
 \caption{Raw data set.}
 \label{fig:python-raw-data}
 \end{figure}
@@ -492,7 +491,7 @@ Dataset_proc = Dataset - Dataset_mean
 \end{python}
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-data-centered.png}
+\centering\includegraphics[width=6cm]{python-data-centered.pdf}
 \caption{Data set centered.}
 \label{fig:python-raw-data-centered}
 \end{figure}
@@ -514,7 +513,7 @@ In the above code, we create an object \pythoninline{pca} of class \pythoninline
 The eigenvectors are plotted on the data set in Fig.~\ref{fig:python-PCs}. Their lengths are proportional to their corresponding eigenvalue. Notice that PCA was able to find the direction of the largest variance in the data marked by the direction of the first, longest Principal Component. The second PC is perpendicular to the first one.
 
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-PCs.png}
+\centering\includegraphics[width=6cm]{python-PCs.pdf}
 \caption{Data set with principal components.}
 \label{fig:python-PCs}
 \end{figure}
@@ -522,7 +521,7 @@ The eigenvectors are plotted on the data set in Fig.~\ref{fig:python-PCs}. Their
 We also compute the transformed data set \pythoninline{PCscores} represented in the basis associated with the obtained \pythoninline{PCs}.
  
 \begin{figure}[H]
-\centering\includegraphics[width=6cm]{python-PC-scores.png}
+\centering\includegraphics[width=6cm]{python-PC-scores.pdf}
 \caption{PC-scores.}
 \label{fig:python-PC-scores}
 \end{figure}
