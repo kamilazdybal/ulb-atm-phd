@@ -86,31 +86,36 @@
 \section{PC-transport}
 
 \begin{equation*}
-\rho \frac{D \phi}{Dt} = \mathbb{D} \nabla^2 \phi + \highlight{S_{\phi}}
+\rho \frac{D X}{Dt} = \mathbb{D} \nabla^2 X + \highlight{S_{\phi}}
 \end{equation*}
 
 \begin{equation*}
-S_{\phi}(\phi) = f(T, p, Y_1, \dots, Y_{N_S - 1})
+S_{X}(X) = f(T, p, Y_1, \dots, Y_{N_S - 1})
+\end{equation*}
+
+
+
+
+
+
+\begin{equation*}
+\rho \frac{D \mathbf{X}}{Dt} = - \nabla (\mathbf{j}_{X}) + \highlight{\mathbf{s}_{X}}
 \end{equation*}
 
 \begin{equation*}
-\rho \frac{D \bm{\Phi}}{Dt} = - \nabla (\bm{j}_{\Phi}) + \highlight{\bm{s}_{\Phi}}
+\rho \frac{D \mathbf{z}}{Dt} = - \nabla (\mathbf{j}_{z}) + \highlight{\mathbf{s}_{z}}
 \end{equation*}
 
 \begin{equation*}
-\rho \frac{D \bm{z}}{Dt} = - \nabla (\bm{j}_{z}) + \highlight{\bm{s}_{z}}
+\rho \frac{\partial \mathbf{X}}{\partial t} + \rho \vec{\mathbf{V}} \cdot \nabla \mathbf{X} = \nabla \rho \mathbb{D}_{X} \nabla \mathbf{X} + \highlight{\mathbf{S}_{X}}
 \end{equation*}
 
 \begin{equation*}
-\rho \frac{\partial \bm{\Phi}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \bm{\Phi} = \nabla \rho \mathbb{D}_{\Phi} \nabla \bm{\Phi} + \highlight{\bm{S}_{\Phi}}
+\rho \frac{\partial \highlightZ{\mathbf{\mathbf{Z}}}}{\partial t} + \rho \vec{\mathbf{V}} \cdot \nabla \highlightZ{\mathbf{\mathbf{Z}}} = \nabla \rho \mathbb{D}_{\mathbf{Z}} \nabla \highlightZ{\mathbf{\mathbf{Z}}} + \highlightZ{\mathbf{S}_{\mathbf{Z}}}
 \end{equation*}
 
 \begin{equation*}
-\rho \frac{\partial \bm{\mathrm{z}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \highlightZ{\bm{\mathrm{z}}} = \nabla \rho \mathbb{D}_{\mathrm{z}} \nabla \highlightZ{\bm{\mathrm{z}}} + \highlightZ{\bm{S}_{\mathrm{z}}}
-\end{equation*}
-
-\begin{equation*}
-\bm{\mathrm{z}} = \bm{\Phi} \bm{\mathrm{A_q}}
+\highlightZ{\mathbf{\mathbf{Z}}} = \highlightPhi{\mathbf{X}} \mathbf{\mathbf{A_q}}
 \end{equation*}
 
 \begin{equation*}
@@ -121,15 +126,15 @@ k(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
 
 
 \begin{equation*}
-\rho \frac{\partial \highlightPhi{\bm{\Phi}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \highlightPhi{\bm{\Phi}} = \nabla \rho \mathbb{D}_{\Phi} \nabla \highlightPhi{\bm{\Phi}} + \highlightPhi{\bm{S}_{\Phi}}
+\rho \frac{\partial \highlightPhi{\mathbf{X}}}{\partial t} + \rho \vec{\mathbf{V}} \cdot \nabla \highlightPhi{\mathbf{X}} = \nabla \rho \mathbb{D}_{X} \nabla \highlightPhi{\mathbf{X}} + \highlightPhi{\mathbf{S_X}}
 \end{equation*}
 
 \begin{equation*}
-\rho \frac{\partial \highlightZ{\bm{\mathrm{z}}}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \highlightZ{\bm{\mathrm{z}}} = \nabla \rho \mathbb{D}_{\mathrm{z}} \nabla \highlightZ{\bm{\mathrm{z}}} + \highlightZ{\bm{S}_{\mathrm{z}}}
+\rho \frac{\partial \highlightZ{\mathbf{\mathbf{z}}}}{\partial t} + \rho \vec{\mathbf{V}} \cdot \nabla \highlightZ{\mathbf{\mathbf{z}}} = \nabla \rho \mathbb{D}_{\mathbf{z}} \nabla \highlightZ{\mathbf{\mathbf{z}}} + \highlightZ{\mathbf{S}_{\mathbf{z}}}
 \end{equation*}
 
 \begin{equation*}
-\rho \frac{\partial \bm{\Phi}}{\partial t} + \rho \vec{\bm{V}} \cdot \nabla \bm{\Phi} = \nabla \rho \mathbb{D}_{\Phi} \nabla \bm{\Phi}}+ \highlightSource{\bm{S}_{\Phi}}
+\rho \frac{\partial \mathbf{X}}{\partial t} + \rho \vec{\mathbf{V}} \cdot \nabla \mathbf{X} = \nabla \rho \mathbb{D}_{X} \nabla \mathbf{X}}+ \highlightSource{\mathbf{S}_{X}}
 \end{equation*}
 
 
@@ -137,19 +142,19 @@ k(x_i, x_j) = h^2 \exp(\frac{- (x_i - x_j)^2}{\lambda^2})
 \section{Regression}
 
 \begin{equation*}
-\bm{\Phi} = [T, p, ]
+\mathbf{X} = [T, p, ]
 \end{equation*}
 
 \begin{equation*}
-\bm{\Phi} \approx f_{\Phi} (\bm{Z}_q)
+\mathbf{X} \approx f_{X} (\mathbf{Z}_q)
 \end{equation*}
 
 \begin{equation*}
-\bm{\Phi} \approx N (0, \sigma_{n}^2)
+\mathbf{X} \approx N (0, \sigma_{n}^2)
 \end{equation*}
 
 \begin{equation*}
-\bm{\Phi} \approx N (0, \bm{K}(\bm{Z}_p, \bm{Z}_q) + \sigma_{n}^2 \bm{I})
+\mathbf{X} \approx N (0, \mathbf{K}(\mathbf{Z}_p, \mathbf{Z}_q) + \sigma_{n}^2 \mathbf{I})
 \end{equation*}
 
 
@@ -179,6 +184,8 @@ k = A T^n e^{\frac{-E_a}{R T}}
 
 
 
-
+\begin{equation*}
+(\highlightPhi{\mathbf{X}}, \highlightZ{\mathbf{S_Z}}) \approx \mathscr{F}(\highlightZ{\text{PC1}}, \highlightZ{\text{PC2}}, \dots, \highlightZ{\text{PCq}})
+\end{equation*}
 
 \end{document}
