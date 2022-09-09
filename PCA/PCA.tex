@@ -629,7 +629,7 @@ The reconstruction from the Local PCA is slightly more involved since now we hav
 To give you a chance for further exposure to PCA,  here are a few questions for you to think about. Take a piece of paper and a pencil, or use your favourite programming language to explore these.
 
 \begin{enumerate}
-\item What happens if you did PCA on a rank-deficient matrix? Would it still find all the Principal Components? And if yes, what's the meaning of that...? What would the eigenvalues look like?
+\item What happens if you did PCA on a rank-deficient matrix? Would it still find all the Principal Components? And if yes, what's the meaning of them? What would the eigenvalues look like?
 \item What happens if the columns of the original data matrix $\mathbf{X}$ are \textit{very close} to being linearly dependent? What I mean by that is, let's assume that matrix $\mathbf{X}$ is still of full-rank, but each column is approximately a linear combination of some other column.
 \item What happens if you do PCA on a \textit{ring} data set like the one in Fig.~\ref{fig:ring-data-set}?
 \begin{figure}[H]
@@ -638,6 +638,12 @@ To give you a chance for further exposure to PCA,  here are a few questions for 
 \label{fig:ring-data-set}
 \end{figure}
 \item What would the original data set $\mathbf{X}$ have to be so that the PCs found are the standard basis vectors?
+\item The two eigenvectors shown in Fig.~\ref{fig:eigenvectors-question} are the true eigenvectors computed for the cloud of data points visualized in grey. How is this possible? What must be true about the dataset for this to hold?
+\begin{figure}[H]
+\centering\includegraphics[width=4cm]{eigenvectors-question.pdf}
+\caption{Eigenvectors computed on the cloud dataset visualized with grey points.}
+\label{fig:eigenvectors-question}
+\end{figure}
 \end{enumerate}
 
 %\subsection{The intuition behind $\frac{1}{n - 1}$.}
