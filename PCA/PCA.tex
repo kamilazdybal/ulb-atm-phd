@@ -90,10 +90,10 @@ showstringspaces=false            %
     \fontsize{10}{10}\selectfont {\textit{Bruxelles, October 2019 - Salt Lake City, March 2020}}
     \vskip2ex
 	\vspace{5ex}
-    \fontsize{20}{10}\selectfont {The linear algebra of Principal Component Analysis}
+    \fontsize{20}{10}\selectfont {The linear algebra of principal component analysis}
       \vspace{1ex}
       
-      \fontsize{16}{10}\selectfont {(with Python examples)}
+      \fontsize{16}{10}\selectfont \fontfamily{augie}\selectfont{(with Python examples)}
   \noindent%
     
 \vskip1ex
@@ -131,15 +131,15 @@ Please feel free to contact me with any suggestions, corrections or comments.
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
 
-\textbf{Principal Component Analysis} (PCA) is a dimensionality reduction technique in which a high-dimensional dataset is projected on directions of decreasing importance, ordered by the amount of variance explained. The technique exploits the fact that the original basis to represent the dataset might not be an \textit{optimal} one and there might be a redundancy of dimensions. Once a new, orthogonal basis is found, the data can be transformed to that new basis and that can give certain advantages. The projected data has lower rank and is thus easier to analyze. This in turn can be helpful in a variety of problems such as extracting information, data compression or analyzing structures hidden in the data \cite{Abdi_Williams}.
+Principal component analysis (PCA) is a dimensionality reduction technique in which a high-dimensional dataset is projected on directions of decreasing importance, ordered by the amount of variance explained. The technique exploits the fact that the original basis to represent the dataset might not be an \textit{optimal} one and there might be redundancy of dimensions. Once a new, orthogonal basis is found, the data can be transformed to that new basis. This can give certain advantages. The projected data has lower rank and is thus easier to analyze. This in turn can be helpful in a variety of problems such as extracting information, data compression or analyzing structures hidden in the data \cite{Abdi_Williams}.
 
-These notes are in a way a tutorial on PCA with a deeper focus on the linear algebra and the statistics governing this method. The aim is to present a deeper understanding of several linear algebra concepts than online tutorials typically give. My goal was also to gather all important knowledge on PCA in one place. 
+These notes are in a way a tutorial on PCA with a deeper focus on the linear algebra and the statistics governing this method. The aim is to present deep understanding of several linear algebra concepts. My goal is also to gather all important knowledge on PCA in one place. 
 
-The prerequisite for these notes is mainly familiarity with undergraduate level linear algebra. You should be comfortable with the concept of matrices and operations on matrices. You will profit more from these notes if you have an intuitive understanding of eigendecomposition. If you need a refresher, the excellent series on linear algebra by 3Blue1Brown \cite{3Blue1Brown} will be, in my opinion, everything you need to go through these notes. In addition, a few concepts from statistics such as variance and covariance are used here.
+The prerequisite for these notes is familiarity with undergraduate level linear algebra. You should be comfortable with the concept of matrices and operations on matrices. You will profit more from these notes if you have an intuitive understanding of eigendecomposition. If you need a refresher, the excellent series on linear algebra by \texttt{3Blue1Brown} \cite{3Blue1Brown} contain everything that you will need reading through these notes. In addition, a few concepts from statistics such as variance and covariance are used here.
 
 \section*{Keywords}
 
-\textit{principal component analysis, data reduction, dimensionality reduction, linear algebra, Python}
+\textit{principal component analysis, dimensionality reduction, basis, linear algebra, Python}
 
 \newpage
 
@@ -153,12 +153,12 @@ The prerequisite for these notes is mainly familiarity with undergraduate level 
      $\mathbf{A}^{-1}$ & is a matrix inverse \\
      $\mathbf{a}$ & is a vector \\
      $a$ & is a scalar \\
-    $\mathbf{a}_{:j}$ & is the $j^{th}$ column of a matrix $\mathbf{A}$, \\
-    & it is equivalent to  $\mathbf{A}(:,j)$ \\
-    $\mathbf{a}_{i:}$ & is the $i^{th}$ row of a matrix $\mathbf{A}$, \\
-    & it is equivalent to  $\mathbf{A}(i,:)$ \\
+    $\mathbf{a}_{*j}$ & is the $j^{th}$ column of a matrix $\mathbf{A}$, \\
+    & it is equivalent to \texttt{A(:,j)} \\
+    $\mathbf{a}_{i*}$ & is the $i^{th}$ row of a matrix $\mathbf{A}$, \\
+    & it is equivalent to \texttt{A(i,:)} \\
     $a_{i,j}$ & is an element from $i^{th}$ row and $j^{th}$ column of a matrix $\mathbf{A}$, \\ 
-    & it is equivalent to  $\mathbf{A}(i,j)$ \\
+    & it is equivalent to  \texttt{A(i,j)} \\
 \end{tabular}
 
 %\section{Motivation for data reduction}
@@ -187,7 +187,7 @@ The dataset for performing PCA is a matrix $\mathbf{X} \in \mathbb{R}^{N \times 
 
 \subsection{Data pre-processing}
 
-In data science, we are typically given a raw dataset which is not centered and not scaled. Standardizing the dataset might be a good idea before applying a data science technique. To motivate data scaling with an illustrative example, you might think of a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from 300-1500 $K$ and associated pressures in the units of $[atm]$ which range from 1-1.1 $atm$. If we did not scale the data, the largest \textit{spread} or the \textit{variance} would be found in temperature, since on purely numerical grounds, the range 300-1500 is more significant than the range 1-1.1.
+In data science, we are typically given a raw dataset which is not centered and not scaled. Standardizing the dataset might be a good idea before applying a data science technique. To motivate data scaling with an illustrative example, you might think of a set of variables from a single experiment, representing temperature in the units of $[K]$ and range from $\langle 300; 1500 \rangle$ $K$ and associated pressures in the units of $[atm]$ which range from $\langle 1; 1.1 \rangle$ $atm$. If we did not scale the data, the largest \textit{spread} or the \textit{variance} would be found in temperature, since on purely numerical grounds, the range $\langle 300; 1500 \rangle$ is more significant than the range $\langle 1; 1.1 \rangle$.
 
 In particular, \textit{centering} allows to look at data as variations from some center. Graphically, centering shifts the center of the \textit{cloud} of data points (which in general is multi-dimensional) to a new, selected center. One of the popular choices is to center each variable by subtracting the mean of this variable's observations - the center will be shifted to the origin\footnote{see Fig.~\ref{fig:python-raw-data}-\ref{fig:python-raw-data-centered}.}.
 Other centering that could be encountered\footnote{for instance in the \textit{Min-Max} standardizing.} is subtracting the minimum of the variable's observations. Centering thus substitutes the original dataset with:
@@ -223,7 +223,7 @@ where $N$ is the number of observations in a vector and $\bar{x}$ and $\bar{y}$ 
 
 The starting point for performing PCA is to compute the covariance matrix from the dataset $\mathbf{X}$. The covariance matrix, $\mathbf{S} \in \mathbb{R}^{Q \times Q}$, is given by:
 \begin{equation}\label{eq:cov-matrix}
-\mathbf{S} = \frac{1}{n-1} \mathbf{X}^{\top} \mathbf{X}.
+\mathbf{S} = \frac{1}{N-1} \mathbf{X}^{\top} \mathbf{X}.
 \end{equation}
 The similarity with the Eq.~(\ref{eq:covariance-definition}) might not be immediately evident. We will start by exploring the meaning of $\mathbf{X}^{\top} \mathbf{X}$. Let's look at the graphical representation of this matrix multiplication in Fig.~\ref{fig:covariance-matrix}. Any given column, say $p$ (or $k$), of $\mathbf{X}$ represents all observations of a single $p$th (or $k$th) variable and can be viewed as vector with $n$ elements. The same can be said about any row of a matrix $\mathbf{X}^{\top}$. Notice that the element at position $(p,k)$ inside the covariance matrix has the interpretation of a dot product between a vector formed by the $p$th row of a matrix $\mathbf{X}^{\top}$ and the $k$th column of a matrix $\mathbf{X}$.
 %There is also the factor $\frac{1}{n-1}$ out front, which we discuss in a closer detail in the Appendix \ref{app:B}.
@@ -296,7 +296,7 @@ Projecting $\mathbf{Z_q}$ onto the basis $\mathbf{A_q}^{\top}$ will result in an
 \begin{equation} \label{eq:X-approximation}
 \mathbf{X_q} = \mathbf{Z_q} \mathbf{A_q}^{\top}.
 \end{equation}
-How good such approximation is? It turns out that $\mathbf{X_q}$ is the closest rank-$q$ approximation to $\mathbf{X}$ in terms of three popular norms: $L^2$-norm, Frobenius norm and trace norm. This is known as the Eckart-Young theorem \cite{eckart-young}.
+How accurate is such approximation? It turns out that $\mathbf{X_q}$ is the closest rank-$q$ approximation to $\mathbf{X}$ in terms of three popular norms: $L^2$-norm, Frobenius norm and trace norm. This is known as the Eckart-Young theorem \cite{eckart-young}.
 \begin{figure}[t]
 \centering\includegraphics[width=6.1cm]{data-approx.pdf}
 \caption{Data approximation with $q$ first PCs.}
@@ -305,18 +305,17 @@ How good such approximation is? It turns out that $\mathbf{X_q}$ is the closest 
 
 \section{Why eigenvectors?}
 
-In this section we come back to the Eq.~(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? 
-To begin the understanding, let's look at Fig.~\ref{fig:PC-scores}. Principal Component Analysis aims to find a new, transformed dataset $\mathbf{Z}$ such that if we computed a new covariance matrix as
+In this section we come back to Eq.~(\ref{eq:eig-dec}) and answer the question: why are principal components the eigenvectors of a covariance matrix? 
+To begin the understanding, let's look at Fig.~\ref{fig:PC-scores}. Principal component analysis aims to find a new, transformed dataset $\mathbf{Z}$ such that if we computed a new covariance matrix as
 \begin{equation}
 \mathbf{S_Z} =  \frac{1}{n-1} \mathbf{Z}^{\top} \mathbf{Z},
 \end{equation}
-the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\mathbf{Z}$ is carried by any other column of $\mathbf{Z}$. This removes the redundancy of information that could have been present in the original dataset $\mathbf{X}$; each column of $\mathbf{Z}$ now contributes to a "unique" piece of information that cannot be found in any other column of $\mathbf{Z}$. In other words:
+the variances (the elements on the diagonal) are maximized and the covariances (the off-diagonal elements) are zero. This means that no more information about any column of $\mathbf{Z}$ is carried by any other column of $\mathbf{Z}$. This removes the redundancy of information that could have been present in the original dataset $\mathbf{X}$. Each column of $\mathbf{Z}$ now contributes a unique piece of information that cannot be found in any other column of $\mathbf{Z}$. In other words:
 
-\,\,
+\noindent
 \textbf{The goal of PCA is to diagonalize the new covariance matrix, $\mathbf{S_Z}$.}
-\,\,
 
-As a "template" for a diagonal matrix, PCA uses a diagonal matrix that is easily available (and which we have already produced!) - the matrix of eigenvalues $\mathbf{\Lambda}$. We will now ask ourselves: how do we need to construct $\mathbf{Z}$, so that the matrix $\mathbf{S_Z} = \mathbf{\Lambda}$?
+As a ``template'' for the diagonal matrix, PCA uses a diagonal matrix that is easily available (and which we have already produced!) -- the matrix of eigenvalues $\mathbf{\Lambda}$. We will now ask ourselves: how do we need to construct $\mathbf{Z}$, so that the matrix $\mathbf{S_Z} = \mathbf{\Lambda}$?
 We find $\mathbf{Z}$ through a series of transformations in which we combine Eq.~(\ref{eq:eig-dec-cov-matrix}) with Eq.~(\ref{eq:cov-matrix}):
 \begin{equation}
 \mathbf{A} \mathbf{\Lambda} \mathbf{A}^{\top} =  \frac{1}{n-1} \mathbf{X}^{\top} \mathbf{X} \,\, \Big/ \mathbf{A}^{\top} \times
@@ -331,17 +330,16 @@ We find $\mathbf{Z}$ through a series of transformations in which we combine Eq.
 \mathbf{I} \mathbf{\Lambda} \mathbf{I} =  \frac{1}{n-1} \mathbf{A}^{\top}  \mathbf{X}^{\top} \mathbf{X} \mathbf{A}
 \end{equation}
 \begin{equation}
-\mathbf{S_Z}  = \mathbf{\Lambda} = \frac{1}{n-1} \mathbf{A}^{\top}  \mathbf{X}^{\top} \mathbf{X} \mathbf{A}
+\mathbf{S_Z}  = \mathbf{\Lambda} = \frac{1}{n-1} \underbrace{\mathbf{A}^{\top}  \mathbf{X}^{\top}}_{\mathbf{Z}^{\top}} \underbrace{\mathbf{X} \mathbf{A}}_{\mathbf{Z}}
 \end{equation}
-It is thus visible, that if we chose $\mathbf{Z} = \mathbf{X} \mathbf{A}$, the product $\mathbf{Z}^{\top} \mathbf{Z}$ gives a diagonal matrix.\footnote{Note, that if $\mathbf{Z} = \mathbf{X} \mathbf{A}$, then $\mathbf{Z}^{\top} = (\mathbf{X} \mathbf{A})^{\top} = \mathbf{A}^{\top} \mathbf{X}^{\top}$.}
+Thus, if we chose $\mathbf{Z} = \mathbf{X} \mathbf{A}$, the product $\mathbf{Z}^{\top} \mathbf{Z}$ gives a diagonal matrix since if $\mathbf{Z} = \mathbf{X} \mathbf{A}$, then $\mathbf{Z}^{\top} = (\mathbf{X} \mathbf{A})^{\top} = \mathbf{A}^{\top} \mathbf{X}^{\top}$.
 
 There is one more great thing that PCA achieves: the elements on the diagonal of the new covariance matrix are maximized. PCA achieves both things at the same time: it diagonalizes the new covariance matrix and it makes the diagonal elements maximum possible. So in fact, we should say:
 
-\,\,
+\noindent
 \textbf{The goal of PCA is to diagonalize the new covariance matrix $\mathbf{S_Z}$ and maximize the elements on the diagonal.}
-\,\,
 
-Hopefully you could now see for yourself that the basis associated with the eigenvectors of the covariance matrix is a very interesting basis! It lets us diagonalize the product $\mathbf{Z}^{\top} \mathbf{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
+Hopefully you could now see for yourself that the basis associated with the eigenvectors of the covariance matrix is a very interesting basis indeed! It lets us diagonalize the product $\mathbf{Z}^{\top} \mathbf{Z}$ and it orders the PC-scores from the most to the least \textit{informative} ones.
 \begin{figure}[t]
 \centering\includegraphics[width=6cm]{PC-scores.pdf}
 \caption{New transformed dataset $\mathbf{Z}$ and its diagonal covariance matrix $\mathbf{S_Z}$.}
@@ -594,11 +592,9 @@ The PC-scores are low-dimensional representations of the original data matrix an
 
 Indeed, the multiplications from Fig.~\ref{fig:matrices-reconstruction-6} show full PC-scores matrices transformed to the original 6 dimensions using the inverse (transposition) of the basis matrix made from PCs. The resulting matrix has to be the original data matrix.
 
-
-
 \subsection{Local PCA}
 
-PCA can also be applied on portions of the entire dataset, in \textit{local clusters}. This can have certain advantages. Firstly, the reconstruction of the dataset from low-rank approximations in the local clusters can allow for further reduction in dimensionality of a non-linear dataset. This is due to the fact that clustering creates portions that are locally linear (or at least that are close to being linear). Secondly, the interpretation of Principal Components in local clusters can have more physical meaning, since they become better suited to represent that specific cluster.
+PCA can also be applied on portions of the entire dataset, in \textit{local clusters} of data. This can have certain advantages. Firstly, the reconstruction of the dataset from low-rank approximations in the local clusters can allow for further reduction in dimensionality of a non-linear dataset. This is due to the fact that clustering creates portions that are locally linear (or at least that are close to being linear). Secondly, the interpretation of Principal Components in local clusters can have more physical meaning, since they become better suited to represent that specific cluster.
 
 Below is an example of the general idea of performing Local PCA. A dataset composed of two distinct clouds of data can be first partitioned (for instance by techniques such as K-Means clustering) and then PCA is performed separately on both portions of the entire dataset. What happens in practice is that the same PCA workflow is applied but on a subset of the data. Notice that the found PCs have different directions.
 
